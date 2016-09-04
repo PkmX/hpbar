@@ -1,0 +1,565 @@
+#library "hpbar"
+#include "zcommon.acs"
+
+#define HPBAR_HOLDTIME 0.25
+
+#define HUD_WIDTH 800
+#define HUD_HEIGHT 600
+
+#define HPBAR_X 400.0
+#define HPBAR_Y 40.0
+#define NAME_Y (HPBAR_Y + 25.0)
+#define INFO_Y (NAME_Y + 12.0)
+
+script "hpbar-enter" enter {
+    while (true) {
+        ACS_ExecuteAlways(31234, 0);
+        delay(1);
+    }
+}
+
+script 31234 (void) {
+    int pn = PlayerNumber();
+
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        int hp = GetActorProperty(0, APROP_Health);
+        int max_hp = GetActorProperty(0, APROP_SpawnHealth);
+        if (max_hp <= 0) max_hp = hp;
+        if (max_hp <= 0) terminate;
+
+        SetActivator(0);
+        ACS_ExecuteAlways(31235, 0, pn, hp, max_hp);
+    }
+}
+
+script 31235 (int player, int hp, int max_hp) clientside {
+    if (ConsolePlayerNumber() != player) terminate;
+
+    int hp_percentage = hp * 100 / max_hp;
+    SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
+
+    SetFont("HPBAR");
+    HudMessage(s: "A"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, HPBAR_X, HPBAR_Y, HPBAR_HOLDTIME);
+
+    SetFont("NORMAL");
+    HudMessage(d: hp, s: " / ", d: max_hp, s: " (", d: hp_percentage, s: "%)";
+               HUDMSG_FADEOUT, 6000, CR_WHITE, HPBAR_X, HPBAR_Y, HPBAR_HOLDTIME);
+
+    for (int i = 0; i <= 100; ++i) {
+        if (hp_percentage < 25) {
+            SetFont("FILLCRIT");
+        } else {
+            SetFont("FILLNORM");
+        }
+
+        SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
+        if (i <= hp_percentage)
+            HudMessage(s: "A"; HUDMSG_FADEOUT , 6001 + i, CR_UNTRANSLATED, HPBAR_X - 97.0 + to_fixed(i * 2), HPBAR_Y, HPBAR_HOLDTIME);
+    }
+}
+
+script "hpbar-enter-cl" enter clientside {
+    while (true) {
+        ACS_ExecuteAlways(31236, 0);
+        delay(1);
+    }
+}
+
+script 31236 (void) clientside {
+    if (ConsolePlayerNumber() != PlayerNumber()) terminate;
+
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        int name = GetActorClass(0);
+        bool invul = GetActorProperty(0, APROP_Invulnerable);
+        bool friendly = GetActorProperty(0, APROP_Friendly);
+
+        SetActivator(0);
+
+        SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
+        SetFont("NORMAL");
+        HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, HPBAR_X, HPBAR_Y + 25.0, HPBAR_HOLDTIME);
+        int ln = 0;
+
+        if (invul) {
+            HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, HPBAR_X, HPBAR_Y + 37.0 + to_fixed(ln * 10), HPBAR_HOLDTIME);
+            ++ln;
+        }
+
+        if (friendly) {
+            HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, HPBAR_X, HPBAR_Y + 37.0 + to_fixed(ln * 10), HPBAR_HOLDTIME);
+            ++ln;
+        }
+    }
+}
+
+function int to_fixed(int x) {
+    return x << 16;
+}
+
+function str pp_name(str name) {
+    ////////////////////////////////////////////////////////////////////////////////
+    // Complex Doom
+    ////////////////////////////////////////////////////////////////////////////////
+    if (strcmp(name, "PlasmaZombie") == 0) {
+        return "Plasma Zombie";
+    } else if (strcmp(name, "Railgunner") == 0) {
+        return "Railgunner";
+    } else if (strcmp(name, "DemonTechZombie") == 0) {
+        return "Demon Tech Zombie";
+    } else if (strcmp(name, "RocketZombie") == 0) {
+        return "Rocket Zombie";
+    } else if (strcmp(name, "ShotgunZombie") == 0) {
+        return "Shotgunner";
+    } else if (strcmp(name, "AssaultShotgunZombie") == 0) {
+        return "Assault Shotgunner";
+    } else if (strcmp(name, "SuperShotgunZombie") == 0) {
+        return "Double Barrel Shotgun Zombie";
+    } else if (strcmp(name, "QuadShotgunZombie") == 0) {
+        return "Quad Barrel Shotgun Zombie";
+    } else if (strcmp(name, "AssaultRifleZombie") == 0) {
+        return "Assault Rifle Zombie";
+    // Chaingunner
+    // Minigunner
+    } else if (strcmp(name, "BFGZombieman") == 0) {
+        return "BFG Zombie";
+    // Imp
+    } else if (strcmp(name, "VoidImp") == 0) {
+        return "Void Imp";
+    // Devil
+    } else if (strcmp(name, "PhaseImp") == 0) {
+        return "\ctPhase Imp\c-";
+    } else if (strcmp(name, "BullFiend") == 0) {
+        return "Bull Fiend";
+    } else if (strcmp(name, "CyberFiend") == 0) {
+        return "Cyber Fiend";
+    } else if (strcmp(name, "MagmaFiend") == 0) {
+        return "Magma Fiend";
+    } else if (strcmp(name, "DTechFiend") == 0) {
+        return "DTech Fiend";
+    } else if (strcmp(name, "Spectre~") == 0) {
+        return pp_name("Spectre");
+    // Lurker
+    // Spook
+    } else if (strcmp(name, "TerrorSoul") == 0) {
+        return "Terror Soul";
+    } else if (strcmp(name, "ForgottenOne") == 0) {
+        return "Forgotten One";
+    } else if (strcmp(name, "PoisonSoul") == 0) {
+        return "Poison Soul";
+    // Rictus
+    } else if (strcmp(name, "Cacodemon~") == 0) {
+        return pp_name("Cacodemon");
+    // Watcher
+    // Cacomental
+    } else if (strcmp(name, "SoulKeeper") == 0) {
+        return "Soul Keeper";
+    // Defiler
+    } else if (strcmp(name, "PoisonElemental") == 0) {
+        return "Poison Elemental";
+    } else if (strcmp(name, "BombElemental") == 0) {
+        return "Bomb Elemental";
+    // Hectebus
+    // Daedabus
+    // Behemoth
+    // Barbatos
+    // Dualachnotron
+    // Fusionite
+    } else if (strcmp(name, "BabyDemolisher") == 0) {
+        return "Baby Demolisher";
+    } else if (strcmp(name, "BabySentient") == 0) {
+        return "Baby Sentient";
+    // Guardian
+    // Cadaver
+    } else if (strcmp(name, "HellfireRevenant") == 0) {
+        return "Hellfire Revenant";
+    // Famine
+    } else if (strcmp(name, "HellKnight~") == 0) {
+        return pp_name("HellKnight");
+    } else if (strcmp(name, "PyroDemon") == 0) {
+        return "Pyro Demon";
+    } else if (strcmp(name, "CyberNoble") == 0) {
+        return "Cyber Noble";
+    } else if (strcmp(name, "HellDuke") == 0) {
+        return "Hell Duke";
+    } else if (strcmp(name, "BaronOfHell~") == 0) {
+        return pp_name("BaronOfHell");
+    } else if (strcmp(name, "BruiserDemon") == 0) {
+        return "BruiserDemon";
+    // Cybruiser
+    // Exile
+    // Diabolist
+    } else if (strcmp(name, "DarkHellion") == 0) {
+        return "\cmDark Hellion\c-";
+    // Demolisher
+    } else if (strcmp(name, "DarkDemolisher") == 0) {
+        return "\cqDark Demolisher\c-";
+    } else if (strcmp(name, "CerebralSentient") == 0) {
+        return "Cerebral Sentient";
+    } else if (strcmp(name, "CyberLord") == 0) {
+        return "Annihilator";
+    } else if (strcmp(name, "DarkCyberdemon") == 0) {
+        return "\cqDark Cyberdemon\c-";
+    } else if (strcmp(name, "Cardinal") == 0) {
+        return "\cgDark Cardinal\c-";
+    } else if (strcmp(name, "SSNazi") == 0) {
+        return "SS Nazi";
+    // Mutant
+    // Officer
+    } else if (strcmp(name, "NaziDog") == 0) {
+        return "Nazi Guard Dog";
+    // Hitler
+    } else if (strcmp(name, "HitlerNoSuit") == 0) {
+        return "Hitler";
+    } else if (strcmp(name, "DSP") == 0) {
+        return "Darksyde Phil";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // LCA
+    ////////////////////////////////////////////////////////////////////////////////
+    if (strcmp(name, "BFG10KGeneral") == 0) {
+        return "BFG10K General";
+    } else if (strcmp(name, "BFGCacodemon") == 0) {
+        return "BFG Cacodemon";
+    } else if (strcmp(name, "Cardihilator") == 0) {
+        return "\cgCardihilator\c-";
+    } else if (strcmp(name, "CerebralCardinal") == 0) {
+        return "\cgCerebral Cardinal\c-";
+    // Cydestroyer
+    } else if (strcmp(name, "Arcradimus") == 0) {
+        return "Demon Lord Arcradimus";
+    } else if (strcmp(name, "DesertHornet") == 0) {
+        return "DesertHornet";
+    } else if (strcmp(name, "DTDevastatorZombie") == 0) {
+        return "DT Devastator Zombie";
+    } else if (strcmp(name, "EraserZombie") == 0) {
+        return "Eraser Zombie";
+    } else if (strcmp(name, "FreezerBehemoth") == 0) {
+        return "Freezer Behemoth";
+    } else if (strcmp(name, "FreezerZombie") == 0) {
+        return "Freezer Zombie";
+    } else if (strcmp(name, "LegendaryAnnihilator") == 0) {
+        return "\ckLegendary Annihilator\c-";
+    } else if (strcmp(name, "LegendaryAssaultCaptain") == 0) {
+        return "\ckLegendary Assault Captain\c-";
+    } else if (strcmp(name, "LegendaryBabySentient") == 0) {
+        return "\ckLegendary Baby Sentient\c-";
+    } else if (strcmp(name, "LegendaryBehemoth") == 0) {
+        return "\ckLegendary Behemoth\c-";
+    } else if (strcmp(name, "LegendaryCardinal") == 0) {
+        return "\ckLegendary Cardinal\c-";
+    } else if (strcmp(name, "LegendaryCommando") == 0) {
+        return "\ckLegendary Commando\c-";
+    } else if (strcmp(name, "LegendaryCyberdemon") == 0) {
+        return "\ckLegendary Cyberdemon\c-";
+    } else if (strcmp(name, "LegendaryCyberNoble") == 0) {
+        return "\ckLegendary Cyber Noble\c-";
+    } else if (strcmp(name, "LegendaryFiend") == 0) {
+        return "\ckLegendary Fiend\c-";
+    } else if (strcmp(name, "LegendaryHellKnight") == 0) {
+        return "\ckLegendary Hell Knight\c-";
+    } else if (strcmp(name, "LegendaryImp") == 0) {
+        return "\ckLegendary Imp\c-";
+    } else if (strcmp(name, "LegendaryRedeemer") == 0) {
+        return "\ckLegendary Redeemer\c-";
+    } else if (strcmp(name, "LegendaryRevenant") == 0) {
+        return "\ckLegendary Revenant\c-";
+    } else if (strcmp(name, "LegendarySentient") == 0) {
+        return "\ckLegendary Sentient\c-";
+    } else if (strcmp(name, "LegendaryStealthTrooper") == 0) {
+        return "\ckLegendary Stealth Trooper\c-";
+    } else if (strcmp(name, "LegZombie") == 0) {
+        return "\ckLegendary Zombie\c-";
+    } else if (strcmp(name, "PhaseOverlord") == 0) {
+        return "Phase Overlord";
+    } else if (strcmp(name, "SandSpirit") == 0) {
+        return "Sand Spirit";
+    } else if (strcmp(name, "ShotgunCommando") == 0) {
+        return "Shotgun Commando";
+    } else if (strcmp(name, "TrueLegendaryCyberdemon") == 0) {
+        return "\chTrue \ckLegendary Cyberdemon\c-";
+    } else if (strcmp(name, "Velocirator") == 0) {
+        return "\cdVelocirator\c-";
+
+    // lca's edited complex monsters
+    } else if (strcmp(name, "NewBabySentient") == 0) {
+        return pp_name("BabySentient");
+    } else if (strcmp(name, "NewBehemoth") == 0) {
+        return pp_name("Behemoth");
+    } else if (strcmp(name, "NewCerebralSentient") == 0) {
+        return pp_name("CerebralSentient");
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Random Monsters
+    ////////////////////////////////////////////////////////////////////////////////
+    // Abaddon
+    // Afrit
+    if (strcmp(name, "BabyDDemolisher") == 0) {
+        return "Baby Dark Demolisher";
+    // Demobus
+    } else if (strcmp(name, "BFGMastermind") == 0) {
+        return "BFG Mastermind";
+    } else if (strcmp(name, "CacoLich") == 0) {
+        return "Cacolich";
+    } else if (strcmp(name, "CerebralCommander") == 0) {
+        return "\cgCerebral Commander\c-";
+    } else if (strcmp(name, "ChaingunFiend") == 0) {
+        return "Chaingun Fiend";
+    } else if (strcmp(name, "CorruptedCyberLord") == 0) {
+        return "\cnCorrupted Annihilator\c-";
+    } else if (strcmp(name, "CryoDemon") == 0) {
+        return "Cyro Demon";
+    } else if (strcmp(name, "CryoImp") == 0) {
+        return "Cyro Imp";
+    } else if (strcmp(name, "DTShotgunZombie") == 0) {
+        return "Demon Tech Shotgunner";
+    } else if (strcmp(name, "DTechSpider") == 0) {
+        return "Demon Tech Spider";
+    } else if (strcmp(name, "DemonTechTrooper") == 0) {
+        return "Demon Tech Trooper";
+    } else if (strcmp(name, "EMinigunner") == 0) {
+        return "Explosive Minigunner";
+    } else if (strcmp(name, "SSRocketMan") == 0) {
+        return "SS Rocket Man";
+    } else if (strcmp(name, "SSSuperSolider") == 0) {
+        return "SS Super Solider";
+    } else if (strcmp(name, "HellArchon") == 0) {
+        return "Hell Archon";
+    } else if (strcmp(name, "HellFireBaron") == 0) {
+        return "Hellfire Baron";
+    } else if (strcmp(name, "HellFireCyberdemon") == 0) {
+        return "\cgHellfire Cyberdemon\c-";
+    } else if (strcmp(name, "HomingRocketZombie") == 0) {
+        return "Homing Rocket Zombie";
+    } else if (strcmp(name, "ImpLord") == 0) {
+        return "Imp Lord";
+    // Infected
+    } else if (strcmp(name, "SuicideBomber") == 0) {
+        return "Suicide Bomber";
+    } else if (strcmp(name, "KSBehemoth") == 0) {
+        return pp_name("Behemoth");
+    } else if (strcmp(name, "NewBarbatos") == 0) {
+        return pp_name("Barbatos");
+    } else if (strcmp(name, "PhaseElemental") == 0) {
+        return "\ctPhaseElemental\c-";
+    } else if (strcmp(name, "PhaseSoul") == 0) {
+        return "\ctPhase Soul\c-";
+    } else if (strcmp(name, "PhaseWarlord") == 0) {
+        return "\ctPhase Warlord\c-";
+    } else if (strcmp(name, "PistolZombie") == 0) {
+        return "Pistol Zombie";
+    } else if (strcmp(name, "ProtoDestroyer") == 0) {
+        return "Proto-Destroyer";
+    } else if (strcmp(name, "PyroImp") == 0) {
+        return "Pyro Imp";
+    } else if (strcmp(name, "Terminator2") == 0) {
+        return "Terminator";
+    } else if (strcmp(name, "ToxicImp") == 0) {
+        return "Toxic Imp";
+    } else if (strcmp(name, "ToxicLord") == 0) {
+        return "Toxic Lord";
+    } else if (strcmp(name, "WidowMaker") == 0) {
+        return "Widow Maker";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // HAF
+    ////////////////////////////////////////////////////////////////////////////////
+    if (strcmp(name, "DementedTerminator") == 0) {
+        return "\cgDemented Terminator\c-";
+
+    // haf's edited monsters
+    } else if (strcmp(name, "SuicideBomber2") == 0) {
+        return pp_name("SuicideBomber");
+    } else if (strcmp(name, "LegZombie2") == 0) {
+        return pp_name("LegZombie");
+    } else if (strcmp(name, "LegendaryImp2") == 0) {
+        return pp_name("LegendaryImp");
+    } else if (strcmp(name, "LegendaryAssaultCaptain2") == 0) {
+        return pp_name("LegendaryAssaultCaptain");
+    } else if (strcmp(name, "LegendaryCommando2") == 0) {
+        return pp_name("LegendaryCommando");
+    } else if (strcmp(name, "LegendaryStealthTrooper2") == 0) {
+        return pp_name("LegendaryStealthTrooper");
+    } else if (strcmp(name, "EraserZombie2") == 0) {
+        return pp_name("EraserZombie");
+    } else if (strcmp(name, "EMinigunner2") == 0) {
+        return pp_name("EMinigunner");
+    } else if (strcmp(name, "LegendaryFiend2") == 0) {
+        return pp_name("LegendaryFiend");
+    } else if (strcmp(name, "LegendaryRevenant2") == 0) {
+        return pp_name("LegendaryRevenant");
+    } else if (strcmp(name, "LegendaryHellKnight2") == 0) {
+        return pp_name("LegendaryHellKnight");
+    } else if (strcmp(name, "LegendaryRedeemer2") == 0) {
+        return pp_name("LegendaryRedeemer");
+    } else if (strcmp(name, "BFGCacodemon2") == 0) {
+        return pp_name("BFGCacodemon");
+    } else if (strcmp(name, "CacoLich2") == 0) {
+        return pp_name("CacoLich");
+    } else if (strcmp(name, "LegendaryBehemoth2") == 0) {
+        return pp_name("LegendaryBehemoth");
+    } else if (strcmp(name, "LegendaryCyberNoble2") == 0) {
+        return pp_name("LegendaryCyberNoble");
+    } else if (strcmp(name, "LegendaryBabySentient2") == 0) {
+        return pp_name("LegendaryBabySentient");
+    } else if (strcmp(name, "PhaseOverlord2") == 0) {
+        return pp_name("PhaseOverlord");
+    } else if (strcmp(name, "LegendarySentient2") == 0) {
+        return pp_name("LegendarySentient");
+    } else if (strcmp(name, "CerebralSentient2") == 0) {
+        return pp_name("CerebralSentient");
+    } else if (strcmp(name, "CerebralCardinal2") == 0) {
+        return pp_name("CerebralCardinal");
+    } else if (strcmp(name, "CerebralCommander2") == 0) {
+        return pp_name("CerebralCommander");
+    } else if (strcmp(name, "LegendaryCyberdemon2") == 0) {
+        return pp_name("LegendaryCyberdemon");
+    } else if (strcmp(name, "LegendaryAnnihilator2") == 0) {
+        return pp_name("LegendaryAnnihilator");
+    } else if (strcmp(name, "Cardinal2") == 0) {
+        return pp_name("Cardinal");
+    }
+
+    // ark
+    if (strcmp(name, "Complex Cardinal") == 0) {
+        return pp_name("Cardinal");
+    } else if (strcmp(name, "BlueCardinal") == 0) {
+        return "\cnCorrupted Cardinal\c-";
+    }
+
+    // Insane LCA
+    if (strcmp(name, "EnragedLegZombie") == 0) {
+        return "\cgEnraged\c- \ckLegendary Zombie\c-";
+    } else if (strcmp(name, "EnragedLegendaryImp") == 0) {
+        return "\cgEnraged\c- \ckLegendary Imp\c-";
+    } else if (strcmp(name, "EnragedLegendaryAssaultCaptain") == 0) {
+        return "\cgEnraged\c- \ckLegendary Assault Captain\c-";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
+    // Original Doom Monsters (fallback)
+    ////////////////////////////////////////////////////////////////////////////////
+
+    // Doom
+    if (stricmp(name, "ZombieMan", 9) == 0) {
+        return "Former Human";
+    } else if (stricmp(name, "ShotgunGuy", 10) == 0) {
+        return "Former Human Sergeant";
+    } else if (stricmp(name, "DoomImp", 7) == 0) {
+        return "Imp";
+    } else if (stricmp(name, "Demon", 5) == 0) {
+        return "Demon";
+    } else if (stricmp(name, "Spectre", 7) == 0) {
+        return "Spectre";
+    } else if (stricmp(name, "LostSoul", 8) == 0) {
+        return "Lost Soul";
+    } else if (stricmp(name, "Cacodemon", 9) == 0) {
+        return "Cacodemon";
+    } else if (stricmp(name, "BaronOfHell", 11) == 0) {
+        return "Baron Of Hell";
+    } else if (stricmp(name, "Cyberdemon", 10) == 0) {
+        return "Cyberdemon";
+    } else if (stricmp(name, "SpiderMastermind", 16) == 0) {
+        return "Spider Mastermind";
+
+    // Doom 2
+    } else if (stricmp(name, "ChaingunGuy", 11) == 0) {
+        return "Heavy Weapon Dude";
+    } else if (stricmp(name, "HellKnight", 10) == 0) {
+        return "Hell Knight";
+    } else if (stricmp(name, "Revenant", 8) == 0) {
+        return "Revenant";
+    } else if (stricmp(name, "Fatso", 5) == 0) {
+        return "Mancubus";
+    } else if (stricmp(name, "Arachnotron", 11) == 0) {
+        return "Arachnotron";
+    } else if (stricmp(name, "PainElemental", 13) == 0) {
+        return "Pain Elemental";
+    } else if (stricmp(name, "Archvile", 8) == 0) {
+        return "Arch-vile";
+    } else if (stricmp(name, "WolfensteinSS", 13) == 0) {
+        return "Wolfenstein SS";
+    } else if (stricmp(name, "CommanderKeen", 13) == 0) {
+        return "Commander Keen";
+    } else if (stricmp(name, "BossBrain", 9) == 0) {
+        return "John Romero";
+    // DOGE!
+    } else if (strcmp(name, "MBFHelperDog") == 0) {
+        return "\c[c5]DOGE\c-";
+    }
+
+    return name;
+}
+
+/*
+function str monster_info(str name) {
+    if (strcmp(name, "BlueCardinal") == 0) {
+        return "Immune to ice damage / Extremely resistant to DTBFG damage / 25% resistance to legendary damage";
+    } else if (strcmp(name, "Cardihilator") == 0) {
+        return "Extremely resistant to devastator";
+    } else if (strcmp(name, "CerebralCardinal") == 0) {
+        return "Extremely resistant to devastator damage / 50% resistance to legendary damage";
+    } else if (strcmp(name, "CerebralCommander") == 0) {
+        return "Immune to ice, pyro damage / Extremely resistant to legendary, devastator, DTBFG damage";
+    } else if (strcmp(name, "CorruptedCyberLord") == 0) {
+        return "Immune to ice damage / 30~50% resistance to DTBFG damage";
+    } else if (strcmp(name, "CryoDemon") == 0) {
+        return "Immune to ice damage";
+    } else if (strcmp(name, "CryoImp") == 0) {
+        return "Immune to ice damage";
+    } else if (strcmp(name, "DementedTerminator") == 0) {
+        return "50% resistance to legendary, BFG damage";
+    } else if (strcmp(name, "FreezerBehemoth") == 0) {
+        return "Immune to ice damage";
+    } else if (strcmp(name, "FreezerZombie") == 0) {
+        return "Immune to ice damage";
+    } else if (strcmp(name, "HellFireBaron") == 0) {
+        return "Immune to ice damage";
+    } else if (strcmp(name, "HellFireCyberdemon") == 0) {
+        return "Immune to legendary, ice, pyro damage / Extremely resistant to devastator, DTBFG, D-BFG damage";
+    } else if (strcmp(name, "LegendaryAnnihilator") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryAssaultCaptain") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryBabySentient") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryBehemoth") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryCardinal") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryCommando") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryCyberdemon") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryCyberNoble") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryFiend") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryHellKnight") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryImp") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryRedeemer") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryRevenant") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendarySentient") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegendaryStealthTrooper") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "LegZombie") == 0) {
+        return "Immune to legendary damage";
+    } else if (strcmp(name, "PhaseWarlord") == 0) {
+        return "Highly resistant to legendary, devastator, DTBFG damage";
+    } else if (strcmp(name, "Terminator2") == 0) {
+        return "Immune to ice, pyro, BFG damage";
+    } else if (strcmp(name, "TrueLegendaryCyberdemon") == 0) {
+        return "Immune to legendary, ice, pyro damage";
+    }
+
+    return "";
+}
+*/
