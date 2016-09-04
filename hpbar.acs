@@ -35,6 +35,7 @@ script 31234 (void) {
 script 31235 (int player, int hp, int max_hp) clientside {
     if (ConsolePlayerNumber() != player) terminate;
 
+    if (max_hp < GetCVar("hpbar_server_min_maxhp") || max_hp < GetCVar("hpbar_min_maxhp")) terminate;
     int hp_percentage = hp * 100 / max_hp;
     SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
 
@@ -69,6 +70,9 @@ script 31236 (void) clientside {
     if (ConsolePlayerNumber() != PlayerNumber()) terminate;
 
     if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        int max_hp = GetActorProperty(0, APROP_SpawnHealth);
+        if (max_hp < GetCVar("hpbar_server_min_maxhp") || max_hp < GetCVar("hpbar_min_maxhp")) terminate;
+
         int name = GetActorClass(0);
         bool invul = GetActorProperty(0, APROP_Invulnerable);
         bool friendly = GetActorProperty(0, APROP_Friendly);

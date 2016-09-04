@@ -1,3 +1,6 @@
+# v4
+* Add `hpbar_min_maxhp` and `hpbar_server_min_maxhp` cvars.
+
 # v3
 * Show HP bars from other players.
 * Show friendly tag if the actor being targeted is friendly.
