@@ -2,7 +2,7 @@
 
 This mod shows HP bars and info about the target being aimed at.
 
-It should work with all mods (sans those that come with their own HP bars) and provides special name handling for popular complex doom mods (LCA, RM, HAF, Ark, ILCA).
+It should work with all mods (sans those that come with their own HP bars) and provides special name handling for popular complex doom mods (LCA, RM, HAF, Ark, ILCA) and RGA2.
 
 ## Dependencies
 

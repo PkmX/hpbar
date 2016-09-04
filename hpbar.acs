@@ -444,6 +444,82 @@ function str pp_name(str name) {
     }
 
     ////////////////////////////////////////////////////////////////////////////////
+    // RGA2
+    ////////////////////////////////////////////////////////////////////////////////
+
+    if (strcmp(name, "DrDude", 6) == 0) {
+        return "Scientist";
+    } else if (strcmp(name, "SuperShotgunGuy", 15) == 0) {
+        return "Super Shotgun Guy";
+    } else if (strcmp(name, "DoubleChaingunGuy", 17) == 0) {
+        return "Elite Commando";
+    } else if (strcmp(name, "GrenadeGuy", 10) == 0) {
+        return "Grenadier";
+    } else if (strcmp(name, "ZombieMarine", 12) == 0) {
+        return "Corrupted Marine";
+    } else if (strcmp(name, "SpaceNazi", 9) == 0) {
+        return "Space Nazi";
+    } else if (strcmp(name, "UziGuy", 6) == 0) {
+        return "Nazi Collaborator";
+    } else if (strcmp(name, "RGAScriptedMarine", 17) == 0) {
+        return "Marine Traitor";
+    } else if (strcmp(name, "DarkImp", 7) == 0) {
+        return "Blood Imp";
+    } else if (strcmp(name, "ImpBoy", 6) == 0) {
+        return "Imp Trooper";
+    } else if (strcmp(name, "BloodDemon", 10) == 0) {
+        return "Blood Demon";
+    } else if (strcmp(name, "StoneDemon", 10) == 0) {
+        return "Stone Demon";
+    } else if (strcmp(name, "SpectreStone", 12) == 0) {
+        return "Stone Spectre";
+    } else if (strcmp(name, "SpectreBlood", 12) == 0) {
+        return "Blood Spectre";
+    } else if (strcmp(name, "KamikazeSoul", 12) == 0) {
+        return "Damned Soul";
+    } else if (strcmp(name, "KamikazePainElemental", 21) == 0) {
+        return "Kamikaze Pain Elemental";
+    } else if (strcmp(name, "Cacolantern", 11) == 0) {
+        return "Cacolantern";
+    } else if (strcmp(name, "BlueCacodemon", 13) == 0) {
+        return "Bluodemon";
+    } else if (strcmp(name, "Abaddon", 7) == 0) {
+        return "Abaddon";
+    } else if (strcmp(name, "StoneAbaddon", 12) == 0) {
+        return "Ascended Cacodemon";
+    } else if (strcmp(name, "GreenRevenant", 13) == 0) {
+        return "Assault Revenant";
+    } else if (strcmp(name, "GoldRevenant", 12) == 0) {
+        return "Sniper Revenant";
+    } else if (strcmp(name, "BlueRevenant", 12) == 0) {
+        return "Revenant Lord";
+    } else if (strcmp(name, "SuperRevenant", 13) == 0) {
+        return "Revenant God";
+    } else if (strcmp(name, "SpectreHellKnight", 17) == 0) {
+        return "Hell Spectre";
+    } else if (strcmp(name, "StoneKnight", 11) == 0) {
+        return "Stone Knight";
+    } else if (strcmp(name, "Belphegor", 9) == 0) {
+        return "Belphegor";
+    } else if (strcmp(name, "Cybruiser", 9) == 0) {
+        return "Cybruiser";
+    } else if (strcmp(name, "SpectreArachnotron", 18) == 0) {
+        return "Arachnospectre";
+    } else if (strcmp(name, "Augnotron", 9) == 0) {
+        return "Augnotron";
+    } else if (strcmp(name, "Hectebus", 8) == 0) {
+        return "Hectebus";
+    } else if (strcmp(name, "Acubus", 6) == 0) {
+        return "Acubus";
+    } else if (strcmp(name, "Deathvile", 9) == 0) {
+        return "Deathvile";
+    } else if (strcmp(name, "ArachnidOverlord", 16) == 0) {
+        return "Arachnid Overlord";
+    } else if (strcmp(name, "Cyberlord", 9) == 0) {
+        return "Cyberlord";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
     // Original Doom Monsters (fallback)
     ////////////////////////////////////////////////////////////////////////////////
 

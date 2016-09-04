@@ -1,5 +1,6 @@
 # v4
 * Add `hpbar_min_maxhp` and `hpbar_server_min_maxhp` cvars.
+* RGA2 Support.
 
 # v3
 * Show HP bars from other players.
