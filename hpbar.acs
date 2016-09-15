@@ -364,7 +364,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "SuperShotgunZombie")) {
         return "Double Barrel Shotgun Zombie";
     } else if (prefix_match(name, "QuadShotgunZombie")) {
-        return "Quad Barrel Shotgun Zombie";
+        return "\crQuad Barrel Shotgun Zombie\c-";
     } else if (prefix_match(name, "AssaultRifleZombie")) {
         return "Assault Rifle Zombie";
     // Chaingunner
@@ -384,7 +384,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "MagmaFiend")) {
         return "Magma Fiend";
     } else if (prefix_match(name, "DTechFiend")) {
-        return "DTech Fiend";
+        return "\cqDTech Fiend\c-";
     } else if (prefix_match(name, "Spectre~")) {
         return pp_name("Spectre");
     // Lurker
@@ -429,7 +429,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "CyberNoble")) {
         return "Cyber Noble";
     } else if (prefix_match(name, "HellDuke")) {
-        return "Hell Duke";
+        return "\cdHell Duke\c-";
     } else if (prefix_match(name, "BaronOfHell~")) {
         return pp_name("BaronOfHell");
     } else if (prefix_match(name, "BruiserDemon")) {
@@ -471,9 +471,9 @@ function str pp_name(str name) {
     // LCA
     ////////////////////////////////////////////////////////////////////////////////
     if (prefix_match(name, "BFG10KGeneral")) {
-        return "BFG10K General";
+        return "\cdBFG10K General\c-";
     } else if (prefix_match(name, "BFGCacodemon")) {
-        return "BFG Cacodemon";
+        return "\cdBFG Cacodemon\c-";
     } else if (prefix_match(name, "Cardihilator")) {
         return "\cgCardihilator\c-";
     } else if (prefix_match(name, "CerebralCardinal")) {
@@ -484,9 +484,11 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "DesertHornet")) {
         return "DesertHornet";
     } else if (prefix_match(name, "DTDevastatorZombie")) {
-        return "DT Devastator Zombie";
+        return "\crDT Devastator Zombie\c-";
     } else if (prefix_match(name, "EraserZombie")) {
-        return "Eraser Zombie";
+        return "\crEraser Zombie\c-";
+    } else if (prefix_match(name, "Hexa-ShotgunZombie")) {
+        return "\crHexa-Shotgun Zombie\c-";
     } else if (prefix_match(name, "FreezerBehemoth")) {
         return "Freezer Behemoth";
     } else if (prefix_match(name, "FreezerZombie")) {
@@ -524,9 +526,9 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "LegZombie")) {
         return "\ckLegendary Zombie\c-";
     } else if (prefix_match(name, "PhaseOverlord")) {
-        return "Phase Overlord";
+        return "\ct-Phase Overlord\c-";
     } else if (prefix_match(name, "SandSpirit")) {
-        return "Sand Spirit";
+        return "\ceSand Spirit\c-";
     } else if (prefix_match(name, "ShotgunCommando")) {
         return "Shotgun Commando";
     } else if (prefix_match(name, "TrueLegendaryCyberdemon")) {
@@ -610,7 +612,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "PyroImp")) {
         return "Pyro Imp";
     } else if (prefix_match(name, "Terminator2")) {
-        return "Terminator";
+        return "\crTerminator\c-";
     } else if (prefix_match(name, "ToxicImp")) {
         return "Toxic Imp";
     } else if (prefix_match(name, "ToxicLord")) {
