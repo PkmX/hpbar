@@ -42,7 +42,9 @@ script "hpbar-enter" enter {
                     ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
                 }
 
-                ACS_ExecuteAlways(31235, 0);
+                if (max_hp >= GetCVar("hpbar_server_tracker_threshold")) {
+                    ACS_ExecuteAlways(31235, 0);
+                }
             }
         }
 
