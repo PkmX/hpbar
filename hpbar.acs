@@ -253,6 +253,8 @@ function str pp_name(str name) {
         return "Hitler";
     } else if (prefix_match(name, "DSP")) {
         return "Darksyde Phil";
+    } else if (prefix_match(name, "ModdedExplosiveBarrel")) {
+        return pp_name("ExplosiveBarrel");
     }
 
     ////////////////////////////////////////////////////////////////////////////////
