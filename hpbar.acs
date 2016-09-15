@@ -60,6 +60,8 @@ function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
     for (int i = 0; i <= 100; ++i) {
         if (hp_percentage < 25) {
             SetFont("FILLCRIT");
+        } else if (hp_percentage < 50) {
+            SetFont("FILLDAMG");
         } else {
             SetFont("FILLNORM");
         }

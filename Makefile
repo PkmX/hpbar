@@ -10,7 +10,7 @@ all: $(DEV_PK3_NAME)
 
 release: $(REL_PK3_NAME)
 
-$(REL_PK3_NAME) $(DEV_PK3_NAME): CVARINFO LOADACS README.md acs/hpbar.o graphics/HPBAR.png graphics/FILLCRIT.png graphics/FILLNORM.png
+$(REL_PK3_NAME) $(DEV_PK3_NAME): CVARINFO LOADACS README.md acs/hpbar.o graphics/HPBAR.png graphics/FILLCRIT.png graphics/FILLNORM.png graphics/FILLDAMG.png
 	zip $@ $^
 
 acs:
