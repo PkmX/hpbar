@@ -132,67 +132,72 @@ function int to_fixed(int x) {
     return x << 16;
 }
 
+// Return x is a case-insensitive prefix of y
+function bool prefix_match(str x, str y) {
+    return stricmp(x, y, strlen(y)) == 0;
+}
+
 function str pp_name(str name) {
     ////////////////////////////////////////////////////////////////////////////////
     // Complex Doom
     ////////////////////////////////////////////////////////////////////////////////
-    if (strcmp(name, "PlasmaZombie") == 0) {
+    if (prefix_match(name, "PlasmaGunner")) {
         return "Plasma Zombie";
-    } else if (strcmp(name, "Railgunner") == 0) {
+    } else if (prefix_match(name, "Railgunner")) {
         return "Railgunner";
-    } else if (strcmp(name, "DemonTechZombie") == 0) {
+    } else if (prefix_match(name, "DemonTechZombie")) {
         return "Demon Tech Zombie";
-    } else if (strcmp(name, "RocketZombie") == 0) {
+    } else if (prefix_match(name, "RocketZombie")) {
         return "Rocket Zombie";
-    } else if (strcmp(name, "ShotgunZombie") == 0) {
+    } else if (prefix_match(name, "ShotgunZombie")) {
         return "Shotgunner";
-    } else if (strcmp(name, "AssaultShotgunZombie") == 0) {
+    } else if (prefix_match(name, "AssaultShotgunZombie")) {
         return "Assault Shotgunner";
-    } else if (strcmp(name, "SuperShotgunZombie") == 0) {
+    } else if (prefix_match(name, "SuperShotgunZombie")) {
         return "Double Barrel Shotgun Zombie";
-    } else if (strcmp(name, "QuadShotgunZombie") == 0) {
+    } else if (prefix_match(name, "QuadShotgunZombie")) {
         return "Quad Barrel Shotgun Zombie";
-    } else if (strcmp(name, "AssaultRifleZombie") == 0) {
+    } else if (prefix_match(name, "AssaultRifleZombie")) {
         return "Assault Rifle Zombie";
     // Chaingunner
     // Minigunner
-    } else if (strcmp(name, "BFGZombieman") == 0) {
+    } else if (prefix_match(name, "BFGZombieman")) {
         return "BFG Zombie";
     // Imp
-    } else if (strcmp(name, "VoidImp") == 0) {
+    } else if (prefix_match(name, "VoidImp")) {
         return "Void Imp";
     // Devil
-    } else if (strcmp(name, "PhaseImp") == 0) {
+    } else if (prefix_match(name, "PhaseImp")) {
         return "\ctPhase Imp\c-";
-    } else if (strcmp(name, "BullFiend") == 0) {
+    } else if (prefix_match(name, "BullFiend")) {
         return "Bull Fiend";
-    } else if (strcmp(name, "CyberFiend") == 0) {
+    } else if (prefix_match(name, "CyberFiend")) {
         return "Cyber Fiend";
-    } else if (strcmp(name, "MagmaFiend") == 0) {
+    } else if (prefix_match(name, "MagmaFiend")) {
         return "Magma Fiend";
-    } else if (strcmp(name, "DTechFiend") == 0) {
+    } else if (prefix_match(name, "DTechFiend")) {
         return "DTech Fiend";
-    } else if (strcmp(name, "Spectre~") == 0) {
+    } else if (prefix_match(name, "Spectre~")) {
         return pp_name("Spectre");
     // Lurker
     // Spook
-    } else if (strcmp(name, "TerrorSoul") == 0) {
+    } else if (prefix_match(name, "TerrorSoul")) {
         return "Terror Soul";
-    } else if (strcmp(name, "ForgottenOne") == 0) {
+    } else if (prefix_match(name, "ForgottenOne")) {
         return "Forgotten One";
-    } else if (strcmp(name, "PoisonSoul") == 0) {
+    } else if (prefix_match(name, "PoisonSoul")) {
         return "Poison Soul";
     // Rictus
-    } else if (strcmp(name, "Cacodemon~") == 0) {
+    } else if (prefix_match(name, "Cacodemon~")) {
         return pp_name("Cacodemon");
     // Watcher
     // Cacomental
-    } else if (strcmp(name, "SoulKeeper") == 0) {
+    } else if (prefix_match(name, "SoulKeeper")) {
         return "Soul Keeper";
     // Defiler
-    } else if (strcmp(name, "PoisonElemental") == 0) {
+    } else if (prefix_match(name, "PoisonElemental")) {
         return "Poison Elemental";
-    } else if (strcmp(name, "BombElemental") == 0) {
+    } else if (prefix_match(name, "BombElemental")) {
         return "Bomb Elemental";
     // Hectebus
     // Daedabus
@@ -200,131 +205,131 @@ function str pp_name(str name) {
     // Barbatos
     // Dualachnotron
     // Fusionite
-    } else if (strcmp(name, "BabyDemolisher") == 0) {
+    } else if (prefix_match(name, "BabyDemolisher")) {
         return "Baby Demolisher";
-    } else if (strcmp(name, "BabySentient") == 0) {
+    } else if (prefix_match(name, "BabySentient")) {
         return "Baby Sentient";
     // Guardian
     // Cadaver
-    } else if (strcmp(name, "HellfireRevenant") == 0) {
+    } else if (prefix_match(name, "HellfireRevenant")) {
         return "Hellfire Revenant";
     // Famine
-    } else if (strcmp(name, "HellKnight~") == 0) {
+    } else if (prefix_match(name, "HellKnight~")) {
         return pp_name("HellKnight");
-    } else if (strcmp(name, "PyroDemon") == 0) {
+    } else if (prefix_match(name, "PyroDemon")) {
         return "Pyro Demon";
-    } else if (strcmp(name, "CyberNoble") == 0) {
+    } else if (prefix_match(name, "CyberNoble")) {
         return "Cyber Noble";
-    } else if (strcmp(name, "HellDuke") == 0) {
+    } else if (prefix_match(name, "HellDuke")) {
         return "Hell Duke";
-    } else if (strcmp(name, "BaronOfHell~") == 0) {
+    } else if (prefix_match(name, "BaronOfHell~")) {
         return pp_name("BaronOfHell");
-    } else if (strcmp(name, "BruiserDemon") == 0) {
+    } else if (prefix_match(name, "BruiserDemon")) {
         return "BruiserDemon";
     // Cybruiser
     // Exile
     // Diabolist
-    } else if (strcmp(name, "DarkHellion") == 0) {
+    } else if (prefix_match(name, "DarkHellion")) {
         return "\cmDark Hellion\c-";
     // Demolisher
-    } else if (strcmp(name, "DarkDemolisher") == 0) {
+    } else if (prefix_match(name, "DarkDemolisher")) {
         return "\cqDark Demolisher\c-";
-    } else if (strcmp(name, "CerebralSentient") == 0) {
+    } else if (prefix_match(name, "CerebralSentient")) {
         return "Cerebral Sentient";
-    } else if (strcmp(name, "CyberLord") == 0) {
+    } else if (prefix_match(name, "CyberLord")) {
         return "Annihilator";
-    } else if (strcmp(name, "DarkCyberdemon") == 0) {
+    } else if (prefix_match(name, "DarkCyberdemon")) {
         return "\cqDark Cyberdemon\c-";
-    } else if (strcmp(name, "Cardinal") == 0) {
+    } else if (prefix_match(name, "Cardinal")) {
         return "\cgDark Cardinal\c-";
-    } else if (strcmp(name, "SSNazi") == 0) {
+    } else if (prefix_match(name, "SSNazi")) {
         return "SS Nazi";
     // Mutant
     // Officer
-    } else if (strcmp(name, "NaziDog") == 0) {
+    } else if (prefix_match(name, "NaziDog")) {
         return "Nazi Guard Dog";
     // Hitler
-    } else if (strcmp(name, "HitlerNoSuit") == 0) {
+    } else if (prefix_match(name, "HitlerNoSuit")) {
         return "Hitler";
-    } else if (strcmp(name, "DSP") == 0) {
+    } else if (prefix_match(name, "DSP")) {
         return "Darksyde Phil";
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // LCA
     ////////////////////////////////////////////////////////////////////////////////
-    if (strcmp(name, "BFG10KGeneral") == 0) {
+    if (prefix_match(name, "BFG10KGeneral")) {
         return "BFG10K General";
-    } else if (strcmp(name, "BFGCacodemon") == 0) {
+    } else if (prefix_match(name, "BFGCacodemon")) {
         return "BFG Cacodemon";
-    } else if (strcmp(name, "Cardihilator") == 0) {
+    } else if (prefix_match(name, "Cardihilator")) {
         return "\cgCardihilator\c-";
-    } else if (strcmp(name, "CerebralCardinal") == 0) {
+    } else if (prefix_match(name, "CerebralCardinal")) {
         return "\cgCerebral Cardinal\c-";
     // Cydestroyer
-    } else if (strcmp(name, "Arcradimus") == 0) {
+    } else if (prefix_match(name, "Arcradimus")) {
         return "Demon Lord Arcradimus";
-    } else if (strcmp(name, "DesertHornet") == 0) {
+    } else if (prefix_match(name, "DesertHornet")) {
         return "DesertHornet";
-    } else if (strcmp(name, "DTDevastatorZombie") == 0) {
+    } else if (prefix_match(name, "DTDevastatorZombie")) {
         return "DT Devastator Zombie";
-    } else if (strcmp(name, "EraserZombie") == 0) {
+    } else if (prefix_match(name, "EraserZombie")) {
         return "Eraser Zombie";
-    } else if (strcmp(name, "FreezerBehemoth") == 0) {
+    } else if (prefix_match(name, "FreezerBehemoth")) {
         return "Freezer Behemoth";
-    } else if (strcmp(name, "FreezerZombie") == 0) {
+    } else if (prefix_match(name, "FreezerZombie")) {
         return "Freezer Zombie";
-    } else if (strcmp(name, "LegendaryAnnihilator") == 0) {
+    } else if (prefix_match(name, "LegendaryAnnihilator")) {
         return "\ckLegendary Annihilator\c-";
-    } else if (strcmp(name, "LegendaryAssaultCaptain") == 0) {
+    } else if (prefix_match(name, "LegendaryAssaultCaptain")) {
         return "\ckLegendary Assault Captain\c-";
-    } else if (strcmp(name, "LegendaryBabySentient") == 0) {
+    } else if (prefix_match(name, "LegendaryBabySentient")) {
         return "\ckLegendary Baby Sentient\c-";
-    } else if (strcmp(name, "LegendaryBehemoth") == 0) {
+    } else if (prefix_match(name, "LegendaryBehemoth")) {
         return "\ckLegendary Behemoth\c-";
-    } else if (strcmp(name, "LegendaryCardinal") == 0) {
+    } else if (prefix_match(name, "LegendaryCardinal")) {
         return "\ckLegendary Cardinal\c-";
-    } else if (strcmp(name, "LegendaryCommando") == 0) {
+    } else if (prefix_match(name, "LegendaryCommando")) {
         return "\ckLegendary Commando\c-";
-    } else if (strcmp(name, "LegendaryCyberdemon") == 0) {
+    } else if (prefix_match(name, "LegendaryCyberdemon")) {
         return "\ckLegendary Cyberdemon\c-";
-    } else if (strcmp(name, "LegendaryCyberNoble") == 0) {
+    } else if (prefix_match(name, "LegendaryCyberNoble")) {
         return "\ckLegendary Cyber Noble\c-";
-    } else if (strcmp(name, "LegendaryFiend") == 0) {
+    } else if (prefix_match(name, "LegendaryFiend")) {
         return "\ckLegendary Fiend\c-";
-    } else if (strcmp(name, "LegendaryHellKnight") == 0) {
+    } else if (prefix_match(name, "LegendaryHellKnight")) {
         return "\ckLegendary Hell Knight\c-";
-    } else if (strcmp(name, "LegendaryImp") == 0) {
+    } else if (prefix_match(name, "LegendaryImp")) {
         return "\ckLegendary Imp\c-";
-    } else if (strcmp(name, "LegendaryRedeemer") == 0) {
+    } else if (prefix_match(name, "LegendaryRedeemer")) {
         return "\ckLegendary Redeemer\c-";
-    } else if (strcmp(name, "LegendaryRevenant") == 0) {
+    } else if (prefix_match(name, "LegendaryRevenant")) {
         return "\ckLegendary Revenant\c-";
-    } else if (strcmp(name, "LegendarySentient") == 0) {
+    } else if (prefix_match(name, "LegendarySentient")) {
         return "\ckLegendary Sentient\c-";
-    } else if (strcmp(name, "LegendaryStealthTrooper") == 0) {
+    } else if (prefix_match(name, "LegendaryStealthTrooper")) {
         return "\ckLegendary Stealth Trooper\c-";
-    } else if (strcmp(name, "LegZombie") == 0) {
+    } else if (prefix_match(name, "LegZombie")) {
         return "\ckLegendary Zombie\c-";
-    } else if (strcmp(name, "PhaseOverlord") == 0) {
+    } else if (prefix_match(name, "PhaseOverlord")) {
         return "Phase Overlord";
-    } else if (strcmp(name, "SandSpirit") == 0) {
+    } else if (prefix_match(name, "SandSpirit")) {
         return "Sand Spirit";
-    } else if (strcmp(name, "ShotgunCommando") == 0) {
+    } else if (prefix_match(name, "ShotgunCommando")) {
         return "Shotgun Commando";
-    } else if (strcmp(name, "TrueLegendaryCyberdemon") == 0) {
+    } else if (prefix_match(name, "TrueLegendaryCyberdemon")) {
         return "\chTrue \ckLegendary Cyberdemon\c-";
-    } else if (strcmp(name, "TrueLegendaryCardinal") == 0) {
+    } else if (prefix_match(name, "TrueLegendaryCardinal")) {
         return "\chTrue \ckLegendary Cardinal\c-";
-    } else if (strcmp(name, "Velocirator") == 0) {
+    } else if (prefix_match(name, "Velocirator")) {
         return "\cdVelocirator\c-";
 
     // lca's edited complex monsters
-    } else if (strcmp(name, "NewBabySentient") == 0) {
+    } else if (prefix_match(name, "NewBabySentient")) {
         return pp_name("BabySentient");
-    } else if (strcmp(name, "NewBehemoth") == 0) {
+    } else if (prefix_match(name, "NewBehemoth")) {
         return pp_name("Behemoth");
-    } else if (strcmp(name, "NewCerebralSentient") == 0) {
+    } else if (prefix_match(name, "NewCerebralSentient")) {
         return pp_name("CerebralSentient");
     }
 
@@ -334,148 +339,100 @@ function str pp_name(str name) {
     ////////////////////////////////////////////////////////////////////////////////
     // Abaddon
     // Afrit
-    if (strcmp(name, "BabyDDemolisher") == 0) {
+    if (prefix_match(name, "BabyDDemolisher")) {
         return "Baby Dark Demolisher";
     // Demobus
-    } else if (strcmp(name, "BFGMastermind") == 0) {
+    } else if (prefix_match(name, "BFGMastermind")) {
         return "BFG Mastermind";
-    } else if (strcmp(name, "CacoLich") == 0) {
+    } else if (prefix_match(name, "CacoLich")) {
         return "Cacolich";
-    } else if (strcmp(name, "CerebralCommander") == 0) {
+    } else if (prefix_match(name, "CerebralCommander")) {
         return "\cgCerebral Commander\c-";
-    } else if (strcmp(name, "ChaingunFiend") == 0) {
+    } else if (prefix_match(name, "ChaingunFiend")) {
         return "Chaingun Fiend";
-    } else if (strcmp(name, "CorruptedCyberLord") == 0) {
+    } else if (prefix_match(name, "CorruptedCyberLord")) {
         return "\cnCorrupted Annihilator\c-";
-    } else if (strcmp(name, "CryoDemon") == 0) {
+    } else if (prefix_match(name, "CryoDemon")) {
         return "Cyro Demon";
-    } else if (strcmp(name, "CryoImp") == 0) {
+    } else if (prefix_match(name, "CryoImp")) {
         return "Cyro Imp";
-    } else if (strcmp(name, "DTShotgunZombie") == 0) {
+    } else if (prefix_match(name, "DTShotgunZombie")) {
         return "Demon Tech Shotgunner";
-    } else if (strcmp(name, "DTechSpider") == 0) {
+    } else if (prefix_match(name, "DTechSpider")) {
         return "Demon Tech Spider";
-    } else if (strcmp(name, "DemonTechTrooper") == 0) {
+    } else if (prefix_match(name, "DemonTechTrooper")) {
         return "Demon Tech Trooper";
-    } else if (strcmp(name, "EMinigunner") == 0) {
+    } else if (prefix_match(name, "EMinigunner")) {
         return "Explosive Minigunner";
-    } else if (strcmp(name, "SSRocketMan") == 0) {
+    } else if (prefix_match(name, "SSRocketMan")) {
         return "SS Rocket Man";
-    } else if (strcmp(name, "SSSuperSolider") == 0) {
+    } else if (prefix_match(name, "SSSuperSolider")) {
         return "SS Super Solider";
-    } else if (strcmp(name, "HellArchon") == 0) {
+    } else if (prefix_match(name, "HellArchon")) {
         return "Hell Archon";
-    } else if (strcmp(name, "HellFireBaron") == 0) {
+    } else if (prefix_match(name, "HellFireBaron")) {
         return "Hellfire Baron";
-    } else if (strcmp(name, "HellFireCyberdemon") == 0) {
+    } else if (prefix_match(name, "HellFireCyberdemon")) {
         return "\cgHellfire Cyberdemon\c-";
-    } else if (strcmp(name, "HomingRocketZombie") == 0) {
+    } else if (prefix_match(name, "HomingRocketZombie")) {
         return "Homing Rocket Zombie";
-    } else if (strcmp(name, "ImpLord") == 0) {
+    } else if (prefix_match(name, "ImpLord")) {
         return "Imp Lord";
     // Infected
-    } else if (strcmp(name, "SuicideBomber") == 0) {
+    } else if (prefix_match(name, "SuicideBomber")) {
         return "Suicide Bomber";
-    } else if (strcmp(name, "KSBehemoth") == 0) {
+    } else if (prefix_match(name, "KSBehemoth")) {
         return pp_name("Behemoth");
-    } else if (strcmp(name, "NewBarbatos") == 0) {
+    } else if (prefix_match(name, "NewBarbatos")) {
         return pp_name("Barbatos");
-    } else if (strcmp(name, "PhaseElemental") == 0) {
+    } else if (prefix_match(name, "PhaseElemental")) {
         return "\ctPhaseElemental\c-";
-    } else if (strcmp(name, "PhaseSoul") == 0) {
+    } else if (prefix_match(name, "PhaseSoul")) {
         return "\ctPhase Soul\c-";
-    } else if (strcmp(name, "PhaseWarlord") == 0) {
+    } else if (prefix_match(name, "PhaseWarlord")) {
         return "\ctPhase Warlord\c-";
-    } else if (strcmp(name, "PistolZombie") == 0) {
+    } else if (prefix_match(name, "PistolZombie")) {
         return "Pistol Zombie";
-    } else if (strcmp(name, "ProtoDestroyer") == 0) {
+    } else if (prefix_match(name, "ProtoDestroyer")) {
         return "Proto-Destroyer";
-    } else if (strcmp(name, "PyroImp") == 0) {
+    } else if (prefix_match(name, "PyroImp")) {
         return "Pyro Imp";
-    } else if (strcmp(name, "Terminator2") == 0) {
+    } else if (prefix_match(name, "Terminator2")) {
         return "Terminator";
-    } else if (strcmp(name, "ToxicImp") == 0) {
+    } else if (prefix_match(name, "ToxicImp")) {
         return "Toxic Imp";
-    } else if (strcmp(name, "ToxicLord") == 0) {
+    } else if (prefix_match(name, "ToxicLord")) {
         return "Toxic Lord";
-    } else if (strcmp(name, "WidowMaker") == 0) {
+    } else if (prefix_match(name, "WidowMaker")) {
         return "Widow Maker";
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // HAF
     ////////////////////////////////////////////////////////////////////////////////
-    if (strcmp(name, "DementedTerminator") == 0) {
+    if (prefix_match(name, "DementedTerminator")) {
         return "\cgDemented Terminator\c-";
-
-    // haf's edited monsters
-    } else if (strcmp(name, "SuicideBomber2") == 0) {
-        return pp_name("SuicideBomber");
-    } else if (strcmp(name, "LegZombie2") == 0) {
-        return pp_name("LegZombie");
-    } else if (strcmp(name, "LegendaryImp2") == 0) {
-        return pp_name("LegendaryImp");
-    } else if (strcmp(name, "LegendaryAssaultCaptain2") == 0) {
-        return pp_name("LegendaryAssaultCaptain");
-    } else if (strcmp(name, "LegendaryCommando2") == 0) {
-        return pp_name("LegendaryCommando");
-    } else if (strcmp(name, "LegendaryStealthTrooper2") == 0) {
-        return pp_name("LegendaryStealthTrooper");
-    } else if (strcmp(name, "EraserZombie2") == 0) {
-        return pp_name("EraserZombie");
-    } else if (strcmp(name, "EMinigunner2") == 0) {
-        return pp_name("EMinigunner");
-    } else if (strcmp(name, "LegendaryFiend2") == 0) {
-        return pp_name("LegendaryFiend");
-    } else if (strcmp(name, "LegendaryRevenant2") == 0) {
-        return pp_name("LegendaryRevenant");
-    } else if (strcmp(name, "LegendaryHellKnight2") == 0) {
-        return pp_name("LegendaryHellKnight");
-    } else if (strcmp(name, "LegendaryRedeemer2") == 0) {
-        return pp_name("LegendaryRedeemer");
-    } else if (strcmp(name, "BFGCacodemon2") == 0) {
-        return pp_name("BFGCacodemon");
-    } else if (strcmp(name, "CacoLich2") == 0) {
-        return pp_name("CacoLich");
-    } else if (strcmp(name, "LegendaryBehemoth2") == 0) {
-        return pp_name("LegendaryBehemoth");
-    } else if (strcmp(name, "LegendaryCyberNoble2") == 0) {
-        return pp_name("LegendaryCyberNoble");
-    } else if (strcmp(name, "LegendaryBabySentient2") == 0) {
-        return pp_name("LegendaryBabySentient");
-    } else if (strcmp(name, "PhaseOverlord2") == 0) {
-        return pp_name("PhaseOverlord");
-    } else if (strcmp(name, "LegendarySentient2") == 0) {
-        return pp_name("LegendarySentient");
-    } else if (strcmp(name, "CerebralSentient2") == 0) {
-        return pp_name("CerebralSentient");
-    } else if (strcmp(name, "CerebralCardinal2") == 0) {
-        return pp_name("CerebralCardinal");
-    } else if (strcmp(name, "CerebralCommander2") == 0) {
-        return pp_name("CerebralCommander");
-    } else if (strcmp(name, "LegendaryCyberdemon2") == 0) {
-        return pp_name("LegendaryCyberdemon");
-    } else if (strcmp(name, "LegendaryAnnihilator2") == 0) {
-        return pp_name("LegendaryAnnihilator");
-    } else if (strcmp(name, "Cardinal2") == 0) {
-        return pp_name("Cardinal");
     }
 
-    // ark
-    if (strcmp(name, "Complex Cardinal") == 0) {
+    ////////////////////////////////////////////////////////////////////////////////
+    // Ark
+    ////////////////////////////////////////////////////////////////////////////////
+    if (prefix_match(name, "Complex Cardinal")) {
         return pp_name("Cardinal");
-    } else if (strcmp(name, "BlueCardinal") == 0) {
+    } else if (prefix_match(name, "BlueCardinal")) {
         return "\cnCorrupted Cardinal\c-";
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
     // Insane LCA
-    if (strcmp(name, "EnragedLegZombie") == 0) {
+    ////////////////////////////////////////////////////////////////////////////////
+    if (prefix_match(name, "EnragedLegZombie")) {
         return "\cgEnraged\c- \ckLegendary Zombie\c-";
-    } else if (strcmp(name, "EnragedLegendaryImp") == 0) {
+    } else if (prefix_match(name, "EnragedLegendaryImp")) {
         return "\cgEnraged\c- \ckLegendary Imp\c-";
-    } else if (strcmp(name, "EnragedLegendaryAssaultCaptain") == 0) {
+    } else if (prefix_match(name, "EnragedLegendaryAssaultCaptain")) {
         return "\cgEnraged\c- \ckLegendary Assault Captain\c-";
-    } else if (strcmp(name, "EnragedLegendaryRevenant") == 0) {
+    } else if (prefix_match(name, "EnragedLegendaryRevenant")) {
         return "\cgEnraged\c- \ckLegendary Revenant\c-";
     }
 
@@ -483,75 +440,75 @@ function str pp_name(str name) {
     // RGA2
     ////////////////////////////////////////////////////////////////////////////////
 
-    if (strcmp(name, "DrDude", 6) == 0) {
+    if (prefix_match(name, "DrDude")) {
         return "Scientist";
-    } else if (strcmp(name, "SuperShotgunGuy", 15) == 0) {
+    } else if (prefix_match(name, "SuperShotgunGuy")) {
         return "Super Shotgun Guy";
-    } else if (strcmp(name, "DoubleChaingunGuy", 17) == 0) {
+    } else if (prefix_match(name, "DoubleChaingunGuy")) {
         return "Elite Commando";
-    } else if (strcmp(name, "GrenadeGuy", 10) == 0) {
+    } else if (prefix_match(name, "GrenadeGuy")) {
         return "Grenadier";
-    } else if (strcmp(name, "ZombieMarine", 12) == 0) {
+    } else if (prefix_match(name, "ZombieMarine")) {
         return "Corrupted Marine";
-    } else if (strcmp(name, "SpaceNazi", 9) == 0) {
+    } else if (prefix_match(name, "SpaceNazi")) {
         return "Space Nazi";
-    } else if (strcmp(name, "UziGuy", 6) == 0) {
+    } else if (prefix_match(name, "UziGuy")) {
         return "Nazi Collaborator";
-    } else if (strcmp(name, "RGAScriptedMarine", 17) == 0) {
+    } else if (prefix_match(name, "RGAScriptedMarine")) {
         return "Marine Traitor";
-    } else if (strcmp(name, "DarkImp", 7) == 0) {
+    } else if (prefix_match(name, "DarkImp")) {
         return "Blood Imp";
-    } else if (strcmp(name, "ImpBoy", 6) == 0) {
+    } else if (prefix_match(name, "ImpBoy")) {
         return "Imp Trooper";
-    } else if (strcmp(name, "BloodDemon", 10) == 0) {
+    } else if (prefix_match(name, "BloodDemon")) {
         return "Blood Demon";
-    } else if (strcmp(name, "StoneDemon", 10) == 0) {
+    } else if (prefix_match(name, "StoneDemon")) {
         return "Stone Demon";
-    } else if (strcmp(name, "SpectreStone", 12) == 0) {
+    } else if (prefix_match(name, "SpectreStone")) {
         return "Stone Spectre";
-    } else if (strcmp(name, "SpectreBlood", 12) == 0) {
+    } else if (prefix_match(name, "SpectreBlood")) {
         return "Blood Spectre";
-    } else if (strcmp(name, "KamikazeSoul", 12) == 0) {
+    } else if (prefix_match(name, "KamikazeSoul")) {
         return "Damned Soul";
-    } else if (strcmp(name, "KamikazePainElemental", 21) == 0) {
+    } else if (prefix_match(name, "KamikazePainElemental")) {
         return "Kamikaze Pain Elemental";
-    } else if (strcmp(name, "Cacolantern", 11) == 0) {
+    } else if (prefix_match(name, "Cacolantern")) {
         return "Cacolantern";
-    } else if (strcmp(name, "BlueCacodemon", 13) == 0) {
+    } else if (prefix_match(name, "BlueCacodemon")) {
         return "Bluodemon";
-    } else if (strcmp(name, "Abaddon", 7) == 0) {
+    } else if (prefix_match(name, "Abaddon")) {
         return "Abaddon";
-    } else if (strcmp(name, "StoneAbaddon", 12) == 0) {
+    } else if (prefix_match(name, "StoneAbaddon")) {
         return "Ascended Cacodemon";
-    } else if (strcmp(name, "GreenRevenant", 13) == 0) {
+    } else if (prefix_match(name, "GreenRevenant")) {
         return "Assault Revenant";
-    } else if (strcmp(name, "GoldRevenant", 12) == 0) {
+    } else if (prefix_match(name, "GoldRevenant")) {
         return "Sniper Revenant";
-    } else if (strcmp(name, "BlueRevenant", 12) == 0) {
+    } else if (prefix_match(name, "BlueRevenant")) {
         return "Revenant Lord";
-    } else if (strcmp(name, "SuperRevenant", 13) == 0) {
+    } else if (prefix_match(name, "SuperRevenant")) {
         return "Revenant God";
-    } else if (strcmp(name, "SpectreHellKnight", 17) == 0) {
+    } else if (prefix_match(name, "SpectreHellKnight")) {
         return "Hell Spectre";
-    } else if (strcmp(name, "StoneKnight", 11) == 0) {
+    } else if (prefix_match(name, "StoneKnight")) {
         return "Stone Knight";
-    } else if (strcmp(name, "Belphegor", 9) == 0) {
+    } else if (prefix_match(name, "Belphegor")) {
         return "Belphegor";
-    } else if (strcmp(name, "Cybruiser", 9) == 0) {
+    } else if (prefix_match(name, "Cybruiser")) {
         return "Cybruiser";
-    } else if (strcmp(name, "SpectreArachnotron", 18) == 0) {
+    } else if (prefix_match(name, "SpectreArachnotron")) {
         return "Arachnospectre";
-    } else if (strcmp(name, "Augnotron", 9) == 0) {
+    } else if (prefix_match(name, "Augnotron")) {
         return "Augnotron";
-    } else if (strcmp(name, "Hectebus", 8) == 0) {
+    } else if (prefix_match(name, "Hectebus")) {
         return "Hectebus";
-    } else if (strcmp(name, "Acubus", 6) == 0) {
+    } else if (prefix_match(name, "Acubus")) {
         return "Acubus";
-    } else if (strcmp(name, "Deathvile", 9) == 0) {
+    } else if (prefix_match(name, "Deathvile")) {
         return "Deathvile";
-    } else if (strcmp(name, "ArachnidOverlord", 16) == 0) {
+    } else if (prefix_match(name, "ArachnidOverlord")) {
         return "Arachnid Overlord";
-    } else if (strcmp(name, "Cyberlord", 9) == 0) {
+    } else if (prefix_match(name, "Cyberlord")) {
         return "Cyberlord";
     }
 
@@ -560,50 +517,52 @@ function str pp_name(str name) {
     ////////////////////////////////////////////////////////////////////////////////
 
     // Doom
-    if (stricmp(name, "ZombieMan", 9) == 0) {
+    if (prefix_match(name, "ZombieMan")) {
         return "Former Human";
-    } else if (stricmp(name, "ShotgunGuy", 10) == 0) {
+    } else if (prefix_match(name, "ShotgunGuy")) {
         return "Former Human Sergeant";
-    } else if (stricmp(name, "DoomImp", 7) == 0) {
+    } else if (prefix_match(name, "DoomImp")) {
         return "Imp";
-    } else if (stricmp(name, "Demon", 5) == 0) {
+    } else if (prefix_match(name, "Demon")) {
         return "Demon";
-    } else if (stricmp(name, "Spectre", 7) == 0) {
+    } else if (prefix_match(name, "Spectre")) {
         return "Spectre";
-    } else if (stricmp(name, "LostSoul", 8) == 0) {
+    } else if (prefix_match(name, "LostSoul")) {
         return "Lost Soul";
-    } else if (stricmp(name, "Cacodemon", 9) == 0) {
+    } else if (prefix_match(name, "Cacodemon")) {
         return "Cacodemon";
-    } else if (stricmp(name, "BaronOfHell", 11) == 0) {
+    } else if (prefix_match(name, "BaronOfHell")) {
         return "Baron Of Hell";
-    } else if (stricmp(name, "Cyberdemon", 10) == 0) {
+    } else if (prefix_match(name, "Cyberdemon")) {
         return "Cyberdemon";
-    } else if (stricmp(name, "SpiderMastermind", 16) == 0) {
+    } else if (prefix_match(name, "SpiderMastermind")) {
         return "Spider Mastermind";
 
     // Doom 2
-    } else if (stricmp(name, "ChaingunGuy", 11) == 0) {
+    } else if (prefix_match(name, "ChaingunGuy")) {
         return "Heavy Weapon Dude";
-    } else if (stricmp(name, "HellKnight", 10) == 0) {
+    } else if (prefix_match(name, "HellKnight")) {
         return "Hell Knight";
-    } else if (stricmp(name, "Revenant", 8) == 0) {
+    } else if (prefix_match(name, "Revenant")) {
         return "Revenant";
-    } else if (stricmp(name, "Fatso", 5) == 0) {
+    } else if (prefix_match(name, "Fatso")) {
         return "Mancubus";
-    } else if (stricmp(name, "Arachnotron", 11) == 0) {
+    } else if (prefix_match(name, "Arachnotron")) {
         return "Arachnotron";
-    } else if (stricmp(name, "PainElemental", 13) == 0) {
+    } else if (prefix_match(name, "PainElemental")) {
         return "Pain Elemental";
-    } else if (stricmp(name, "Archvile", 8) == 0) {
+    } else if (prefix_match(name, "Archvile")) {
         return "Arch-vile";
-    } else if (stricmp(name, "WolfensteinSS", 13) == 0) {
+    } else if (prefix_match(name, "WolfensteinSS")) {
         return "Wolfenstein SS";
-    } else if (stricmp(name, "CommanderKeen", 13) == 0) {
+    } else if (prefix_match(name, "CommanderKeen")) {
         return "Commander Keen";
-    } else if (stricmp(name, "BossBrain", 9) == 0) {
+    } else if (prefix_match(name, "BossBrain")) {
         return "John Romero";
+    } else if (prefix_match(name, "ExplosiveBarrel")) {
+        return "\cgExplosive Barrel\c-";
     // DOGE!
-    } else if (strcmp(name, "MBFHelperDog") == 0) {
+    } else if (prefix_match(name, "MBFHelperDog")) {
         return "\c[c5]DOGE\c-";
     }
 
