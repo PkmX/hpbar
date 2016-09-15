@@ -19,6 +19,16 @@
 #define MINIMAL_HP_X 640.0
 #define MINIMAL_HP_Y 500.0
 
+#define MAX_TRACKERS 50
+#define NUM_RANKINGS 10
+// This should be -1, but Zandronum 2.1.2 has a bug where ACS_ExecuteAlways would send -1 as 255! WTF?!!!
+#define INVALID_TID (-129)
+
+int tracked_tids[MAX_TRACKERS];
+int tracked_hps[MAX_TRACKERS];
+int tracked_max_hps[MAX_TRACKERS];
+str tracked_names[MAX_TRACKERS];
+
 script "hpbar-enter" enter {
     int pn = PlayerNumber();
 
@@ -27,8 +37,12 @@ script "hpbar-enter" enter {
             int hp = get_target_health();
             int max_hp = get_target_spawn_health();
             if (max_hp <= 0) max_hp = hp;
-            if (max_hp > 0 && max_hp >= GetCVar("hpbar_server_min_maxhp")) {
-                ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
+            if (max_hp > 0) {
+                if (max_hp >= GetCVar("hpbar_server_min_maxhp")) {
+                    ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
+                }
+
+                ACS_ExecuteAlways(31235, 0);
             }
         }
 
@@ -93,21 +107,151 @@ function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
     HudMessage(s: "A"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
 }
 
+function str color_code_by_hp_percentage(int p) {
+    if (p >= 100)
+        return "\c[x5]";
+    else if (p >= 75)
+        return "\cd";
+    else if (p >= 25)
+        return "\ck";
+
+    return "\cg";
+}
+
 function void show_minimal_hpbar(int hp_percentage) {
     SetHudSize(MINIMAL_HUD_WIDTH, MINIMAL_HUD_HEIGHT, false);
 
-    str color_code;
-    if (hp_percentage >= 100)
-        color_code = "\c[x5]";
-    else if (hp_percentage >= 75)
-        color_code = "\cd";
-    else if (hp_percentage >= 25)
-        color_code = "\ck";
-    else
-        color_code ="\cg";
 
     SetFont("NORMAL");
-    HudMessage(s: color_code, d: hp_percentage, s: "%\c-"; HUDMSG_FADEOUT, 6000, CR_UNTRANSLATED, MINIMAL_HP_X, MINIMAL_HP_Y, MINIMAL_HOLDTIME, MINIMAL_FADETIME);
+    HudMessage(s: color_code_by_hp_percentage(hp_percentage), d: hp_percentage, s: "%\c-";
+               HUDMSG_FADEOUT, 6000, CR_UNTRANSLATED, MINIMAL_HP_X, MINIMAL_HP_Y, MINIMAL_HOLDTIME, MINIMAL_FADETIME);
+}
+
+script "hpbar-open" open {
+    for (int i = 0; i < MAX_TRACKERS; ++i) {
+        tracked_tids[i] = INVALID_TID;
+    }
+}
+
+script 31235 (void) {
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        // We only track monsters. :)
+        if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
+
+        // Give it a new TID if it doesn't have one.
+        int tid = ActivatorTID();
+        if (tid == 0) {
+            tid = UniqueTID(0, 0);
+            Thing_ChangeTID(0, tid);
+        }
+
+        int i;
+        for (int j = MAX_TRACKERS - 1; j >= 0; --j) {
+            if (tracked_tids[j] == tid) {
+                i = -1; // already tracked by another script
+                break;
+            } else if (tracked_tids[j] == INVALID_TID) {
+                i = j;
+            }
+        }
+
+        if (i == -1) terminate;
+
+        tracked_tids[i] = tid;
+        tracked_names[i] = pp_name(GetActorClass(tid));
+        ACS_ExecuteAlways(31236, 0, i, tracked_tids[i]);
+        while (ClassifyActor(tid) != ACTOR_NONE && (ClassifyActor(tid) & ACTOR_ALIVE)) {
+            int old_hp = tracked_hps[i];
+            int old_max_hp = tracked_max_hps[i];
+            tracked_hps[i] = GetActorProperty(tid, APROP_Health);
+            tracked_max_hps[i] = GetActorProperty(tid, APROP_SpawnHealth);
+            if (old_hp != tracked_hps[i] || old_max_hp != tracked_max_hps[i]) {
+                ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_max_hps[i]);
+            }
+            delay(1);
+        }
+
+        tracked_tids[i] = INVALID_TID;
+        ACS_ExecuteAlways(31236, 0, i, INVALID_TID);
+    }
+}
+
+script 31236 (int i, int tid) clientside {
+    tracked_tids[i] = tid;
+    if (tid != INVALID_TID) {
+        tracked_names[i] = pp_name(GetActorClass(0));
+    }
+}
+
+script 31237 (int i, int hp, int max_hp) clientside {
+    tracked_hps[i] = hp;
+    tracked_max_hps[i] = max_hp;
+}
+
+int maxhp_rankings[NUM_RANKINGS];
+
+function bool already_selected(int x, int n) {
+    for (int i = 0; i < n; ++i) {
+        if (x == maxhp_rankings[i]) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+script 31238 (void) net {
+    for (int i = 0; i < MAX_TRACKERS; ++i) {
+        int tid = tracked_tids[i];
+        if (tid != INVALID_TID) {
+            SetActivator(tid);
+            ACS_ExecuteAlways(31236, 0, i, tid);
+            ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_max_hps[i]);
+        }
+    }
+}
+
+script "hpbar-ranking-open-cl" open clientside {
+    for (int i = 0; i < MAX_TRACKERS; ++i) {
+        tracked_tids[i] = INVALID_TID;
+    }
+
+    RequestScriptPuke(31238, 0, 0, 0);
+
+    SetHudSize(1024, 768, false);
+    while (true) {
+        for (int rank = 0; rank < NUM_RANKINGS; ++rank) {
+            int hp_limit = 0;
+            int maxhp_limit = 0;
+
+            maxhp_rankings[rank] = -1;
+
+            for (i = 0; i < MAX_TRACKERS; ++i) {
+                int tid = tracked_tids[i];
+                if (tid != INVALID_TID) {
+                    int hp = tracked_hps[i];
+                    int max_hp = tracked_max_hps[i];
+                    if (max_hp >= maxhp_limit && hp >= hp_limit && !(already_selected(i, rank))) {
+                        maxhp_rankings[rank] = i;
+                        hp_limit = hp;
+                        maxhp_limit = max_hp;
+                    }
+                }
+            }
+
+            int n = maxhp_rankings[rank];
+            if (n == -1) break;
+
+            hp = tracked_hps[n];
+            max_hp = tracked_max_hps[n];
+            str name = tracked_names[n];
+            HudMessage(d: rank + 1, s: ": ", s: name,
+                       s: " (", s: color_code_by_hp_percentage(hp * 100 / max_hp), d: hp, s: "/", d: max_hp, s: "\c-)";
+                       HUDMSG_FADEOUT, 7000 + rank, CR_WHITE, 6.1, 550.0 + rank * 12.0, 1.0 / 35 + 1, 0.1);
+        }
+
+        delay(1);
+    }
 }
 
 script 31300 (void) {
@@ -176,6 +320,18 @@ script 31305 (void) {
 
 function bool get_target_friendly(void) {
     return ACS_ExecuteWithResult(31305);
+}
+
+script 31306 (void) {
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        SetResultValue(ActivatorTID());
+    } else {
+        SetResultValue(-1);
+    }
+}
+
+function bool get_target_tid(void) {
+    return ACS_ExecuteWithResult(31306);
 }
 
 function int to_fixed(int x) {
