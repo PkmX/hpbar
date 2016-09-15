@@ -64,23 +64,23 @@ script 31234 (int player, int hp, int max_hp) clientside {
         int style = GetCVar("hpbar_style");
         if (style == STYLE_FULL) {
             show_full_hpbar(hp, max_hp, hp_percentage);
+
+            SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
+            SetFont("NORMAL");
+            HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
+            int ln = 0;
+
+            if (invul) {
+                HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+                ++ln;
+            }
+
+            if (friendly) {
+                HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+                ++ln;
+            }
         } else if (style == STYLE_MINIMAL) {
             show_minimal_hpbar(hp_percentage);
-        }
-
-        SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
-        SetFont("NORMAL");
-        HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
-        int ln = 0;
-
-        if (invul) {
-            HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-            ++ln;
-        }
-
-        if (friendly) {
-            HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-            ++ln;
         }
     }
 }
