@@ -282,6 +282,8 @@ function str pp_name(str name) {
         return "Shotgun Commando";
     } else if (strcmp(name, "TrueLegendaryCyberdemon") == 0) {
         return "\chTrue \ckLegendary Cyberdemon\c-";
+    } else if (strcmp(name, "TrueLegendaryCardinal") == 0) {
+        return "\chTrue \ckLegendary Cardinal\c-";
     } else if (strcmp(name, "Velocirator") == 0) {
         return "\cdVelocirator\c-";
 
@@ -441,6 +443,8 @@ function str pp_name(str name) {
         return "\cgEnraged\c- \ckLegendary Imp\c-";
     } else if (strcmp(name, "EnragedLegendaryAssaultCaptain") == 0) {
         return "\cgEnraged\c- \ckLegendary Assault Captain\c-";
+    } else if (strcmp(name, "EnragedLegendaryRevenant") == 0) {
+        return "\cgEnraged\c- \ckLegendary Revenant\c-";
     }
 
     ////////////////////////////////////////////////////////////////////////////////
