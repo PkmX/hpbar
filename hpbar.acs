@@ -1,15 +1,23 @@
 #library "hpbar"
 #include "zcommon.acs"
 
-#define HPBAR_HOLDTIME 0.25
+#define STYLE_FULL    1
+#define STYLE_MINIMAL 2
 
-#define HUD_WIDTH 800
-#define HUD_HEIGHT 600
+#define FULL_HUD_WIDTH  800
+#define FULL_HUD_HEIGHT 600
+#define FULL_HOLDTIME 0.25
+#define FULL_HPBAR_X 400.0
+#define FULL_HPBAR_Y 40.0
+#define FULL_NAME_Y  (FULL_HPBAR_Y + 25.0)
+#define FULL_INFO_Y  (FULL_NAME_Y + 12.0)
 
-#define HPBAR_X 400.0
-#define HPBAR_Y 40.0
-#define NAME_Y (HPBAR_Y + 25.0)
-#define INFO_Y (NAME_Y + 12.0)
+#define MINIMAL_HUD_WIDTH  1280
+#define MINIMAL_HUD_HEIGHT 960
+#define MINIMAL_HOLDTIME ((1.0 / 35) + 1)
+#define MINIMAL_FADETIME 0.1
+#define MINIMAL_HP_X 640.0
+#define MINIMAL_HP_Y 500.0
 
 script "hpbar-enter" enter {
     while (true) {
@@ -40,40 +48,37 @@ script 31235 (int player, int hp, int max_hp) clientside {
 
     int style = GetCVar("hpbar_style");
 
-    if (style == 1) {
+    if (style == STYLE_FULL) {
         show_full_hpbar(hp, max_hp, hp_percentage);
-    } else if (style == 2) {
+    } else if (style == STYLE_MINIMAL) {
         show_minimal_hpbar(hp_percentage);
     }
 }
 
 function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
-    SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
-
-    SetFont("HPBAR");
-    HudMessage(s: "A"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, HPBAR_X, HPBAR_Y, HPBAR_HOLDTIME);
+    SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
 
     SetFont("NORMAL");
     HudMessage(d: hp, s: " / ", d: max_hp, s: " (", d: hp_percentage, s: "%)";
-               HUDMSG_FADEOUT, 6000, CR_WHITE, HPBAR_X, HPBAR_Y, HPBAR_HOLDTIME);
+               HUDMSG_FADEOUT, 6000, CR_WHITE, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
 
-    for (int i = 0; i <= 100; ++i) {
-        if (hp_percentage < 25) {
-            SetFont("FILLCRIT");
-        } else if (hp_percentage < 50) {
-            SetFont("FILLDAMG");
-        } else {
-            SetFont("FILLNORM");
-        }
+    if (hp_percentage < 25)
+        SetFont("FILLCRIT");
+    else if (hp_percentage < 50)
+        SetFont("FILLDAMG");
+    else
+        SetFont("FILLNORM");
 
-        SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
-        if (i <= hp_percentage)
-            HudMessage(s: "A"; HUDMSG_FADEOUT , 6001 + i, CR_UNTRANSLATED, HPBAR_X - 97.0 + to_fixed(i * 2), HPBAR_Y, HPBAR_HOLDTIME);
+    for (int i = 0; i <= 100 && i <= hp_percentage; ++i) {
+        HudMessage(s: "A"; HUDMSG_FADEOUT , 6001 + i, CR_UNTRANSLATED, FULL_HPBAR_X - 97.0 + to_fixed(i * 2), FULL_HPBAR_Y, FULL_HOLDTIME);
     }
+
+    SetFont("HPBAR");
+    HudMessage(s: "A"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
 }
 
 function void show_minimal_hpbar(int hp_percentage) {
-    SetHudSize(1280, 960, 0);
+    SetHudSize(MINIMAL_HUD_WIDTH, MINIMAL_HUD_HEIGHT, false);
 
     str color_code;
     if (hp_percentage >= 100)
@@ -86,17 +91,15 @@ function void show_minimal_hpbar(int hp_percentage) {
         color_code ="\cg";
 
     SetFont("NORMAL");
-    HudMessage(s: color_code, d: hp_percentage, s: "%\c-"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, 640.0, 500.0, 1.0 / 35 + 1, 0.1);
+    HudMessage(s: color_code, d: hp_percentage, s: "%\c-"; HUDMSG_FADEOUT, 6000, CR_UNTRANSLATED, MINIMAL_HP_X, MINIMAL_HP_Y, MINIMAL_HOLDTIME, MINIMAL_FADETIME);
 }
 
 script "hpbar-enter-cl" enter clientside {
     while (true) {
-        if (GetCVar("hpbar_style") == 1) {
+        if (GetCVar("hpbar_style") == STYLE_FULL) {
             ACS_ExecuteAlways(31236, 0);
-            delay(1);
-        } else {
-            delay(35);
         }
+        delay(1);
     }
 }
 
@@ -113,18 +116,18 @@ script 31236 (void) clientside {
 
         SetActivator(0);
 
-        SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
+        SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
         SetFont("NORMAL");
-        HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, HPBAR_X, HPBAR_Y + 25.0, HPBAR_HOLDTIME);
+        HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
         int ln = 0;
 
         if (invul) {
-            HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, HPBAR_X, HPBAR_Y + 37.0 + to_fixed(ln * 10), HPBAR_HOLDTIME);
+            HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
             ++ln;
         }
 
         if (friendly) {
-            HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, HPBAR_X, HPBAR_Y + 37.0 + to_fixed(ln * 10), HPBAR_HOLDTIME);
+            HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
             ++ln;
         }
     }
