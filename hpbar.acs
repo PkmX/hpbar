@@ -213,7 +213,7 @@ script 31238 (void) net {
     }
 }
 
-script "hpbar-ranking-open-cl" open clientside {
+script 31239 open clientside {
     for (int i = 0; i < MAX_TRACKERS; ++i) {
         tracked_tids[i] = INVALID_TID;
     }
