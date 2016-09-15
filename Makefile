@@ -1,4 +1,4 @@
-VERSION := 4
+VERSION := 5
 REL_PK3_NAME := hpbar-v$(VERSION).pk3
 DEV_PK3_NAME := hpbar-dev.pk3
 
