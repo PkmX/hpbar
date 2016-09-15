@@ -37,6 +37,17 @@ script 31235 (int player, int hp, int max_hp) clientside {
 
     if (max_hp < GetCVar("hpbar_server_min_maxhp") || max_hp < GetCVar("hpbar_min_maxhp")) terminate;
     int hp_percentage = hp * 100 / max_hp;
+
+    int style = GetCVar("hpbar_style");
+
+    if (style == 1) {
+        show_full_hpbar(hp, max_hp, hp_percentage);
+    } else if (style == 2) {
+        show_minimal_hpbar(hp_percentage);
+    }
+}
+
+function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
     SetHudSize(HUD_WIDTH, HUD_HEIGHT, 0);
 
     SetFont("HPBAR");
@@ -59,10 +70,31 @@ script 31235 (int player, int hp, int max_hp) clientside {
     }
 }
 
+function void show_minimal_hpbar(int hp_percentage) {
+    SetHudSize(1280, 960, 0);
+
+    str color_code;
+    if (hp_percentage >= 100)
+        color_code = "\c[x5]";
+    else if (hp_percentage >= 75)
+        color_code = "\cd";
+    else if (hp_percentage >= 25)
+        color_code = "\ck";
+    else
+        color_code ="\cg";
+
+    SetFont("NORMAL");
+    HudMessage(s: color_code, d: hp_percentage, s: "%\c-"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, 640.0, 500.0, 1.0 / 35 + 1, 0.1);
+}
+
 script "hpbar-enter-cl" enter clientside {
     while (true) {
-        ACS_ExecuteAlways(31236, 0);
-        delay(1);
+        if (GetCVar("hpbar_style") == 1) {
+            ACS_ExecuteAlways(31236, 0);
+            delay(1);
+        } else {
+            delay(35);
+        }
     }
 }
 

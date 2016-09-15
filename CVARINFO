@@ -1,2 +1,3 @@
 server int hpbar_server_min_maxhp = 0;
 user   int hpbar_min_maxhp = 0;
+user   int hpbar_style = 1;
