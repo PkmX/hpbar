@@ -21,7 +21,7 @@ It should work with all mods (sans those that come with their own HP bars, e.g. 
 
 ### v5
 * Add minimal style HP display and the `hpbar_style` cvar.
-* Add pretty names for true legendary cardinals, enraged legendary revenant and explosive barrels!
+* Add pretty names for true legendary cardinals, enraged legendary revenant, friendly players and explosive barrels!
 * Show orange HP bars for monsters with 25~50% HP left.
 
 ### v4

@@ -257,6 +257,8 @@ function str pp_name(str name) {
         return "Darksyde Phil";
     } else if (prefix_match(name, "ModdedExplosiveBarrel")) {
         return pp_name("ExplosiveBarrel");
+    } else if (prefix_match(name, "ComplexDoomPlayer")) {
+        return pp_name("DoomPlayer");
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -425,6 +427,8 @@ function str pp_name(str name) {
         return pp_name("Cardinal");
     } else if (prefix_match(name, "BlueCardinal")) {
         return "\cnCorrupted Cardinal\c-";
+    } else if (prefix_match(name, "ArkMarine")) {
+        return pp_name("DoomPlayer");
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -514,6 +518,10 @@ function str pp_name(str name) {
         return "Arachnid Overlord";
     } else if (prefix_match(name, "Cyberlord")) {
         return "Cyberlord";
+    } else if (prefix_match(name, "RGUPlayer")) {
+        return pp_name("DoomPlayer");
+    } else if (prefix_match(name, "RGULastStandPlayer")) {
+        return pp_name("DoomPlayer");
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -572,6 +580,8 @@ function str pp_name(str name) {
         return "John Romero";
     } else if (prefix_match(name, "ExplosiveBarrel")) {
         return "\cgExplosive Barrel\c-";
+    } else if (prefix_match(name, "DoomPlayer")) {
+        return pp_name("\c[x5]Player\c-");
     // DOGE!
     } else if (prefix_match(name, "MBFHelperDog")) {
         return pp_name("Doge");
