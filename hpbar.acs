@@ -20,38 +20,54 @@
 #define MINIMAL_HP_Y 500.0
 
 script "hpbar-enter" enter {
+    int pn = PlayerNumber();
+
     while (true) {
-        ACS_ExecuteAlways(31234, 0);
+        if (has_target()) {
+            int hp = get_target_health();
+            int max_hp = get_target_spawn_health();
+            if (max_hp <= 0) max_hp = hp;
+            if (max_hp > 0 && max_hp >= GetCVar("hpbar_server_min_maxhp")) {
+                ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
+            }
+        }
+
         delay(1);
     }
 }
 
-script 31234 (void) {
-    int pn = PlayerNumber();
-
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        int hp = GetActorProperty(0, APROP_Health);
-        int max_hp = GetActorProperty(0, APROP_SpawnHealth);
-        if (max_hp <= 0) max_hp = hp;
-        if (max_hp <= 0) terminate;
-
-        SetActivator(0);
-        ACS_ExecuteAlways(31235, 0, pn, hp, max_hp);
-    }
-}
-
-script 31235 (int player, int hp, int max_hp) clientside {
+script 31234 (int player, int hp, int max_hp) clientside {
     if (ConsolePlayerNumber() != player) terminate;
 
-    if (max_hp < GetCVar("hpbar_server_min_maxhp") || max_hp < GetCVar("hpbar_min_maxhp")) terminate;
+    if (max_hp < GetCVar("hpbar_min_maxhp")) terminate;
     int hp_percentage = hp * 100 / max_hp;
 
-    int style = GetCVar("hpbar_style");
+    if (has_target()) {
+        str name = get_target_class();
+        bool invul = get_target_invulerable();
+        bool friendly = get_target_friendly();
 
-    if (style == STYLE_FULL) {
-        show_full_hpbar(hp, max_hp, hp_percentage);
-    } else if (style == STYLE_MINIMAL) {
-        show_minimal_hpbar(hp_percentage);
+        int style = GetCVar("hpbar_style");
+        if (style == STYLE_FULL) {
+            show_full_hpbar(hp, max_hp, hp_percentage);
+        } else if (style == STYLE_MINIMAL) {
+            show_minimal_hpbar(hp_percentage);
+        }
+
+        SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
+        SetFont("NORMAL");
+        HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
+        int ln = 0;
+
+        if (invul) {
+            HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+            ++ln;
+        }
+
+        if (friendly) {
+            HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+            ++ln;
+        }
     }
 }
 
@@ -94,43 +110,72 @@ function void show_minimal_hpbar(int hp_percentage) {
     HudMessage(s: color_code, d: hp_percentage, s: "%\c-"; HUDMSG_FADEOUT, 6000, CR_UNTRANSLATED, MINIMAL_HP_X, MINIMAL_HP_Y, MINIMAL_HOLDTIME, MINIMAL_FADETIME);
 }
 
-script "hpbar-enter-cl" enter clientside {
-    while (true) {
-        if (GetCVar("hpbar_style") == STYLE_FULL) {
-            ACS_ExecuteAlways(31236, 0);
-        }
-        delay(1);
+script 31300 (void) {
+    SetResultValue(SetActivator(0, AAPTR_PLAYER_GETTARGET));
+}
+
+function bool has_target(void) {
+    return ACS_ExecuteWithResult(31300);
+}
+
+script 31301 (void) {
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        SetResultValue(GetActorProperty(0, APROP_Health));
+    } else {
+        SetResultValue(-1);
     }
 }
 
-script 31236 (void) clientside {
-    if (ConsolePlayerNumber() != PlayerNumber()) terminate;
+function int get_target_health(void) {
+    return ACS_ExecuteWithResult(31301);
+}
 
+script 31302 (void) {
     if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        int max_hp = GetActorProperty(0, APROP_SpawnHealth);
-        if (max_hp < GetCVar("hpbar_server_min_maxhp") || max_hp < GetCVar("hpbar_min_maxhp")) terminate;
-
-        int name = GetActorClass(0);
-        bool invul = GetActorProperty(0, APROP_Invulnerable);
-        bool friendly = GetActorProperty(0, APROP_Friendly);
-
-        SetActivator(0);
-
-        SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
-        SetFont("NORMAL");
-        HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
-        int ln = 0;
-
-        if (invul) {
-            HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-            ++ln;
-        }
-
-        if (friendly) {
-            HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-            ++ln;
-        }
+        SetResultValue(GetActorProperty(0, APROP_SpawnHealth));
+    } else {
+        SetResultValue(-1);
     }
+}
+
+function int get_target_spawn_health(void) {
+    return ACS_ExecuteWithResult(31302);
+}
+
+script 31303 (void) {
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        SetResultValue(GetActorClass(0));
+    } else {
+        SetResultValue(-1);
+    }
+}
+
+function str get_target_class(void) {
+    return ACS_ExecuteWithResult(31303);
+}
+
+script 31304 (void) {
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        SetResultValue(GetActorProperty(0, APROP_Invulnerable));
+    } else {
+        SetResultValue(-1);
+    }
+}
+
+function bool get_target_invulerable(void) {
+    return ACS_ExecuteWithResult(31304);
+}
+
+script 31305 (void) {
+    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
+        SetResultValue(GetActorProperty(0, APROP_Friendly));
+    } else {
+        SetResultValue(-1);
+    }
+}
+
+function bool get_target_friendly(void) {
+    return ACS_ExecuteWithResult(31305);
 }
 
 function int to_fixed(int x) {
