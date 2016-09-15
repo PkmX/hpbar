@@ -42,9 +42,7 @@ script "hpbar-enter" enter {
                     ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
                 }
 
-                if (max_hp >= GetCVar("hpbar_server_tracker_threshold")) {
-                    ACS_ExecuteAlways(31235, 0);
-                }
+                ACS_ExecuteAlways(31235, 0);
             }
         }
 
@@ -139,6 +137,8 @@ script 31235 (void) {
     if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
         // We only track monsters. :)
         if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
+
+        if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_server_tracker_threshold")) terminate;
 
         // Give it a new TID if it doesn't have one.
         int tid = ActivatorTID();
