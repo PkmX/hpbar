@@ -1,8 +1,8 @@
 # HPBar Addon
 
-This mod shows HP bars and info about the target being aimed at.
+This mod displays a HP bar and info about the target being aimed at.
 
-It should work with all mods (sans those that come with their own HP bars) and provides special name handling for popular complex doom mods (LCA, RM, HAF, Ark, ILCA) and RGA2.
+It should work with all mods (sans those that come with their own HP bars, e.g. WoC and DnD) and provides special name pretty-printing for popular Complex Doom mods (LCA, RM, HAF, Ark, ILCA) and RGA2.
 
 ## Dependencies
 
@@ -10,12 +10,12 @@ It should work with all mods (sans those that come with their own HP bars) and p
 
 ## CVars
 
-* `hpbar_style` (user): Choose how the HP bar is shown. (default: 1)
+* `hpbar_style` (user): Choose how the HP bar is displayed. (default: 1)
   * 0: Disable HP bars.
   * 1: Show a full HP bar with monster infomation at top.
   * 2: Show target HP percentage under the crosshair.
-* `hpbar_min_maxhp` (user): Only show HP bars for monsters with more HP than this value. This can be useful to reduce visual clutter when fighting lots of monsters. The default is 0 so HP bars are shown for all targets.
-* `hpbar_server_min_maxhp` (server): This is a server-wide variable that controls whether to send HP info to clients and essentially overrides a client's `hpbar_min_maxhp` if this value is higher. It can be used to reduce bandwidth usage. (default: 0)
+* `hpbar_min_maxhp` (user): Only display HP bars for monsters whose spawn HP is higher than this value. This can be useful to reduce visual clutter while fighting lots of monsters. (default: 0)
+* `hpbar_server_min_maxhp` (server): This is a server-wide variable that controls whether to send HP info to clients and essentially overrides a client's `hpbar_min_maxhp` if this value is higher. It can be used to reduce bandwidth usage (as health info for lesser monsters won't be sent over the network). (default: 0)
 
 ## Source
 
