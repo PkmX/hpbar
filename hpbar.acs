@@ -239,12 +239,17 @@ script 31239 open clientside {
             for (i = 0; i < MAX_TRACKERS; ++i) {
                 int tid = tracked_tids[i];
                 if (tid != INVALID_TID) {
-                    int hp = tracked_hps[i];
+                    if (already_selected(i, rank)) continue;
+
                     int max_hp = tracked_max_hps[i];
-                    if (max_hp >= maxhp_limit && hp >= hp_limit && !(already_selected(i, rank))) {
+                    int hp = tracked_hps[i];
+                    if (max_hp > maxhp_limit) {
+                        maxhp_rankings[rank] = i;
+                        maxhp_limit = max_hp;
+                        hp_limit = hp;
+                    } else if (max_hp == maxhp_limit && hp > hp_limit) {
                         maxhp_rankings[rank] = i;
                         hp_limit = hp;
-                        maxhp_limit = max_hp;
                     }
                 }
             }
