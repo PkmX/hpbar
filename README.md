@@ -20,6 +20,12 @@ It should work with all mods (sans those that come with their own HP bars, e.g. 
 
 ## Changelogs
 
+### v6
+* `hpbar_server_tracker_threshold` increased to 2000 by default.
+* HP for selected boss monsters are always tracked regardless of the threshold setting.
+* Trackers are now shown in tabular format.
+* Fixed the case where clients receive invalid tids.
+
 ### v5
 * Add minimal style HP display and the `hpbar_style` cvar.
 * Add pretty names for true legendary cardinals, enraged legendary revenant, friendly players and explosive barrels!
