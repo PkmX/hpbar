@@ -443,9 +443,9 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "DarkDemolisher")) {
         return "\cqDark Demolisher\c-";
     } else if (prefix_match(name, "CerebralSentient")) {
-        return "Cerebral Sentient";
+        return "\cgCerebral Sentient\c-";
     } else if (prefix_match(name, "CyberLord")) {
-        return "Annihilator";
+        return "\cgAnnihilator\c-";
     } else if (prefix_match(name, "DarkCyberdemon")) {
         return "\cqDark Cyberdemon\c-";
     } else if (prefix_match(name, "Cardinal")) {
@@ -480,7 +480,7 @@ function str pp_name(str name) {
         return "\cgCerebral Cardinal\c-";
     // Cydestroyer
     } else if (prefix_match(name, "Arcradimus")) {
-        return "Demon Lord Arcradimus";
+        return "\cgDemon Lord Arcradimus\c-";
     } else if (prefix_match(name, "DesertHornet")) {
         return "DesertHornet";
     } else if (prefix_match(name, "DTDevastatorZombie")) {
@@ -490,9 +490,9 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "Hexa-ShotgunZombie")) {
         return "\crHexa-Shotgun Zombie\c-";
     } else if (prefix_match(name, "FreezerBehemoth")) {
-        return "Freezer Behemoth";
+        return "\cvFreezer Behemoth\c-";
     } else if (prefix_match(name, "FreezerZombie")) {
-        return "Freezer Zombie";
+        return "\cvFreezer Zombie\c-";
     } else if (prefix_match(name, "LegendaryAnnihilator")) {
         return "\ckLegendary Annihilator\c-";
     } else if (prefix_match(name, "LegendaryAssaultCaptain")) {
@@ -526,7 +526,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "LegZombie")) {
         return "\ckLegendary Zombie\c-";
     } else if (prefix_match(name, "PhaseOverlord")) {
-        return "\ct-Phase Overlord\c-";
+        return "\ctPhase Overlord\c-";
     } else if (prefix_match(name, "SandSpirit")) {
         return "\ceSand Spirit\c-";
     } else if (prefix_match(name, "ShotgunCommando")) {
@@ -554,7 +554,7 @@ function str pp_name(str name) {
     // Abaddon
     // Afrit
     if (prefix_match(name, "BabyDDemolisher")) {
-        return "Baby Dark Demolisher";
+        return "\cqBaby Dark Demolisher\c-";
     // Demobus
     } else if (prefix_match(name, "BFGMastermind")) {
         return "BFG Mastermind";
@@ -585,13 +585,13 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "HellArchon")) {
         return "Hell Archon";
     } else if (prefix_match(name, "HellFireBaron")) {
-        return "Hellfire Baron";
+        return "\cgHellfire Baron\c-";
     } else if (prefix_match(name, "HellFireCyberdemon")) {
         return "\cgHellfire Cyberdemon\c-";
     } else if (prefix_match(name, "HomingRocketZombie")) {
         return "Homing Rocket Zombie";
     } else if (prefix_match(name, "ImpLord")) {
-        return "Imp Lord";
+        return "\crImp Lord\c-";
     // Infected
     } else if (prefix_match(name, "SuicideBomber")) {
         return "Suicide Bomber";
@@ -608,7 +608,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "PistolZombie")) {
         return "Pistol Zombie";
     } else if (prefix_match(name, "ProtoDestroyer")) {
-        return "Proto-Destroyer";
+        return "\cgProto-Destroyer\c-";
     } else if (prefix_match(name, "PyroImp")) {
         return "Pyro Imp";
     } else if (prefix_match(name, "Terminator2")) {
@@ -616,7 +616,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "ToxicImp")) {
         return "Toxic Imp";
     } else if (prefix_match(name, "ToxicLord")) {
-        return "Toxic Lord";
+        return "\cdToxic Lord\c-";
     } else if (prefix_match(name, "WidowMaker")) {
         return "Widow Maker";
     }
@@ -631,7 +631,7 @@ function str pp_name(str name) {
     ////////////////////////////////////////////////////////////////////////////////
     // Ark
     ////////////////////////////////////////////////////////////////////////////////
-    if (prefix_match(name, "Complex Cardinal")) {
+    if (prefix_match(name, "ComplexCardinal")) {
         return pp_name("Cardinal");
     } else if (prefix_match(name, "BlueCardinal")) {
         return "\cnCorrupted Cardinal\c-";
