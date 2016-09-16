@@ -138,7 +138,7 @@ script 31235 (void) {
         // We only track monsters. :)
         if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
 
-        if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_server_tracker_threshold")) terminate;
+        if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_server_tracker_threshold") && !is_boss(GetActorClass(0))) terminate;
 
         // Give it a new TID if it doesn't have one.
         int tid = ActivatorTID();
@@ -796,4 +796,135 @@ function str pp_name(str name) {
     }
 
     return name;
+}
+
+// Ideally, we should check whether the BOSS flag is set on the actor, but it isn't supported in Zandronum 2.1.2 yet. So we simply whitelist most common bosses in popular WADs.
+function bool is_boss(str name) {
+    // Complex
+    if (prefix_match(name, "DarkHellion")) {
+        return true;
+    } else if (prefix_match(name, "Demolisher")) {
+        return true;
+    } else if (prefix_match(name, "DarkDemolisher")) {
+        return true;
+    } else if (prefix_match(name, "CerebralSentient")) {
+        return true;
+    } else if (prefix_match(name, "CyberLord")) {
+        return true;
+    } else if (prefix_match(name, "DarkCyberdemon")) {
+        return true;
+    } else if (prefix_match(name, "Cardinal")) {
+        return true;
+    } else if (prefix_match(name, "Hitler")) {
+        return true;
+    }
+
+    // LCA
+    if (prefix_match(name, "Cardihilator")) {
+        return true;
+    } else if (prefix_match(name, "CerebralCardinal")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryAnnihilator")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryAssaultCaptain")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryBabySentient")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryBehemoth")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryCardinal")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryCommando")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryCyberdemon")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryCyberNoble")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryFiend")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryHellKnight")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryImp")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryRedeemer")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryRevenant")) {
+        return true;
+    } else if (prefix_match(name, "LegendarySentient")) {
+        return true;
+    } else if (prefix_match(name, "LegendaryStealthTrooper")) {
+        return true;
+    } else if (prefix_match(name, "LegZombie")) {
+        return true;
+    } else if (prefix_match(name, "TrueLegendaryCyberdemon")) {
+        return true;
+    } else if (prefix_match(name, "TrueLegendaryCardinal")) {
+        return true;
+    } else if (prefix_match(name, "Velocirator")) {
+        return true;
+    }
+
+    // Randommons
+    if (prefix_match(name, "BFGMastermind")) {
+        return true;
+    } else if (prefix_match(name, "CerebralCommander")) {
+        return true;
+    } else if (prefix_match(name, "CorruptedCyberLord")) {
+        return true;
+    } else if (prefix_match(name, "HellFireBaron")) {
+        return true;
+    } else if (prefix_match(name, "HellFireCyberdemon")) {
+        return true;
+    } else if (prefix_match(name, "PhaseWarlord")) {
+        return true;
+    } else if (prefix_match(name, "Terminator2")) {
+        return true;
+    }
+
+    // HAF
+    if (prefix_match(name, "DementedTerminator")) {
+        return true;
+    }
+
+    // Ark
+    if (prefix_match(name, "ComplexCardinal")) {
+        return true;
+    } else if (prefix_match(name, "BlueCardinal")) {
+        return true;
+    }
+
+    // Insane LCA
+    if (prefix_match(name, "EnragedLegZombie")) {
+        return true;
+    } else if (prefix_match(name, "EnragedLegendaryImp")) {
+        return true;
+    } else if (prefix_match(name, "EnragedLegendaryAssaultCaptain")) {
+        return true;
+    } else if (prefix_match(name, "EnragedLegendaryRevenant")) {
+        return true;
+    }
+
+    // RGA2
+    if (prefix_match(name, "StoneAbaddon")) {
+        return true;
+    } else if (prefix_match(name, "SuperRevenant")) {
+        return true;
+    } else if (prefix_match(name, "Deathvile")) {
+        return true;
+    } else if (prefix_match(name, "ArachnidOverlord")) {
+        return true;
+    } else if (prefix_match(name, "Cyberlord")) {
+        return true;
+    }
+
+    // Doom
+    if (prefix_match(name, "Archvile")) {
+        return true;
+    } else if (prefix_match(name, "Cyberdemon")) {
+        return true;
+    } else if (prefix_match(name, "SpiderMastermind")) {
+        return true;
+    }
+
+    return false;
 }

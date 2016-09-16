@@ -16,7 +16,7 @@ It should work with all mods (sans those that come with their own HP bars, e.g. 
   * 2: Show target HP percentage under the crosshair.
 * `hpbar_min_maxhp` (user): Only display HP bars for monsters whose spawn HP is higher than this value. This can be useful to reduce visual clutter while fighting lots of monsters. (default: 0)
 * `hpbar_server_min_maxhp` (server): This is a server-wide variable that controls whether to send HP info to clients and essentially overrides a client's `hpbar_min_maxhp` if this value is higher. It can be used to reduce bandwidth usage (as health info for lesser monsters won't be sent over the network). (default: 0)
-* `hpbar_server_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 1000)
+* `hpbar_server_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
 
 ## Changelogs
 
