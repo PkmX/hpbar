@@ -179,15 +179,23 @@ script 31235 (void) {
 }
 
 script 31236 (int i, int tid) clientside {
-    tracked_tids[i] = tid;
-    if (tid != INVALID_TID) {
-        tracked_names[i] = pp_name(GetActorClass(0));
+    if (tid == INVALID_TID) {
+        tracked_tids[i] = tid;
+    } else {
+        if (ClassifyActor(0) != ACTOR_NONE) {
+            tracked_tids[i] = tid;
+            tracked_names[i] = pp_name(GetActorClass(0));
+        } else {
+            tracked_tids[i] = INVALID_TID;
+        }
     }
 }
 
 script 31237 (int i, int hp, int max_hp) clientside {
-    tracked_hps[i] = hp;
-    tracked_max_hps[i] = max_hp;
+    if (max_hp != 0) {
+        tracked_hps[i] = hp;
+        tracked_max_hps[i] = max_hp;
+    }
 }
 
 int maxhp_rankings[NUM_RANKINGS];
