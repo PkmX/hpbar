@@ -928,3 +928,5 @@ function bool is_boss(str name) {
 
     return false;
 }
+
+// vim: set ft=c:
