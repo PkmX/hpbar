@@ -111,11 +111,13 @@ function str hpp_to_color(int p) {
     if (p >= 100)
         return "\c[x5]";
     else if (p >= 75)
-        return "\cd";
-    else if (p >= 25)
+        return "\c[a6]";
+    else if (p >= 50)
         return "\ck";
+    else if (p >= 25)
+        return "\c[o4]";
 
-    return "\cg";
+    return "\cr";
 }
 
 function void show_minimal_hpbar(int hp_percentage) {
@@ -462,7 +464,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "CerebralSentient")) {
         return "\cgCerebral Sentient\c-";
     } else if (prefix_match(name, "CyberLord")) {
-        return "\cgAnnihilator\c-";
+        return "\cgCyberlord\c-";
     } else if (prefix_match(name, "DarkCyberdemon")) {
         return "\cqDark Cyberdemon\c-";
     } else if (prefix_match(name, "Cardinal")) {
@@ -497,7 +499,7 @@ function str pp_name(str name) {
         return "\cgCerebral Cardinal\c-";
     // Cydestroyer
     } else if (prefix_match(name, "Arcradimus")) {
-        return "\cgDemon Lord Arcradimus\c-";
+        return "\c[z4]Demon Lord Arcradimus\c-";
     } else if (prefix_match(name, "DesertHornet")) {
         return "DesertHornet";
     } else if (prefix_match(name, "DTDevastatorZombie")) {
@@ -511,37 +513,37 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "FreezerZombie")) {
         return "\cvFreezer Zombie\c-";
     } else if (prefix_match(name, "LegendaryAnnihilator")) {
-        return "\ckLegendary Annihilator\c-";
+        return "\c[z3]Legendary Annihilator\c-";
     } else if (prefix_match(name, "LegendaryAssaultCaptain")) {
-        return "\ckLegendary Assault Captain\c-";
+        return "\c[z3]Legendary Assault Captain\c-";
     } else if (prefix_match(name, "LegendaryBabySentient")) {
-        return "\ckLegendary Baby Sentient\c-";
+        return "\c[z3]Legendary Baby Sentient\c-";
     } else if (prefix_match(name, "LegendaryBehemoth")) {
-        return "\ckLegendary Behemoth\c-";
+        return "\c[z3]Legendary Behemoth\c-";
     } else if (prefix_match(name, "LegendaryCardinal")) {
-        return "\ckLegendary Cardinal\c-";
+        return "\c[z3]Legendary Cardinal\c-";
     } else if (prefix_match(name, "LegendaryCommando")) {
-        return "\ckLegendary Commando\c-";
+        return "\c[z3]Legendary Commando\c-";
     } else if (prefix_match(name, "LegendaryCyberdemon")) {
-        return "\ckLegendary Cyberdemon\c-";
+        return "\c[z3]Legendary Cyberdemon\c-";
     } else if (prefix_match(name, "LegendaryCyberNoble")) {
-        return "\ckLegendary Cyber Noble\c-";
+        return "\c[z3]Legendary Cyber Noble\c-";
     } else if (prefix_match(name, "LegendaryFiend")) {
-        return "\ckLegendary Fiend\c-";
+        return "\c[z3]Legendary Fiend\c-";
     } else if (prefix_match(name, "LegendaryHellKnight")) {
-        return "\ckLegendary Hell Knight\c-";
+        return "\c[z3]Legendary Hell Knight\c-";
     } else if (prefix_match(name, "LegendaryImp")) {
-        return "\ckLegendary Imp\c-";
+        return "\c[z3]Legendary Imp\c-";
     } else if (prefix_match(name, "LegendaryRedeemer")) {
-        return "\ckLegendary Redeemer\c-";
+        return "\c[z3]Legendary Redeemer\c-";
     } else if (prefix_match(name, "LegendaryRevenant")) {
-        return "\ckLegendary Revenant\c-";
+        return "\c[z3]Legendary Revenant\c-";
     } else if (prefix_match(name, "LegendarySentient")) {
-        return "\ckLegendary Sentient\c-";
+        return "\c[z3]Legendary Sentient\c-";
     } else if (prefix_match(name, "LegendaryStealthTrooper")) {
-        return "\ckLegendary Stealth Trooper\c-";
+        return "\c[z3]Legendary Stealth Trooper\c-";
     } else if (prefix_match(name, "LegZombie")) {
-        return "\ckLegendary Zombie\c-";
+        return "\c[z3]Legendary Zombie\c-";
     } else if (prefix_match(name, "PhaseOverlord")) {
         return "\ctPhase Overlord\c-";
     } else if (prefix_match(name, "SandSpirit")) {
@@ -549,9 +551,9 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "ShotgunCommando")) {
         return "Shotgun Commando";
     } else if (prefix_match(name, "TrueLegendaryCyberdemon")) {
-        return "\chTrue \ckLegendary Cyberdemon\c-";
+        return "\c[l5]True\c- \c[z3]Legendary Cyberdemon\c-";
     } else if (prefix_match(name, "TrueLegendaryCardinal")) {
-        return "\chTrue \ckLegendary Cardinal\c-";
+        return "\c[l5]True\c- \c[z3]Legendary Cardinal\c-";
     } else if (prefix_match(name, "Velocirator")) {
         return "\cdVelocirator\c-";
 
@@ -582,7 +584,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "ChaingunFiend")) {
         return "Chaingun Fiend";
     } else if (prefix_match(name, "CorruptedCyberLord")) {
-        return "\cnCorrupted Annihilator\c-";
+        return "\c[l5]Corrupted Annihilator\c-";
     } else if (prefix_match(name, "CryoDemon")) {
         return "Cyro Demon";
     } else if (prefix_match(name, "CryoImp")) {
@@ -604,7 +606,7 @@ function str pp_name(str name) {
     } else if (prefix_match(name, "HellFireBaron")) {
         return "\cgHellfire Baron\c-";
     } else if (prefix_match(name, "HellFireCyberdemon")) {
-        return "\cgHellfire Cyberdemon\c-";
+        return "\c[z4]Hellfire Cyberdemon\c-";
     } else if (prefix_match(name, "HomingRocketZombie")) {
         return "Homing Rocket Zombie";
     } else if (prefix_match(name, "ImpLord")) {
@@ -642,7 +644,7 @@ function str pp_name(str name) {
     // HAF
     ////////////////////////////////////////////////////////////////////////////////
     if (prefix_match(name, "DementedTerminator")) {
-        return "\cgDemented Terminator\c-";
+        return "\c[o7]Demented\c- \crTerminator\c-";
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -651,7 +653,7 @@ function str pp_name(str name) {
     if (prefix_match(name, "ComplexCardinal")) {
         return pp_name("Cardinal");
     } else if (prefix_match(name, "BlueCardinal")) {
-        return "\cnCorrupted Cardinal\c-";
+        return "\c[l5]Corrupted Cardinal\c-";
     } else if (prefix_match(name, "ArkMarine")) {
         return pp_name("DoomPlayer");
     }
@@ -660,13 +662,13 @@ function str pp_name(str name) {
     // Insane LCA
     ////////////////////////////////////////////////////////////////////////////////
     if (prefix_match(name, "EnragedLegZombie")) {
-        return "\cgEnraged\c- \ckLegendary Zombie\c-";
+        return "\c[m6]Enraged\c- \c[z3]Legendary Zombie\c-";
     } else if (prefix_match(name, "EnragedLegendaryImp")) {
-        return "\cgEnraged\c- \ckLegendary Imp\c-";
+        return "\c[m6]Enraged\c- \c[z3]Legendary Imp\c-";
     } else if (prefix_match(name, "EnragedLegendaryAssaultCaptain")) {
-        return "\cgEnraged\c- \ckLegendary Assault Captain\c-";
+        return "\c[m6]Enraged\c- \c[z3]Legendary Assault Captain\c-";
     } else if (prefix_match(name, "EnragedLegendaryRevenant")) {
-        return "\cgEnraged\c- \ckLegendary Revenant\c-";
+        return "\c[m6]Enraged\c- \c[z3]Legendary Revenant\c-";
     }
 
     ////////////////////////////////////////////////////////////////////////////////
