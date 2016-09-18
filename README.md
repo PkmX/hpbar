@@ -18,7 +18,17 @@ It should work with all mods (sans those that come with their own HP bars, e.g. 
 * `hpbar_server_min_maxhp` (server): This is a server-wide variable that controls whether to send HP info to clients and essentially overrides a client's `hpbar_min_maxhp` if this value is higher. It can be used to reduce bandwidth usage (as health info for lesser monsters won't be sent over the network). (default: 0)
 * `hpbar_server_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
 
+## Notes for Modders
+
+To support customized names for monsters in your mod, simply add the name to be displayed in the `TAG` property of the monster actor.
+
 ## Changelogs
+
+### v7
+* Moved the HP tracker rightwards so it doesn't clip on 4:3 resolutions.
+* Moved the HP tracker upwards to avoid overlapping with RGA's player health bar.
+* Display monster names defined in the TAG property before resorting to class names.
+* Pretty-printed RGA2 monster names are removed, since they are now from the actor's TAG since RGA2 1.38b.
 
 ### v6
 * `hpbar_server_tracker_threshold` increased to 2000 by default.
