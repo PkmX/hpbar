@@ -2,3 +2,4 @@ server int hpbar_server_min_maxhp = 0;
 user   int hpbar_min_maxhp = 0;
 user   int hpbar_style = 1;
 server int hpbar_server_tracker_threshold = 2000;
+user   bool hpbar_show_friendly = false;

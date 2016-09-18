@@ -61,6 +61,8 @@ script 31234 (int player, int hp, int max_hp) clientside {
         bool invul = get_target_invulerable();
         bool friendly = get_target_friendly();
 
+        if (friendly && !GetCVar("hpbar_show_friendly")) terminate;
+
         int style = GetCVar("hpbar_style");
         if (style == STYLE_FULL) {
             show_full_hpbar(hp, max_hp, hp_percentage);
