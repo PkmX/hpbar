@@ -673,77 +673,7 @@ function str pp_name(str name) {
     // RGA2
     ////////////////////////////////////////////////////////////////////////////////
 
-    if (prefix_match(name, "DrDude")) {
-        return "Scientist";
-    } else if (prefix_match(name, "SuperShotgunGuy")) {
-        return "Super Shotgun Guy";
-    } else if (prefix_match(name, "DoubleChaingunGuy")) {
-        return "Elite Commando";
-    } else if (prefix_match(name, "GrenadeGuy")) {
-        return "Grenadier";
-    } else if (prefix_match(name, "ZombieMarine")) {
-        return "Corrupted Marine";
-    } else if (prefix_match(name, "SpaceNazi")) {
-        return "Space Nazi";
-    } else if (prefix_match(name, "UziGuy")) {
-        return "Nazi Collaborator";
-    } else if (prefix_match(name, "RGAScriptedMarine")) {
-        return "Marine Traitor";
-    } else if (prefix_match(name, "DarkImp")) {
-        return "Blood Imp";
-    } else if (prefix_match(name, "ImpBoy")) {
-        return "Imp Trooper";
-    } else if (prefix_match(name, "BloodDemon")) {
-        return "Blood Demon";
-    } else if (prefix_match(name, "StoneDemon")) {
-        return "Stone Demon";
-    } else if (prefix_match(name, "SpectreStone")) {
-        return "Stone Spectre";
-    } else if (prefix_match(name, "SpectreBlood")) {
-        return "Blood Spectre";
-    } else if (prefix_match(name, "KamikazeSoul")) {
-        return "Damned Soul";
-    } else if (prefix_match(name, "KamikazePainElemental")) {
-        return "Kamikaze Pain Elemental";
-    } else if (prefix_match(name, "Cacolantern")) {
-        return "Cacolantern";
-    } else if (prefix_match(name, "BlueCacodemon")) {
-        return "Bluodemon";
-    } else if (prefix_match(name, "Abaddon")) {
-        return "Abaddon";
-    } else if (prefix_match(name, "StoneAbaddon")) {
-        return "Ascended Cacodemon";
-    } else if (prefix_match(name, "GreenRevenant")) {
-        return "Assault Revenant";
-    } else if (prefix_match(name, "GoldRevenant")) {
-        return "Sniper Revenant";
-    } else if (prefix_match(name, "BlueRevenant")) {
-        return "Revenant Lord";
-    } else if (prefix_match(name, "SuperRevenant")) {
-        return "Revenant God";
-    } else if (prefix_match(name, "SpectreHellKnight")) {
-        return "Hell Spectre";
-    } else if (prefix_match(name, "StoneKnight")) {
-        return "Stone Knight";
-    } else if (prefix_match(name, "Belphegor")) {
-        return "Belphegor";
-    } else if (prefix_match(name, "Cybruiser")) {
-        return "Cybruiser";
-    } else if (prefix_match(name, "SpectreArachnotron")) {
-        return "Arachnospectre";
-    } else if (prefix_match(name, "Augnotron")) {
-        return "Augnotron";
-    } else if (prefix_match(name, "Hectebus")) {
-        return "Hectebus";
-    } else if (prefix_match(name, "Acubus")) {
-        return "Acubus";
-    } else if (prefix_match(name, "Deathvile")) {
-        return "Deathvile";
-    } else if (prefix_match(name, "ArachnidOverlord")) {
-        return "Arachnid Overlord";
-    } else if (prefix_match(name, "Cyberlord")) {
-        return "Cyberlord";
-    } else if (prefix_match(name, "RGUPlayer")) {
+    if (prefix_match(name, "RGUPlayer")) {
         return pp_name("DoomPlayer");
     } else if (prefix_match(name, "RGULastStandPlayer")) {
         return pp_name("DoomPlayer");
