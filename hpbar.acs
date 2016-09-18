@@ -69,7 +69,7 @@ script 31234 (int player, int hp, int max_hp) clientside {
 
             SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
             SetFont("NORMAL");
-            HudMessage(s: pp_name(name); HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
+            HudMessage(s: name; HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
             int ln = 0;
 
             if (invul) {
@@ -164,7 +164,7 @@ script 31235 (void) {
         if (i == -1) terminate;
 
         tracked_tids[i] = tid;
-        tracked_names[i] = pp_name(GetActorClass(tid));
+        tracked_names[i] = pp_name(GetActorClass(0), GetActorProperty(0, APROP_NameTag));
         ACS_ExecuteAlways(31236, 0, i, tracked_tids[i]);
         while (ClassifyActor(tid) != ACTOR_NONE && (ClassifyActor(tid) & ACTOR_ALIVE)) {
             int old_hp = tracked_hps[i];
@@ -188,7 +188,7 @@ script 31236 (int i, int tid) clientside {
     } else {
         if (ClassifyActor(0) != ACTOR_NONE) {
             tracked_tids[i] = tid;
-            tracked_names[i] = pp_name(GetActorProperty(0, APROP_NameTag));
+            tracked_names[i] = pp_name(GetActorClass(0), GetActorProperty(0, APROP_NameTag));
         } else {
             tracked_tids[i] = INVALID_TID;
         }
@@ -311,7 +311,7 @@ function int get_target_spawn_health(void) {
 
 script 31303 (void) {
     if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        SetResultValue(GetActorProperty(0, APROP_NameTag));
+        SetResultValue(pp_name(GetActorClass(0), GetActorProperty(0, APROP_NameTag)));
     } else {
         SetResultValue(-1);
     }
@@ -366,67 +366,67 @@ function bool prefix_match(str x, str y) {
     return stricmp(x, y, strlen(y)) == 0;
 }
 
-function str pp_name(str name) {
+function str pp_name(str class, str tag) {
     ////////////////////////////////////////////////////////////////////////////////
     // Complex Doom
     ////////////////////////////////////////////////////////////////////////////////
-    if (prefix_match(name, "PlasmaGunner")) {
+    if (prefix_match(class, "PlasmaGunner")) {
         return "Plasma Zombie";
-    } else if (prefix_match(name, "Railgunner")) {
+    } else if (prefix_match(class, "Railgunner")) {
         return "Railgunner";
-    } else if (prefix_match(name, "DemonTechZombie")) {
+    } else if (prefix_match(class, "DemonTechZombie")) {
         return "Demon Tech Zombie";
-    } else if (prefix_match(name, "RocketZombie")) {
+    } else if (prefix_match(class, "RocketZombie")) {
         return "Rocket Zombie";
-    } else if (prefix_match(name, "ShotgunZombie")) {
+    } else if (prefix_match(class, "ShotgunZombie")) {
         return "Shotgunner";
-    } else if (prefix_match(name, "AssaultShotgunZombie")) {
+    } else if (prefix_match(class, "AssaultShotgunZombie")) {
         return "Assault Shotgunner";
-    } else if (prefix_match(name, "SuperShotgunZombie")) {
+    } else if (prefix_match(class, "SuperShotgunZombie")) {
         return "Double Barrel Shotgun Zombie";
-    } else if (prefix_match(name, "QuadShotgunZombie")) {
+    } else if (prefix_match(class, "QuadShotgunZombie")) {
         return "\crQuad Barrel Shotgun Zombie\c-";
-    } else if (prefix_match(name, "AssaultRifleZombie")) {
+    } else if (prefix_match(class, "AssaultRifleZombie")) {
         return "Assault Rifle Zombie";
     // Chaingunner
     // Minigunner
-    } else if (prefix_match(name, "BFGZombieman")) {
+    } else if (prefix_match(class, "BFGZombieman")) {
         return "BFG Zombie";
     // Imp
-    } else if (prefix_match(name, "VoidImp")) {
+    } else if (prefix_match(class, "VoidImp")) {
         return "Void Imp";
     // Devil
-    } else if (prefix_match(name, "PhaseImp")) {
+    } else if (prefix_match(class, "PhaseImp")) {
         return "\ctPhase Imp\c-";
-    } else if (prefix_match(name, "BullFiend")) {
+    } else if (prefix_match(class, "BullFiend")) {
         return "Bull Fiend";
-    } else if (prefix_match(name, "CyberFiend")) {
+    } else if (prefix_match(class, "CyberFiend")) {
         return "Cyber Fiend";
-    } else if (prefix_match(name, "MagmaFiend")) {
+    } else if (prefix_match(class, "MagmaFiend")) {
         return "Magma Fiend";
-    } else if (prefix_match(name, "DTechFiend")) {
+    } else if (prefix_match(class, "DTechFiend")) {
         return "\cqDTech Fiend\c-";
-    } else if (prefix_match(name, "Spectre~")) {
-        return pp_name("Spectre");
+    } else if (prefix_match(class, "Spectre~")) {
+        return pp_name("Spectre", tag);
     // Lurker
     // Spook
-    } else if (prefix_match(name, "TerrorSoul")) {
+    } else if (prefix_match(class, "TerrorSoul")) {
         return "Terror Soul";
-    } else if (prefix_match(name, "ForgottenOne")) {
+    } else if (prefix_match(class, "ForgottenOne")) {
         return "Forgotten One";
-    } else if (prefix_match(name, "PoisonSoul")) {
+    } else if (prefix_match(class, "PoisonSoul")) {
         return "Poison Soul";
     // Rictus
-    } else if (prefix_match(name, "Cacodemon~")) {
-        return pp_name("Cacodemon");
+    } else if (prefix_match(class, "Cacodemon~")) {
+        return pp_name("Cacodemon", tag);
     // Watcher
     // Cacomental
-    } else if (prefix_match(name, "SoulKeeper")) {
+    } else if (prefix_match(class, "SoulKeeper")) {
         return "Soul Keeper";
     // Defiler
-    } else if (prefix_match(name, "PoisonElemental")) {
+    } else if (prefix_match(class, "PoisonElemental")) {
         return "Poison Elemental";
-    } else if (prefix_match(name, "BombElemental")) {
+    } else if (prefix_match(class, "BombElemental")) {
         return "Bomb Elemental";
     // Hectebus
     // Daedabus
@@ -434,138 +434,138 @@ function str pp_name(str name) {
     // Barbatos
     // Dualachnotron
     // Fusionite
-    } else if (prefix_match(name, "BabyDemolisher")) {
+    } else if (prefix_match(class, "BabyDemolisher")) {
         return "Baby Demolisher";
-    } else if (prefix_match(name, "BabySentient")) {
+    } else if (prefix_match(class, "BabySentient")) {
         return "Baby Sentient";
     // Guardian
     // Cadaver
-    } else if (prefix_match(name, "HellfireRevenant")) {
+    } else if (prefix_match(class, "HellfireRevenant")) {
         return "Hellfire Revenant";
     // Famine
-    } else if (prefix_match(name, "HellKnight~")) {
-        return pp_name("HellKnight");
-    } else if (prefix_match(name, "PyroDemon")) {
+    } else if (prefix_match(class, "HellKnight~")) {
+        return pp_name("HellKnight", tag);
+    } else if (prefix_match(class, "PyroDemon")) {
         return "Pyro Demon";
-    } else if (prefix_match(name, "CyberNoble")) {
+    } else if (prefix_match(class, "CyberNoble")) {
         return "Cyber Noble";
-    } else if (prefix_match(name, "HellDuke")) {
+    } else if (prefix_match(class, "HellDuke")) {
         return "\cdHell Duke\c-";
-    } else if (prefix_match(name, "BaronOfHell~")) {
-        return pp_name("BaronOfHell");
-    } else if (prefix_match(name, "BruiserDemon")) {
+    } else if (prefix_match(class, "BaronOfHell~")) {
+        return pp_name("BaronOfHell", tag);
+    } else if (prefix_match(class, "BruiserDemon")) {
         return "BruiserDemon";
     // Cybruiser
     // Exile
     // Diabolist
-    } else if (prefix_match(name, "DarkHellion")) {
+    } else if (prefix_match(class, "DarkHellion")) {
         return "\cmDark Hellion\c-";
     // Demolisher
-    } else if (prefix_match(name, "DarkDemolisher")) {
+    } else if (prefix_match(class, "DarkDemolisher")) {
         return "\cqDark Demolisher\c-";
-    } else if (prefix_match(name, "CerebralSentient")) {
+    } else if (prefix_match(class, "CerebralSentient")) {
         return "\cgCerebral Sentient\c-";
-    } else if (prefix_match(name, "CyberLord")) {
+    } else if (prefix_match(class, "CyberLord")) {
         return "\cgCyberlord\c-";
-    } else if (prefix_match(name, "DarkCyberdemon")) {
+    } else if (prefix_match(class, "DarkCyberdemon")) {
         return "\cqDark Cyberdemon\c-";
-    } else if (prefix_match(name, "Cardinal")) {
+    } else if (prefix_match(class, "Cardinal")) {
         return "\cgDark Cardinal\c-";
-    } else if (prefix_match(name, "SSNazi")) {
+    } else if (prefix_match(class, "SSNazi")) {
         return "SS Nazi";
     // Mutant
     // Officer
-    } else if (prefix_match(name, "NaziDog")) {
+    } else if (prefix_match(class, "NaziDog")) {
         return "Nazi Guard Dog";
     // Hitler
-    } else if (prefix_match(name, "HitlerNoSuit")) {
+    } else if (prefix_match(class, "HitlerNoSuit")) {
         return "Hitler";
-    } else if (prefix_match(name, "DSP")) {
+    } else if (prefix_match(class, "DSP")) {
         return "Darksyde Phil";
-    } else if (prefix_match(name, "ModdedExplosiveBarrel")) {
-        return pp_name("ExplosiveBarrel");
-    } else if (prefix_match(name, "ComplexDoomPlayer")) {
-        return pp_name("DoomPlayer");
+    } else if (prefix_match(class, "ModdedExplosiveBarrel")) {
+        return pp_name("ExplosiveBarrel", tag);
+    } else if (prefix_match(class, "ComplexDoomPlayer")) {
+        return pp_name("DoomPlayer", tag);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // LCA
     ////////////////////////////////////////////////////////////////////////////////
-    if (prefix_match(name, "BFG10KGeneral")) {
+    if (prefix_match(class, "BFG10KGeneral")) {
         return "\cdBFG10K General\c-";
-    } else if (prefix_match(name, "BFGCacodemon")) {
+    } else if (prefix_match(class, "BFGCacodemon")) {
         return "\cdBFG Cacodemon\c-";
-    } else if (prefix_match(name, "Cardihilator")) {
+    } else if (prefix_match(class, "Cardihilator")) {
         return "\cgCardihilator\c-";
-    } else if (prefix_match(name, "CerebralCardinal")) {
+    } else if (prefix_match(class, "CerebralCardinal")) {
         return "\cgCerebral Cardinal\c-";
     // Cydestroyer
-    } else if (prefix_match(name, "Arcradimus")) {
+    } else if (prefix_match(class, "Arcradimus")) {
         return "\c[z4]Demon Lord Arcradimus\c-";
-    } else if (prefix_match(name, "DesertHornet")) {
+    } else if (prefix_match(class, "DesertHornet")) {
         return "DesertHornet";
-    } else if (prefix_match(name, "DTDevastatorZombie")) {
+    } else if (prefix_match(class, "DTDevastatorZombie")) {
         return "\crDT Devastator Zombie\c-";
-    } else if (prefix_match(name, "EraserZombie")) {
+    } else if (prefix_match(class, "EraserZombie")) {
         return "\crEraser Zombie\c-";
-    } else if (prefix_match(name, "Hexa-ShotgunZombie")) {
+    } else if (prefix_match(class, "Hexa-ShotgunZombie")) {
         return "\crHexa-Shotgun Zombie\c-";
-    } else if (prefix_match(name, "FreezerBehemoth")) {
+    } else if (prefix_match(class, "FreezerBehemoth")) {
         return "\cvFreezer Behemoth\c-";
-    } else if (prefix_match(name, "FreezerZombie")) {
+    } else if (prefix_match(class, "FreezerZombie")) {
         return "\cvFreezer Zombie\c-";
-    } else if (prefix_match(name, "LegendaryAnnihilator")) {
+    } else if (prefix_match(class, "LegendaryAnnihilator")) {
         return "\c[z3]Legendary Annihilator\c-";
-    } else if (prefix_match(name, "LegendaryAssaultCaptain")) {
+    } else if (prefix_match(class, "LegendaryAssaultCaptain")) {
         return "\c[z3]Legendary Assault Captain\c-";
-    } else if (prefix_match(name, "LegendaryBabySentient")) {
+    } else if (prefix_match(class, "LegendaryBabySentient")) {
         return "\c[z3]Legendary Baby Sentient\c-";
-    } else if (prefix_match(name, "LegendaryBehemoth")) {
+    } else if (prefix_match(class, "LegendaryBehemoth")) {
         return "\c[z3]Legendary Behemoth\c-";
-    } else if (prefix_match(name, "LegendaryCardinal")) {
+    } else if (prefix_match(class, "LegendaryCardinal")) {
         return "\c[z3]Legendary Cardinal\c-";
-    } else if (prefix_match(name, "LegendaryCommando")) {
+    } else if (prefix_match(class, "LegendaryCommando")) {
         return "\c[z3]Legendary Commando\c-";
-    } else if (prefix_match(name, "LegendaryCyberdemon")) {
+    } else if (prefix_match(class, "LegendaryCyberdemon")) {
         return "\c[z3]Legendary Cyberdemon\c-";
-    } else if (prefix_match(name, "LegendaryCyberNoble")) {
+    } else if (prefix_match(class, "LegendaryCyberNoble")) {
         return "\c[z3]Legendary Cyber Noble\c-";
-    } else if (prefix_match(name, "LegendaryFiend")) {
+    } else if (prefix_match(class, "LegendaryFiend")) {
         return "\c[z3]Legendary Fiend\c-";
-    } else if (prefix_match(name, "LegendaryHellKnight")) {
+    } else if (prefix_match(class, "LegendaryHellKnight")) {
         return "\c[z3]Legendary Hell Knight\c-";
-    } else if (prefix_match(name, "LegendaryImp")) {
+    } else if (prefix_match(class, "LegendaryImp")) {
         return "\c[z3]Legendary Imp\c-";
-    } else if (prefix_match(name, "LegendaryRedeemer")) {
+    } else if (prefix_match(class, "LegendaryRedeemer")) {
         return "\c[z3]Legendary Redeemer\c-";
-    } else if (prefix_match(name, "LegendaryRevenant")) {
+    } else if (prefix_match(class, "LegendaryRevenant")) {
         return "\c[z3]Legendary Revenant\c-";
-    } else if (prefix_match(name, "LegendarySentient")) {
+    } else if (prefix_match(class, "LegendarySentient")) {
         return "\c[z3]Legendary Sentient\c-";
-    } else if (prefix_match(name, "LegendaryStealthTrooper")) {
+    } else if (prefix_match(class, "LegendaryStealthTrooper")) {
         return "\c[z3]Legendary Stealth Trooper\c-";
-    } else if (prefix_match(name, "LegZombie")) {
+    } else if (prefix_match(class, "LegZombie")) {
         return "\c[z3]Legendary Zombie\c-";
-    } else if (prefix_match(name, "PhaseOverlord")) {
+    } else if (prefix_match(class, "PhaseOverlord")) {
         return "\ctPhase Overlord\c-";
-    } else if (prefix_match(name, "SandSpirit")) {
+    } else if (prefix_match(class, "SandSpirit")) {
         return "\ceSand Spirit\c-";
-    } else if (prefix_match(name, "ShotgunCommando")) {
+    } else if (prefix_match(class, "ShotgunCommando")) {
         return "Shotgun Commando";
-    } else if (prefix_match(name, "TrueLegendaryCyberdemon")) {
+    } else if (prefix_match(class, "TrueLegendaryCyberdemon")) {
         return "\c[l5]True\c- \c[z3]Legendary Cyberdemon\c-";
-    } else if (prefix_match(name, "TrueLegendaryCardinal")) {
+    } else if (prefix_match(class, "TrueLegendaryCardinal")) {
         return "\c[l5]True\c- \c[z3]Legendary Cardinal\c-";
-    } else if (prefix_match(name, "Velocirator")) {
+    } else if (prefix_match(class, "Velocirator")) {
         return "\cdVelocirator\c-";
 
     // lca's edited complex monsters
-    } else if (prefix_match(name, "NewBabySentient")) {
-        return pp_name("BabySentient");
-    } else if (prefix_match(name, "NewBehemoth")) {
-        return pp_name("Behemoth");
-    } else if (prefix_match(name, "NewCerebralSentient")) {
-        return pp_name("CerebralSentient");
+    } else if (prefix_match(class, "NewBabySentient")) {
+        return pp_name("BabySentient", tag);
+    } else if (prefix_match(class, "NewBehemoth")) {
+        return pp_name("Behemoth", tag);
+    } else if (prefix_match(class, "NewCerebralSentient")) {
+        return pp_name("CerebralSentient", tag);
     }
 
 
@@ -574,102 +574,102 @@ function str pp_name(str name) {
     ////////////////////////////////////////////////////////////////////////////////
     // Abaddon
     // Afrit
-    if (prefix_match(name, "BabyDDemolisher")) {
+    if (prefix_match(class, "BabyDDemolisher")) {
         return "\cqBaby Dark Demolisher\c-";
     // Demobus
-    } else if (prefix_match(name, "BFGMastermind")) {
+    } else if (prefix_match(class, "BFGMastermind")) {
         return "BFG Mastermind";
-    } else if (prefix_match(name, "CacoLich")) {
+    } else if (prefix_match(class, "CacoLich")) {
         return "Cacolich";
-    } else if (prefix_match(name, "CerebralCommander")) {
+    } else if (prefix_match(class, "CerebralCommander")) {
         return "\cgCerebral Commander\c-";
-    } else if (prefix_match(name, "ChaingunFiend")) {
+    } else if (prefix_match(class, "ChaingunFiend")) {
         return "Chaingun Fiend";
-    } else if (prefix_match(name, "CorruptedCyberLord")) {
+    } else if (prefix_match(class, "CorruptedCyberLord")) {
         return "\c[l5]Corrupted Annihilator\c-";
-    } else if (prefix_match(name, "CryoDemon")) {
+    } else if (prefix_match(class, "CryoDemon")) {
         return "Cyro Demon";
-    } else if (prefix_match(name, "CryoImp")) {
+    } else if (prefix_match(class, "CryoImp")) {
         return "Cyro Imp";
-    } else if (prefix_match(name, "DTShotgunZombie")) {
+    } else if (prefix_match(class, "DTShotgunZombie")) {
         return "Demon Tech Shotgunner";
-    } else if (prefix_match(name, "DTechSpider")) {
+    } else if (prefix_match(class, "DTechSpider")) {
         return "Demon Tech Spider";
-    } else if (prefix_match(name, "DemonTechTrooper")) {
+    } else if (prefix_match(class, "DemonTechTrooper")) {
         return "Demon Tech Trooper";
-    } else if (prefix_match(name, "EMinigunner")) {
+    } else if (prefix_match(class, "EMinigunner")) {
         return "Explosive Minigunner";
-    } else if (prefix_match(name, "SSRocketMan")) {
+    } else if (prefix_match(class, "SSRocketMan")) {
         return "SS Rocket Man";
-    } else if (prefix_match(name, "SSSuperSolider")) {
+    } else if (prefix_match(class, "SSSuperSolider")) {
         return "SS Super Solider";
-    } else if (prefix_match(name, "HellArchon")) {
+    } else if (prefix_match(class, "HellArchon")) {
         return "Hell Archon";
-    } else if (prefix_match(name, "HellFireBaron")) {
+    } else if (prefix_match(class, "HellFireBaron")) {
         return "\cgHellfire Baron\c-";
-    } else if (prefix_match(name, "HellFireCyberdemon")) {
+    } else if (prefix_match(class, "HellFireCyberdemon")) {
         return "\c[z4]Hellfire Cyberdemon\c-";
-    } else if (prefix_match(name, "HomingRocketZombie")) {
+    } else if (prefix_match(class, "HomingRocketZombie")) {
         return "Homing Rocket Zombie";
-    } else if (prefix_match(name, "ImpLord")) {
+    } else if (prefix_match(class, "ImpLord")) {
         return "\crImp Lord\c-";
     // Infected
-    } else if (prefix_match(name, "SuicideBomber")) {
+    } else if (prefix_match(class, "SuicideBomber")) {
         return "Suicide Bomber";
-    } else if (prefix_match(name, "KSBehemoth")) {
-        return pp_name("Behemoth");
-    } else if (prefix_match(name, "NewBarbatos")) {
-        return pp_name("Barbatos");
-    } else if (prefix_match(name, "PhaseElemental")) {
+    } else if (prefix_match(class, "KSBehemoth")) {
+        return pp_name("Behemoth", tag);
+    } else if (prefix_match(class, "NewBarbatos")) {
+        return pp_name("Barbatos", tag);
+    } else if (prefix_match(class, "PhaseElemental")) {
         return "\ctPhaseElemental\c-";
-    } else if (prefix_match(name, "PhaseSoul")) {
+    } else if (prefix_match(class, "PhaseSoul")) {
         return "\ctPhase Soul\c-";
-    } else if (prefix_match(name, "PhaseWarlord")) {
+    } else if (prefix_match(class, "PhaseWarlord")) {
         return "\ctPhase Warlord\c-";
-    } else if (prefix_match(name, "PistolZombie")) {
+    } else if (prefix_match(class, "PistolZombie")) {
         return "Pistol Zombie";
-    } else if (prefix_match(name, "ProtoDestroyer")) {
+    } else if (prefix_match(class, "ProtoDestroyer")) {
         return "\cgProto-Destroyer\c-";
-    } else if (prefix_match(name, "PyroImp")) {
+    } else if (prefix_match(class, "PyroImp")) {
         return "Pyro Imp";
-    } else if (prefix_match(name, "Terminator2")) {
+    } else if (prefix_match(class, "Terminator2")) {
         return "\crTerminator\c-";
-    } else if (prefix_match(name, "ToxicImp")) {
+    } else if (prefix_match(class, "ToxicImp")) {
         return "Toxic Imp";
-    } else if (prefix_match(name, "ToxicLord")) {
+    } else if (prefix_match(class, "ToxicLord")) {
         return "\cdToxic Lord\c-";
-    } else if (prefix_match(name, "WidowMaker")) {
+    } else if (prefix_match(class, "WidowMaker")) {
         return "Widow Maker";
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // HAF
     ////////////////////////////////////////////////////////////////////////////////
-    if (prefix_match(name, "DementedTerminator")) {
+    if (prefix_match(class, "DementedTerminator")) {
         return "\c[o7]Demented\c- \crTerminator\c-";
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Ark
     ////////////////////////////////////////////////////////////////////////////////
-    if (prefix_match(name, "ComplexCardinal")) {
-        return pp_name("Cardinal");
-    } else if (prefix_match(name, "BlueCardinal")) {
+    if (prefix_match(class, "ComplexCardinal")) {
+        return pp_name("Cardinal", tag);
+    } else if (prefix_match(class, "BlueCardinal")) {
         return "\c[l5]Corrupted Cardinal\c-";
-    } else if (prefix_match(name, "ArkMarine")) {
-        return pp_name("DoomPlayer");
+    } else if (prefix_match(class, "ArkMarine")) {
+        return pp_name("DoomPlayer", tag);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Insane LCA
     ////////////////////////////////////////////////////////////////////////////////
-    if (prefix_match(name, "EnragedLegZombie")) {
+    if (prefix_match(class, "EnragedLegZombie")) {
         return "\c[m6]Enraged\c- \c[z3]Legendary Zombie\c-";
-    } else if (prefix_match(name, "EnragedLegendaryImp")) {
+    } else if (prefix_match(class, "EnragedLegendaryImp")) {
         return "\c[m6]Enraged\c- \c[z3]Legendary Imp\c-";
-    } else if (prefix_match(name, "EnragedLegendaryAssaultCaptain")) {
+    } else if (prefix_match(class, "EnragedLegendaryAssaultCaptain")) {
         return "\c[m6]Enraged\c- \c[z3]Legendary Assault Captain\c-";
-    } else if (prefix_match(name, "EnragedLegendaryRevenant")) {
+    } else if (prefix_match(class, "EnragedLegendaryRevenant")) {
         return "\c[m6]Enraged\c- \c[z3]Legendary Revenant\c-";
     }
 
@@ -677,16 +677,16 @@ function str pp_name(str name) {
     // RGA2
     ////////////////////////////////////////////////////////////////////////////////
 
-    if (prefix_match(name, "RGUPlayer")) {
-        return pp_name("DoomPlayer");
-    } else if (prefix_match(name, "RGULastStandPlayer")) {
-        return pp_name("DoomPlayer");
+    if (prefix_match(class, "RGUPlayer")) {
+        return pp_name("DoomPlayer", tag);
+    } else if (prefix_match(class, "RGULastStandPlayer")) {
+        return pp_name("DoomPlayer", tag);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // Doge class!
     ////////////////////////////////////////////////////////////////////////////////
-    if (prefix_match(name, "Doge")) {
+    if (prefix_match(class, "Doge")) {
         return "\c[c5]DOGE\c-";
     }
 
@@ -695,58 +695,58 @@ function str pp_name(str name) {
     ////////////////////////////////////////////////////////////////////////////////
 
     // Doom
-    if (prefix_match(name, "ZombieMan")) {
+    if (prefix_match(class, "ZombieMan")) {
         return "Former Human";
-    } else if (prefix_match(name, "ShotgunGuy")) {
+    } else if (prefix_match(class, "ShotgunGuy")) {
         return "Former Human Sergeant";
-    } else if (prefix_match(name, "DoomImp")) {
+    } else if (prefix_match(class, "DoomImp")) {
         return "Imp";
-    } else if (prefix_match(name, "Demon")) {
+    } else if (prefix_match(class, "Demon")) {
         return "Demon";
-    } else if (prefix_match(name, "Spectre")) {
+    } else if (prefix_match(class, "Spectre")) {
         return "Spectre";
-    } else if (prefix_match(name, "LostSoul")) {
+    } else if (prefix_match(class, "LostSoul")) {
         return "Lost Soul";
-    } else if (prefix_match(name, "Cacodemon")) {
+    } else if (prefix_match(class, "Cacodemon")) {
         return "Cacodemon";
-    } else if (prefix_match(name, "BaronOfHell")) {
+    } else if (prefix_match(class, "BaronOfHell")) {
         return "Baron Of Hell";
-    } else if (prefix_match(name, "Cyberdemon")) {
+    } else if (prefix_match(class, "Cyberdemon")) {
         return "Cyberdemon";
-    } else if (prefix_match(name, "SpiderMastermind")) {
+    } else if (prefix_match(class, "SpiderMastermind")) {
         return "Spider Mastermind";
 
     // Doom 2
-    } else if (prefix_match(name, "ChaingunGuy")) {
+    } else if (prefix_match(class, "ChaingunGuy")) {
         return "Heavy Weapon Dude";
-    } else if (prefix_match(name, "HellKnight")) {
+    } else if (prefix_match(class, "HellKnight")) {
         return "Hell Knight";
-    } else if (prefix_match(name, "Revenant")) {
+    } else if (prefix_match(class, "Revenant")) {
         return "Revenant";
-    } else if (prefix_match(name, "Fatso")) {
+    } else if (prefix_match(class, "Fatso")) {
         return "Mancubus";
-    } else if (prefix_match(name, "Arachnotron")) {
+    } else if (prefix_match(class, "Arachnotron")) {
         return "Arachnotron";
-    } else if (prefix_match(name, "PainElemental")) {
+    } else if (prefix_match(class, "PainElemental")) {
         return "Pain Elemental";
-    } else if (prefix_match(name, "Archvile")) {
+    } else if (prefix_match(class, "Archvile")) {
         return "Arch-vile";
-    } else if (prefix_match(name, "WolfensteinSS")) {
+    } else if (prefix_match(class, "WolfensteinSS")) {
         return "Wolfenstein SS";
-    } else if (prefix_match(name, "CommanderKeen")) {
+    } else if (prefix_match(class, "CommanderKeen")) {
         return "Commander Keen";
-    } else if (prefix_match(name, "BossBrain")) {
+    } else if (prefix_match(class, "BossBrain")) {
         return "John Romero";
-    } else if (prefix_match(name, "ExplosiveBarrel")) {
+    } else if (prefix_match(class, "ExplosiveBarrel")) {
         return "\cgExplosive Barrel\c-";
-    } else if (prefix_match(name, "DoomPlayer")) {
-        return pp_name("\c[x5]Player\c-");
+    } else if (prefix_match(class, "DoomPlayer")) {
+        return pp_name("\c[x5]Player\c-", tag);
     // DOGE!
-    } else if (prefix_match(name, "MBFHelperDog")) {
-        return pp_name("Doge");
+    } else if (prefix_match(class, "MBFHelperDog")) {
+        return pp_name("Doge", tag);
     }
 
-    return name;
+    return tag;
 }
 
 // Ideally, we should check whether the BOSS flag is set on the actor, but it isn't supported in Zandronum 2.1.2 yet. So we simply whitelist most common bosses in popular WADs.
