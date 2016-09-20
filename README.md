@@ -49,6 +49,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 ### v8
 * Support for ILCA v1.5.
 * Move actor display name and boss from hardcoded mapping to CVar based mapping. See CVar section for details.
+* The tracker now shows the invulnerability state of the monster.
 * Removed `hpbar_min_maxhp`.
 * `hpbar_server_min_maxhp` is renamed to `hpbar_threshold`.
 * `hpbar_server_tracker_threshold` is renamed to `hpbar_tracker_threshold`.

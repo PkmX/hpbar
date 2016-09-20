@@ -28,6 +28,7 @@ int tracked_tids[MAX_TRACKERS];
 int tracked_hps[MAX_TRACKERS];
 int tracked_max_hps[MAX_TRACKERS];
 str tracked_names[MAX_TRACKERS];
+bool tracked_invul[MAX_TRACKERS];
 
 script "hpbar-enter" enter {
     int pn = PlayerNumber();
@@ -72,7 +73,7 @@ script 31234 (int player, int hp, int max_hp) clientside {
             int ln = 0;
 
             if (invul) {
-                HudMessage(s: "\cgInvulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+                HudMessage(s: "\c[i8]Invulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
                 ++ln;
             }
 
@@ -160,15 +161,15 @@ script 31235 (void) {
 
         tracked_tids[i] = tid;
         tracked_names[i] = get_actor_name(0);
+        tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
         ACS_ExecuteAlways(31236, 0, i, tracked_tids[i]);
-        while (ClassifyActor(tid) & ACTOR_ALIVE) {
+        while (ClassifyActor(0) & ACTOR_ALIVE) {
             int old_hp = tracked_hps[i];
-            int old_max_hp = tracked_max_hps[i];
-            tracked_hps[i] = GetActorProperty(tid, APROP_Health);
-            tracked_max_hps[i] = GetActorProperty(tid, APROP_SpawnHealth);
-            if (old_hp != tracked_hps[i] || old_max_hp != tracked_max_hps[i]) {
-                ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_max_hps[i]);
+            tracked_hps[i] = GetActorProperty(0, APROP_Health);
+            if (old_hp != tracked_hps[i]) {
+                ACS_ExecuteAlways(31237, 0, i, tracked_hps[i]);
             }
+            tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
             delay(1);
         }
 
@@ -184,30 +185,22 @@ script 31236 (int i, int tid) clientside {
         if (ClassifyActor(0) & ACTOR_ALIVE) {
             tracked_tids[i] = tid;
             tracked_names[i] = get_actor_name(0);
+            tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
+            while (ClassifyActor(0) & ACTOR_ALIVE) {
+                tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
+                delay(1);
+            }
         } else {
             tracked_tids[i] = INVALID_TID;
         }
     }
 }
 
-script 31237 (int i, int hp, int max_hp) clientside {
-    if (max_hp != 0) {
-        tracked_hps[i] = hp;
-        tracked_max_hps[i] = max_hp;
-    }
+script 31237 (int i, int hp) clientside {
+    tracked_hps[i] = hp;
 }
 
 int maxhp_rankings[NUM_RANKINGS];
-
-function bool already_selected(int x, int n) {
-    for (int i = 0; i < n; ++i) {
-        if (x == maxhp_rankings[i]) {
-            return true;
-        }
-    }
-
-    return false;
-}
 
 script 31238 (void) net {
     for (int i = 0; i < MAX_TRACKERS; ++i) {
@@ -222,6 +215,16 @@ script 31238 (void) net {
 
 function void request_broadcast_tracker_info(void) {
     RequestScriptPuke(31238, 0, 0, 0);
+}
+
+function bool already_selected(int x, int n) {
+    for (int i = 0; i < n; ++i) {
+        if (x == maxhp_rankings[i]) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 script 31239 open clientside {
@@ -268,7 +271,12 @@ script 31239 open clientside {
                        HUDMSG_FADEOUT, 7000 + rank, CR_WHITE, 80.2, 470.0 + rank * 12.0, 1.0 / 35 + 1, 0.1);
             HudMessage(s: hpp_to_color(hpp), d: hpp, s: "%\c-";
                        HUDMSG_FADEOUT, 7000 + NUM_RANKINGS + rank, CR_WHITE, 120.2, 470.0 + rank * 12.0, 1.0 / 35 + 1, 0.1);
-            HudMessage(s: name;
+
+            str invulmsg = "";
+            if (tracked_invul[n])
+                invulmsg = " \c[i8][INVUL]\c-";
+
+            HudMessage(s: name, s: invulmsg;
                        HUDMSG_FADEOUT, 7000 + NUM_RANKINGS * 2 + rank, CR_WHITE, 132.1, 470.0 + rank * 12.0, 1.0 / 35 + 1, 0.1);
         }
 
