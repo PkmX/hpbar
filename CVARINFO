@@ -160,7 +160,7 @@ server noarchive string hpbar_name_BlueCardinal = "\c[l5]Corrupted Cardinal\c-";
 // Insane LCA
 server noarchive string hpbar_name_EnragedLegZombie = "\c[m6]Enraged\c- \c[z3]Legendary Zombie\c-";
 server noarchive string hpbar_name_EnragedLegendaryImp = "\c[m6]Enraged\c- \c[z3]Legendary Imp\c-";
-server noarchive string hpbar_name_EnragedLegendaryAssaultCaptain = "\c[m6]Enraged\c- \c[z3]Legendary Assault Captain\c-";
+server noarchive string hpbar_name_EnragedLegendaryCaptain = "\c[m6]Enraged\c- \c[z3]Legendary Assault Captain\c-";
 server noarchive string hpbar_name_EnragedLegendaryRevenant = "\c[m6]Enraged\c- \c[z3]Legendary Revenant\c-";
 server noarchive string hpbar_name_EnragedLegendaryHellKnight = "\c[m6]Enraged\c- \c[z3]Legendary Hell Knight\c-";
 
@@ -250,8 +250,9 @@ server noarchive bool hpbar_track_BlueCardinal = true;
 // Insane LCA
 server noarchive bool hpbar_track_EnragedLegZombie = true;
 server noarchive bool hpbar_track_EnragedLegendaryImp = true;
-server noarchive bool hpbar_track_EnragedLegendaryAssaultCaptain = true;
+server noarchive bool hpbar_track_EnragedLegendaryCaptain = true;
 server noarchive bool hpbar_track_EnragedLegendaryRevenant = true;
+server noarchive bool hpbar_track_EnragedLegendaryHellKnight = true;
 
 // RGA2
 server noarchive bool hpbar_track_StoneAbaddon = true;
