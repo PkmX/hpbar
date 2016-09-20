@@ -162,7 +162,7 @@ script 31235 (void) {
         tracked_tids[i] = tid;
         tracked_names[i] = get_actor_name(0);
         ACS_ExecuteAlways(31236, 0, i, tracked_tids[i]);
-        while (ClassifyActor(tid) != ACTOR_NONE && ClassifyActor(tid) & ACTOR_ALIVE) {
+        while (ClassifyActor(tid) & ACTOR_ALIVE) {
             int old_hp = tracked_hps[i];
             int old_max_hp = tracked_max_hps[i];
             tracked_hps[i] = GetActorProperty(tid, APROP_Health);
@@ -182,7 +182,7 @@ script 31236 (int i, int tid) clientside {
     if (tid == INVALID_TID) {
         tracked_tids[i] = tid;
     } else {
-        if (ClassifyActor(0) != ACTOR_NONE && ClassifyActor(0) & ACTOR_ALIVE) {
+        if (ClassifyActor(0) & ACTOR_ALIVE) {
             tracked_tids[i] = tid;
             tracked_names[i] = get_actor_name(0);
         } else {
