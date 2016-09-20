@@ -1,8 +1,8 @@
-# HPBar Addon
+# HPBar & HP Tracker Mod
 
-This mod displays a HP bar and info about the target being aimed at.
+This mod displays a HP bar and info about the target being aimed at. It also provides a HP tracker for boss monsters that is visible for all players including spectators.
 
-It should work with all mods (sans those that come with their own HP bars, e.g. WoC and DnD) and provides special name pretty-printing for popular Complex Doom mods (LCA, RM, HAF, Ark, ILCA) and RGA2.
+This mod is designed to work with all mods (sans those that come with their own HP bars, e.g. WoC and DnD) and provides special name pretty-printing for popular Complex Doom mods (LCA, RM, HAF, Ark, ILCA) and RGA2. Server hosts can further customize the behavior via cvars to support other mods.
 
 ## Dependencies
 
