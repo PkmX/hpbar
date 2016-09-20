@@ -8,6 +8,8 @@ user   bool hpbar_show_friendly = false;
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Complex Doom
+server noarchive string hpbar_name_PlasmaGunner = "Plasma Zombie";
+// Railgunner
 server noarchive string hpbar_name_DemonTechZombie = "Demon Tech Zombie";
 server noarchive string hpbar_name_RocketZombie = "Rocket Zombie";
 server noarchive string hpbar_name_ShotgunZombie = "Shotgunner";
@@ -126,7 +128,7 @@ server noarchive string hpbar_name_CryoDemon = "Cyro Demon";
 server noarchive string hpbar_name_CryoImp = "Cyro Imp";
 server noarchive string hpbar_name_DTShotgunZombie = "Demon Tech Shotgunner";
 server noarchive string hpbar_name_DTechSpider = "Demon Tech Spider";
-server noarchive string hpbar_name_DemonTechTrooper = "Demon Tech Trooper";
+server noarchive string hpbar_name_DemonTechTrooper = "\crDemon Tech Trooper\c-";
 server noarchive string hpbar_name_EMinigunner = "Explosive Minigunner";
 server noarchive string hpbar_name_SSRocketMan = "SS Rocket Man";
 server noarchive string hpbar_name_SSSuperSolider = "SS Super Solider";
@@ -175,8 +177,8 @@ server noarchive string hpbar_name_Spectre = "Spectre";
 server noarchive string hpbar_name_LostSoul = "Lost Soul";
 server noarchive string hpbar_name_Cacodemon = "Cacodemon";
 server noarchive string hpbar_name_BaronOfHell = "Baron Of Hell";
-server noarchive string hpbar_name_Cyberdemon = "Cyberdemon";
-server noarchive string hpbar_name_SpiderMastermind = "Spider Mastermind";
+server noarchive string hpbar_name_Cyberdemon = "\cgCyberdemon\c-";
+server noarchive string hpbar_name_SpiderMastermind = "\cgSpider Mastermind\c-";
 
 // Doom2
 server noarchive string hpbar_name_ChaingunGuy = "Heavy Weapon Dude";
@@ -191,7 +193,7 @@ server noarchive string hpbar_name_CommanderKeen = "Commander Keen";
 server noarchive string hpbar_name_BossBrain = "John Romero";
 server noarchive string hpbar_name_ExplosiveBarrel = "\cgExplosive Barrel\c-";
 
-server noarchive string hpbar_name_DoomPlayer = "\c[x5]Player\c-";
+server noarchive string hpbar_name_DoomPlayer = "\c[l5]Player\c-";
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Boss mappings
