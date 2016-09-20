@@ -3,3 +3,323 @@ user   int hpbar_min_maxhp = 0;
 user   int hpbar_style = 1;
 server int hpbar_server_tracker_threshold = 2000;
 user   bool hpbar_show_friendly = false;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Display name mappings
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Complex Doom
+server noarchive string hpbar_name_DemonTechZombie = "Demon Tech Zombie";
+server noarchive string hpbar_name_RocketZombie = "Rocket Zombie";
+server noarchive string hpbar_name_ShotgunZombie = "Shotgunner";
+server noarchive string hpbar_name_AssaultShotgunZombie = "Assault Shotgunner";
+server noarchive string hpbar_name_SuperShotgunZombie = "Double Barrel Shotgun Zombie";
+server noarchive string hpbar_name_QuadShotgunZombie = "\crQuad Barrel Shotgun Zombie\c-";
+server noarchive string hpbar_name_AssaultRifleZombie = "Assault Rifle Zombie";
+// Chaingunner
+// Minigunner
+server noarchive string hpbar_name_BFGZombieman = "BFG Zombie";
+// Imp
+server noarchive string hpbar_name_VoidImp = "Void Imp";
+// Devil
+server noarchive string hpbar_name_PhaseImp = "\ctPhase Imp\c-";
+server noarchive string hpbar_name_BullFiend = "Bull Fiend";
+server noarchive string hpbar_name_CyberFiend = "Cyber Fiend";
+server noarchive string hpbar_name_MagmaFiend = "Magma Fiend";
+server noarchive string hpbar_name_DTechFiend = "\cqDTech Fiend\c-";
+// Spectre~
+// Lurker
+// Spook
+server noarchive string hpbar_name_TerrorSoul = "Terror Soul";
+server noarchive string hpbar_name_ForgottenOne = "Forgotten One";
+server noarchive string hpbar_name_PoisonSoul = "Poison Soul";
+// Rictus
+// Cacodemon~
+// Watcher
+// Cacomental
+server noarchive string hpbar_name_SoulKeeper = "Soul Keeper";
+// Defiler
+server noarchive string hpbar_name_PoisonElemental = "Poison Elemental";
+server noarchive string hpbar_name_BombElemental = "Bomb Elemental";
+// Hectebus
+// Daedabus
+// Behemoth
+// Barbatos
+// Dualachnotron
+// Fusionite
+server noarchive string hpbar_name_BabyDemolisher = "Baby Demolisher";
+server noarchive string hpbar_name_BabySentient = "Baby Sentient";
+// Guardian
+// Cadaver
+server noarchive string hpbar_name_HellfireRevenant = "Hellfire Revenant";
+// Famine
+// HellKnight~
+server noarchive string hpbar_name_PyroDemon = "Pyro Demon";
+server noarchive string hpbar_name_CyberNoble = "Cyber Noble";
+server noarchive string hpbar_name_HellDuke = "\cdHell Duke\c-";
+// BaronOfHell~
+server noarchive string hpbar_name_BruiserDemon = "BruiserDemon";
+// Cybruiser
+// Exile
+// Diabolist
+server noarchive string hpbar_name_DarkHellion = "\cmDark Hellion\c-";
+// Demolisher
+server noarchive string hpbar_name_DarkDemolisher = "\cqDark Demolisher\c-";
+server noarchive string hpbar_name_CerebralSentient = "\cgCerebral Sentient\c-";
+server noarchive string hpbar_name_CyberLord = "\cgCyberlord\c-";
+server noarchive string hpbar_name_DarkCyberdemon = "\cqDark Cyberdemon\c-";
+server noarchive string hpbar_name_Cardinal = "\cgDark Cardinal\c-";
+server noarchive string hpbar_name_SSNazi = "SS Nazi";
+// Mutant
+// Officer
+server noarchive string hpbar_name_NaziDog = "Nazi Guard Dog";
+// Hitler
+server noarchive string hpbar_name_HitlerNoSuit = "Hitler";
+server noarchive string hpbar_name_DSP = "Darksyde Phil";
+
+// LCA
+server noarchive string hpbar_name_BFG10KGeneral = "\cdBFG10K General\c-";
+server noarchive string hpbar_name_BFGCacodemon = "\cdBFG Cacodemon\c-";
+server noarchive string hpbar_name_Cardihilator = "\cgCardihilator\c-";
+server noarchive string hpbar_name_CerebralCardinal = "\cgCerebral Cardinal\c-";
+// Cydestroyer
+server noarchive string hpbar_name_Arcradimus = "\c[z4]Demon Lord Arcradimus\c-";
+server noarchive string hpbar_name_DesertHornet = "DesertHornet";
+server noarchive string hpbar_name_DTDevastatorZombie = "\crDT Devastator Zombie\c-";
+server noarchive string hpbar_name_EraserZombie = "\crEraser Zombie\c-";
+server noarchive string hpbar_name_HexaShotgunZombie = "\crHexa-Shotgun Zombie\c-";
+server noarchive string hpbar_name_FreezerBehemoth = "\cvFreezer Behemoth\c-";
+server noarchive string hpbar_name_FreezerZombie = "\cvFreezer Zombie\c-";
+server noarchive string hpbar_name_LegendaryAnnihilator = "\c[z3]Legendary Annihilator\c-";
+server noarchive string hpbar_name_LegendaryAssaultCaptain = "\c[z3]Legendary Assault Captain\c-";
+server noarchive string hpbar_name_LegendaryBabySentient = "\c[z3]Legendary Baby Sentient\c-";
+server noarchive string hpbar_name_LegendaryBehemoth = "\c[z3]Legendary Behemoth\c-";
+server noarchive string hpbar_name_LegendaryCardinal = "\c[z3]Legendary Cardinal\c-";
+server noarchive string hpbar_name_LegendaryCommando = "\c[z3]Legendary Commando\c-";
+server noarchive string hpbar_name_LegendaryCyberdemon = "\c[z3]Legendary Cyberdemon\c-";
+server noarchive string hpbar_name_LegendaryCyberNoble = "\c[z3]Legendary Cyber Noble\c-";
+server noarchive string hpbar_name_LegendaryFiend = "\c[z3]Legendary Fiend\c-";
+server noarchive string hpbar_name_LegendaryHellKnight = "\c[z3]Legendary Hell Knight\c-";
+server noarchive string hpbar_name_LegendaryImp = "\c[z3]Legendary Imp\c-";
+server noarchive string hpbar_name_LegendaryRedeemer = "\c[z3]Legendary Redeemer\c-";
+server noarchive string hpbar_name_LegendaryRevenant = "\c[z3]Legendary Revenant\c-";
+server noarchive string hpbar_name_LegendarySentient = "\c[z3]Legendary Sentient\c-";
+server noarchive string hpbar_name_LegendaryStealthTrooper = "\c[z3]Legendary Stealth Trooper\c-";
+server noarchive string hpbar_name_LegZombie = "\c[z3]Legendary Zombie\c-";
+server noarchive string hpbar_name_PhaseOverlord = "\ctPhase Overlord\c-";
+server noarchive string hpbar_name_SandSpirit = "\ceSand Spirit\c-";
+server noarchive string hpbar_name_ShotgunCommando = "Shotgun Commando";
+server noarchive string hpbar_name_TrueLegendaryCyberdemon = "\c[l5]True\c- \c[z3]Legendary Cyberdemon\c-";
+server noarchive string hpbar_name_TrueLegendaryCardinal = "\c[l5]True\c- \c[z3]Legendary Cardinal\c-";
+server noarchive string hpbar_name_Velocirator = "\cdVelocirator\c-";
+
+// Random Monsters
+// Abaddon
+// Afrit
+server noarchive string hpbar_name_BabyDDemolisher = "\cqBaby Dark Demolisher\c-";
+// Demobus
+server noarchive string hpbar_name_BFGMastermind = "BFG Mastermind";
+server noarchive string hpbar_name_CacoLich = "Cacolich";
+server noarchive string hpbar_name_CerebralCommander = "\cgCerebral Commander\c-";
+server noarchive string hpbar_name_ChaingunFiend = "Chaingun Fiend";
+server noarchive string hpbar_name_CorruptedCyberLord = "\c[l5]Corrupted Annihilator\c-";
+server noarchive string hpbar_name_CryoDemon = "Cyro Demon";
+server noarchive string hpbar_name_CryoImp = "Cyro Imp";
+server noarchive string hpbar_name_DTShotgunZombie = "Demon Tech Shotgunner";
+server noarchive string hpbar_name_DTechSpider = "Demon Tech Spider";
+server noarchive string hpbar_name_DemonTechTrooper = "Demon Tech Trooper";
+server noarchive string hpbar_name_EMinigunner = "Explosive Minigunner";
+server noarchive string hpbar_name_SSRocketMan = "SS Rocket Man";
+server noarchive string hpbar_name_SSSuperSolider = "SS Super Solider";
+server noarchive string hpbar_name_HellArchon = "Hell Archon";
+server noarchive string hpbar_name_HellFireBaron = "\cgHellfire Baron\c-";
+server noarchive string hpbar_name_HellFireCyberdemon = "\c[z4]Hellfire Cyberdemon\c-";
+server noarchive string hpbar_name_HomingRocketZombie = "Homing Rocket Zombie";
+server noarchive string hpbar_name_ImpLord = "\crImp Lord\c-";
+// Infected
+server noarchive string hpbar_name_SuicideBomber = "Suicide Bomber";
+// KSBehemoth
+// NewBarbatos
+server noarchive string hpbar_name_PhaseElemental = "\ctPhaseElemental\c-";
+server noarchive string hpbar_name_PhaseSoul = "\ctPhase Soul\c-";
+server noarchive string hpbar_name_PhaseWarlord = "\ctPhase Warlord\c-";
+server noarchive string hpbar_name_PistolZombie = "Pistol Zombie";
+server noarchive string hpbar_name_ProtoDestroyer = "\cgProto-Destroyer\c-";
+server noarchive string hpbar_name_PyroImp = "Pyro Imp";
+server noarchive string hpbar_name_Terminator2 = "\crTerminator\c-";
+server noarchive string hpbar_name_ToxicImp = "Toxic Imp";
+server noarchive string hpbar_name_ToxicLord = "\cdToxic Lord\c-";
+server noarchive string hpbar_name_WidowMaker = "Widow Maker";
+
+// HAF
+server noarchive string hpbar_name_DementedTerminator = "\c[o7]Demented\c- \crTerminator\c-";
+
+// Ark
+server noarchive string hpbar_name_BlueCardinal = "\c[l5]Corrupted Cardinal\c-";
+
+// Insane LCA
+server noarchive string hpbar_name_EnragedLegZombie = "\c[m6]Enraged\c- \c[z3]Legendary Zombie\c-";
+server noarchive string hpbar_name_EnragedLegendaryImp = "\c[m6]Enraged\c- \c[z3]Legendary Imp\c-";
+server noarchive string hpbar_name_EnragedLegendaryAssaultCaptain = "\c[m6]Enraged\c- \c[z3]Legendary Assault Captain\c-";
+server noarchive string hpbar_name_EnragedLegendaryRevenant = "\c[m6]Enraged\c- \c[z3]Legendary Revenant\c-";
+server noarchive string hpbar_name_EnragedLegendaryHellKnight = "\c[m6]Enraged\c- \c[z3]Legendary Hell Knight\c-";
+
+// Doge
+server noarchive string hpbar_name_Doge = "\c[c5]DOGE\c-";
+
+// Doom
+server noarchive string hpbar_name_ZombieMan = "Former Human";
+server noarchive string hpbar_name_ShotgunGuy = "Former Human Sergeant";
+server noarchive string hpbar_name_DoomImp = "Imp";
+server noarchive string hpbar_name_Demon = "Demon";
+server noarchive string hpbar_name_Spectre = "Spectre";
+server noarchive string hpbar_name_LostSoul = "Lost Soul";
+server noarchive string hpbar_name_Cacodemon = "Cacodemon";
+server noarchive string hpbar_name_BaronOfHell = "Baron Of Hell";
+server noarchive string hpbar_name_Cyberdemon = "Cyberdemon";
+server noarchive string hpbar_name_SpiderMastermind = "Spider Mastermind";
+
+// Doom2
+server noarchive string hpbar_name_ChaingunGuy = "Heavy Weapon Dude";
+server noarchive string hpbar_name_HellKnight = "Hell Knight";
+server noarchive string hpbar_name_Revenant = "Revenant";
+server noarchive string hpbar_name_Fatso = "Mancubus";
+server noarchive string hpbar_name_Arachnotron = "Arachnotron";
+server noarchive string hpbar_name_PainElemental = "Pain Elemental";
+server noarchive string hpbar_name_Archvile = "Arch-vile";
+server noarchive string hpbar_name_WolfensteinSS = "Wolfenstein SS";
+server noarchive string hpbar_name_CommanderKeen = "Commander Keen";
+server noarchive string hpbar_name_BossBrain = "John Romero";
+server noarchive string hpbar_name_ExplosiveBarrel = "\cgExplosive Barrel\c-";
+
+server noarchive string hpbar_name_DoomPlayer = "\c[x5]Player\c-";
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Boss mappings
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Complex
+server noarchive bool hpbar_track_DarkHellion = true;
+server noarchive bool hpbar_track_Demolisher = true;
+server noarchive bool hpbar_track_DarkDemolisher = true;
+server noarchive bool hpbar_track_CerebralSentient = true;
+server noarchive bool hpbar_track_CyberLord = true;
+server noarchive bool hpbar_track_DarkCyberdemon = true;
+server noarchive bool hpbar_track_Cardinal = true;
+server noarchive bool hpbar_track_Hitler = true;
+
+// LCA
+server noarchive bool hpbar_track_Cardihilator = true;
+server noarchive bool hpbar_track_CerebralCardinal = true;
+server noarchive bool hpbar_track_LegendaryAnnihilator = true;
+server noarchive bool hpbar_track_LegendaryAssaultCaptain = true;
+server noarchive bool hpbar_track_LegendaryBabySentient = true;
+server noarchive bool hpbar_track_LegendaryBehemoth = true;
+server noarchive bool hpbar_track_LegendaryCardinal = true;
+server noarchive bool hpbar_track_LegendaryCommando = true;
+server noarchive bool hpbar_track_LegendaryCyberdemon = true;
+server noarchive bool hpbar_track_LegendaryCyberNoble = true;
+server noarchive bool hpbar_track_LegendaryFiend = true;
+server noarchive bool hpbar_track_LegendaryHellKnight = true;
+server noarchive bool hpbar_track_LegendaryImp = true;
+server noarchive bool hpbar_track_LegendaryRedeemer = true;
+server noarchive bool hpbar_track_LegendaryRevenant = true;
+server noarchive bool hpbar_track_LegendarySentient = true;
+server noarchive bool hpbar_track_LegendaryStealthTrooper = true;
+server noarchive bool hpbar_track_LegZombie = true;
+server noarchive bool hpbar_track_TrueLegendaryCyberdemon = true;
+server noarchive bool hpbar_track_TrueLegendaryCardinal = true;
+server noarchive bool hpbar_track_Velocirator = true;
+
+// Randommons
+server noarchive bool hpbar_track_BFGMastermind = true;
+server noarchive bool hpbar_track_CerebralCommander = true;
+server noarchive bool hpbar_track_CorruptedCyberLord = true;
+server noarchive bool hpbar_track_HellFireBaron = true;
+server noarchive bool hpbar_track_HellFireCyberdemon = true;
+server noarchive bool hpbar_track_PhaseWarlord = true;
+server noarchive bool hpbar_track_Terminator2 = true;
+
+// HAF
+server noarchive bool hpbar_track_DementedTerminator = true;
+
+// Ark
+server noarchive bool hpbar_track_ComplexCardinal = true;
+server noarchive bool hpbar_track_BlueCardinal = true;
+
+// Insane LCA
+server noarchive bool hpbar_track_EnragedLegZombie = true;
+server noarchive bool hpbar_track_EnragedLegendaryImp = true;
+server noarchive bool hpbar_track_EnragedLegendaryAssaultCaptain = true;
+server noarchive bool hpbar_track_EnragedLegendaryRevenant = true;
+
+// RGA2
+server noarchive bool hpbar_track_StoneAbaddon = true;
+server noarchive bool hpbar_track_SuperRevenant = true;
+server noarchive bool hpbar_track_Deathvile = true;
+server noarchive bool hpbar_track_ArachnidOverlord = true;
+// Cyberlord
+
+// Doom
+server noarchive bool hpbar_track_Archvile = true;
+server noarchive bool hpbar_track_Cyberdemon = true;
+server noarchive bool hpbar_track_SpiderMastermind = true;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Actor name mappings
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Complex Doom
+// Spectre~
+// Cacodemon~
+// HellKnight~
+// BaronOfHell~
+server noarchive string hpbar_map_HitlerNoSuit = "Hitler";
+server noarchive string hpbar_map_ModdedExplosiveBarrel = "ExplosiveBarrel";
+server noarchive string hpbar_map_ComplexDoomPlayer = "DoomPlayer";
+
+// LCA
+// Hexa-ShotgunZombie
+server noarchive string hpbar_map_NewBabySentient = "BabySentient";
+server noarchive string hpbar_map_NewBehemoth = "Behemoth";
+server noarchive string hpbar_map_NewCerebralSentient = "CerebralSentient";
+
+// Random Monsters
+server noarchive string hpbar_map_KSBehemoth = "Behemoth";
+server noarchive string hpbar_map_NewBarbatos = "Barbatos";
+
+// HAF
+server noarchive string hpbar_map_SuicideBomber2 = "SuicideBomber";
+server noarchive string hpbar_map_LegZombie2 = "LegZombie";
+server noarchive string hpbar_map_LegendaryImp2 = "LegendaryImp";
+server noarchive string hpbar_map_LegendaryAssaultCaptain2 = "LegendaryAssaultCaptain";
+server noarchive string hpbar_map_LegendaryCommando2 = "LegendaryCommando";
+server noarchive string hpbar_map_LegendaryStealthTrooper2 = "LegendaryStealthTrooper";
+server noarchive string hpbar_map_EraserZombie2 = "EraserZombie";
+server noarchive string hpbar_map_EMinigunner2 = "EMinigunner";
+server noarchive string hpbar_map_LegendaryFiend2 = "LegendaryFiend";
+server noarchive string hpbar_map_LegendaryRevenant2 = "LegendaryRevenant";
+server noarchive string hpbar_map_LegendaryHellKnight2 = "LegendaryHellKnight";
+server noarchive string hpbar_map_LegendaryRedeemer2 = "LegendaryRedeemer";
+server noarchive string hpbar_map_BFGCacodemon2 = "BFGCacodemon";
+server noarchive string hpbar_map_CacoLich2 = "CacoLich";
+server noarchive string hpbar_map_LegendaryBehemoth2 = "LegendaryBehemoth";
+server noarchive string hpbar_map_LegendaryCyberNoble2 = "LegendaryCyberNoble";
+server noarchive string hpbar_map_LegendaryBabySentient2 = "LegendaryBabySentient";
+server noarchive string hpbar_map_PhaseOverlord2 = "PhaseOverlord";
+server noarchive string hpbar_map_LegendarySentient2 = "LegendarySentient";
+server noarchive string hpbar_map_CerebralSentient2 = "CerebralSentient";
+server noarchive string hpbar_map_CerebralCardinal2 = "CerebralCardinal";
+server noarchive string hpbar_map_CerebralCommander2 = "CerebralCommander";
+server noarchive string hpbar_map_LegendaryCyberdemon2 = "LegendaryCyberdemon";
+server noarchive string hpbar_map_LegendaryAnnihilator2 = "LegendaryAnnihilator";
+server noarchive string hpbar_map_Cardinal2 = "Cardinal";
+
+// Ark
+server noarchive string hpbar_map_ComplexCardinal = "Cardinal";
+server noarchive string hpbar_map_ArkMarine = "DoomPlayer";
+
+// RGA2
+server noarchive string hpbar_map_RGUPlayer = "DoomPlayer";
+server noarchive string hpbar_map_RGULastStandPlayer = "DoomPlayer";
+server noarchive string hpbar_map_MBFHelperDog = "Doge";

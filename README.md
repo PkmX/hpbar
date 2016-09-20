@@ -19,11 +19,35 @@ It should work with all mods (sans those that come with their own HP bars, e.g. 
 * `hpbar_server_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
 * `hpbar_show_friendly` (user): Set whether to show HP bars for friendly targets. (default: false)
 
+### `hpbar_name_*`
+
+Server hosts can customize the display name of monsters by setting `hpbar_name_$actor`. This can be useful if you are loading mods that aren't supported by hpbar yet. For example, you can make Cacodemons (actor name: `Cacodemon`) to be displayed as `Hissy` by setting:
+
+```
+set hpbar_name_Cacodemon "Hissy"
+```
+
+### `hpbar_track_*`
+
+You can control whether a monster is tracked by the HP tracker by setting `hpbar_track_$actor`. For instance, to always track Cacodemons:
+
+```
+set hpbar_track_Cacodemon true
+```
+
+### `hpbar_map_*`
+
+This provides a normalization mapping from actor names to actor names to be used in `hpbar_name_*` and `hpbar_track_*`. For example, HAF replaces `LegendaryImp` with the slightly modified `LegendaryImp2`, so we provide a mapping `hpbar_map_LegendaryImp2` to `LegendaryImp` and `LegendaryImp2` will now reuse the display name and tracking status of `LegendaryImp`.
+
 ## Notes for Modders
 
 To support customized names for monsters in your mod, simply add the name to be displayed in the `TAG` property of the monster actor.
 
 ## Changelogs
+
+### v8
+* Add pretty names for enraged legendary hell knight (ILCA v1.5).
+* Move actor display name and boss from hardcoded mapping to CVar based mapping. See CVar section for details.
 
 ### v7
 * Moved the HP tracker rightwards so it doesn't clip on 4:3 resolutions.
