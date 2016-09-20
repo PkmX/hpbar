@@ -14,9 +14,8 @@ It should work with all mods (sans those that come with their own HP bars, e.g. 
   * 0: Disable HP bars.
   * 1: Show a full HP bar with monster infomation at top.
   * 2: Show target HP percentage under the crosshair.
-* `hpbar_min_maxhp` (user): Only display HP bars for monsters whose spawn HP is higher than this value. This can be useful to reduce visual clutter while fighting lots of monsters. (default: 0)
-* `hpbar_server_min_maxhp` (server): This is a server-wide variable that controls whether to send HP info to clients and essentially overrides a client's `hpbar_min_maxhp` if this value is higher. It can be used to reduce bandwidth usage (as health info for lesser monsters won't be sent over the network). (default: 0)
-* `hpbar_server_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
+* `hpbar_threshold` (server): Only display HP bars for monsters with more spawn HP than this value. It can be used to reduce bandwidth usage (as health info for lesser monsters won't be sent over the network) or to reduce visual clutter when fighting monsters of different levels. (default: 0)
+* `hpbar_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
 * `hpbar_show_friendly` (user): Set whether to show HP bars for friendly targets. (default: false)
 
 ### `hpbar_name_*`
@@ -50,6 +49,9 @@ To support customized names for monsters in your mod, simply add the name to be 
 ### v8
 * Support for ILCA v1.5.
 * Move actor display name and boss from hardcoded mapping to CVar based mapping. See CVar section for details.
+* Removed `hpbar_min_maxhp`.
+* `hpbar_server_min_maxhp` is renamed to `hpbar_threshold`.
+* `hpbar_server_tracker_threshold` is renamed to `hpbar_tracker_threshold`.
 
 ### v7
 * Moved the HP tracker rightwards so it doesn't clip on 4:3 resolutions.

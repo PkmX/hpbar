@@ -38,7 +38,7 @@ script "hpbar-enter" enter {
             int max_hp = get_target_spawn_health();
             if (max_hp <= 0) max_hp = hp;
             if (max_hp > 0) {
-                if (max_hp >= GetCVar("hpbar_server_min_maxhp")) {
+                if (max_hp >= GetCVar("hpbar_threshold")) {
                     ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
                 }
 
@@ -53,7 +53,6 @@ script "hpbar-enter" enter {
 script 31234 (int player, int hp, int max_hp) clientside {
     if (ConsolePlayerNumber() != player) terminate;
 
-    if (max_hp < GetCVar("hpbar_min_maxhp")) terminate;
     int hp_percentage = hp * 100 / max_hp;
 
     if (has_target()) {
@@ -141,7 +140,7 @@ script 31235 (void) {
         // We only track monsters. :)
         if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
 
-        if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_server_tracker_threshold") && !is_boss(GetActorClass(0))) terminate;
+        if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_tracker_threshold") && !is_boss(GetActorClass(0))) terminate;
 
         // Give it a new TID if it doesn't have one.
         int tid = ActivatorTID();
