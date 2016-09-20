@@ -21,11 +21,13 @@ It should work with all mods (sans those that come with their own HP bars, e.g. 
 
 ### `hpbar_name_*`
 
-Server hosts can customize the display name of monsters by setting `hpbar_name_$actor`. This can be useful if you are loading mods that aren't supported by hpbar yet. For example, you can make Cacodemons (actor name: `Cacodemon`) to be displayed as `Hissy` by setting:
+Server hosts can customize the display name of monsters by setting the `hpbar_name_$actor` cvar. This can be useful if you are loading mods that aren't supported by hpbar yet or want to change the default formatting set by hpbar. For example, you can make Cacodemons (actor name: `Cacodemon`) to be displayed as `Hissy` by setting:
 
 ```
 set hpbar_name_Cacodemon "Hissy"
 ```
+
+To force clients to re-render the names in the tracker, you need to broadcast the change by `puke 31238` in the rcon.
 
 ### `hpbar_track_*`
 
@@ -37,7 +39,7 @@ set hpbar_track_Cacodemon true
 
 ### `hpbar_map_*`
 
-This provides a normalization mapping from actor names to actor names to be used in `hpbar_name_*` and `hpbar_track_*`. For example, HAF replaces `LegendaryImp` with the slightly modified `LegendaryImp2`, so we provide a mapping `hpbar_map_LegendaryImp2` to `LegendaryImp` and `LegendaryImp2` will now reuse the display name and tracking status of `LegendaryImp`.
+This provides a normalization mapping from actor names to actor names to be used in `hpbar_name_*` and `hpbar_track_*`. For example, HAF replaces `LegendaryImp` with the slightly modified `LegendaryImp2`, so we provide a mapping `hpbar_map_LegendaryImp2` to `LegendaryImp` and `LegendaryImp2` will now reuse the display name and tracking rules of `LegendaryImp`.
 
 ## Notes for Modders
 
@@ -46,7 +48,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 ## Changelogs
 
 ### v8
-* Add pretty names for enraged legendary hell knight (ILCA v1.5).
+* Support for ILCA v1.5.
 * Move actor display name and boss from hardcoded mapping to CVar based mapping. See CVar section for details.
 
 ### v7
