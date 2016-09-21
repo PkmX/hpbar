@@ -321,6 +321,10 @@ server noarchive string hpbar_map_Cardinal2 = "Cardinal";
 server noarchive string hpbar_map_ComplexCardinal = "Cardinal";
 server noarchive string hpbar_map_ArkMarine = "DoomPlayer";
 
+// RM-Ark
+server noarchive string hpbar_map_HellFireCyberdemonArk = "HellFireCyberdemon";
+server noarchive string hpbar_map_Terminator2Ark = "Terminator2";
+
 // RGA2
 server noarchive string hpbar_map_RGUPlayer = "DoomPlayer";
 server noarchive string hpbar_map_RGULastStandPlayer = "DoomPlayer";
