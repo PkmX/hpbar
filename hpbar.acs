@@ -254,6 +254,8 @@ script 31239 open clientside {
 
     SetHudSize(1024, 768, false);
     while (true) {
+        int x = to_fixed(GetCVar("hpbar_tracker_x"));
+        int y = to_fixed(GetCVar("hpbar_tracker_y"));
         for (int rank = 0; rank < NUM_RANKINGS; ++rank) {
             int hp_limit = 0;
             int maxhp_limit = 0;
@@ -286,16 +288,16 @@ script 31239 open clientside {
             int hpp = hp * 100 / max_hp;
             str name = GetCVarString(strparam(s: "hpbar_tracked_names", d: n));
             HudMessage(s: hpp_to_color(hpp), d: hp, s: "/", d: max_hp, s: "\c-";
-                       HUDMSG_FADEOUT, 7000 + rank, CR_WHITE, 80.2, 470.0 + rank * 12.0, 1.0 / 35 + 1, 0.1);
+                       HUDMSG_FADEOUT, 7000 + rank, CR_WHITE, x + 80.2, y + rank * 12.0, 1.0 / 35 + 1, 0.1);
             HudMessage(s: hpp_to_color(hpp), d: hpp, s: "%\c-";
-                       HUDMSG_FADEOUT, 7000 + NUM_RANKINGS + rank, CR_WHITE, 120.2, 470.0 + rank * 12.0, 1.0 / 35 + 1, 0.1);
+                       HUDMSG_FADEOUT, 7000 + NUM_RANKINGS + rank, CR_WHITE, x + 120.2, y + rank * 12.0, 1.0 / 35 + 1, 0.1);
 
             str invulmsg = "";
             if (tracked_invul[n])
                 invulmsg = " \c[i8][INVUL]\c-";
 
             HudMessage(s: name, s: invulmsg;
-                       HUDMSG_FADEOUT, 7000 + NUM_RANKINGS * 2 + rank, CR_WHITE, 132.1, 470.0 + rank * 12.0, 1.0 / 35 + 1, 0.1);
+                       HUDMSG_FADEOUT, 7000 + NUM_RANKINGS * 2 + rank, CR_WHITE, x + 132.1, y + rank * 12.0, 1.0 / 35 + 1, 0.1);
         }
 
         delay(1);
