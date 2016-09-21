@@ -430,6 +430,9 @@ function str normalize_class(str class) {
     if (streq(class, "BaronOfHell~")) { return "BaronOfHell"; }
     if (streq(class, "Hexa-ShotgunZombie")) { return "HexaShotgunZombie"; }
 
+    // HEM
+    if (streq(class, "Hades-TechZombie")) { return "HadesTechZombie"; }
+
     str s = GetCVarString(strparam(s: "hpbar_map_", s: class));
     if (s != 0) {
         return s;

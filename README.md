@@ -47,7 +47,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 ## Changelogs
 
 ### v9
-* Support rm-ark v2.
+* Support rm-ark v2 and HEM v0.9467.
 * Customized names for newly added monster should now display correctly over networked games.
 * Servers can now customize the placement of the tracker via `hpbar_tracker_x` and `hpbar_tracker_y` to prevent overlapping with other HUD elements.
 

@@ -167,6 +167,61 @@ server noarchive string hpbar_name_EnragedLegendaryCaptain = "\c[m6]Enraged\c- \
 server noarchive string hpbar_name_EnragedLegendaryRevenant = "\c[m6]Enraged\c- \c[z3]Legendary Revenant\c-";
 server noarchive string hpbar_name_EnragedLegendaryHellKnight = "\c[m6]Enraged\c- \c[z3]Legendary Hell Knight\c-";
 
+// HEM
+server noarchive string hpbar_name_HadesTechZombie = "Dark Zombieman";
+server noarchive string hpbar_name_PGNZombie = "Elite Zombie Leader";
+server noarchive string hpbar_name_MarineSlayer = "Marine Slayer";
+server noarchive string hpbar_name_MRLZombie = "Mini Rocket Launcher Zombieman";
+server noarchive string hpbar_name_PyroZombie = "Pyroblast Zombieman";
+server noarchive string hpbar_name_DemonicZombie = "Demonic Zombie";
+server noarchive string hpbar_name_RepeaterZombie = "Repeater Zombie";
+server noarchive string hpbar_name_ShetpackZombie = "Jetpack Zombie";
+server noarchive string hpbar_name_CyZombie = "Cyber Zombie";
+server noarchive string hpbar_name_LegChainsawZombie = "\c[z3]Legendary Chainsaw Zombie\c-";
+server noarchive string hpbar_name_LegendaryCowboy = "\c[z3]Legendary Cowboy\c-";
+// Hellion
+server noarchive string hpbar_name_CyberImp = "Fusion Imp";
+server noarchive string hpbar_name_StoneImp = "Stone Imp";
+server noarchive string hpbar_name_DarkCyberImp = "Dark Cyber Imp";
+server noarchive string hpbar_name_BerserkerImp = "Berserker Imp";
+// Doom Shadow
+// Nightshade
+// Ghoul
+// Salamander
+// Dark Catharsi
+server noarchive string hpbar_name_WarlordImp = "Corrupt Pawn";
+server noarchive string hpbar_name_PainHarvester = "Tortured One";
+server noarchive string hpbar_name_CorruptFiend = "Necro Fiend";
+server noarchive string hpbar_name_AbyssalHound = "Abyssal Hound";
+server noarchive string hpbar_name_BabyWatcher = "Observer";
+// Wicked
+server noarchive string hpbar_name_BloodSkull = "Blood Skull";
+server noarchive string hpbar_name_PhazoDemon = "\ctPhase Cacodemon\c-";
+server noarchive string hpbar_name_DarkCacoLich = "Dark CacoLich";
+server noarchive string hpbar_name_ImpureElemental = "\c[g6]Impure Elemental\c-";
+server noarchive string hpbar_name_ImpureSoul = "\c[x5]Impure Soul\c-";
+// Broat
+// Ruffian
+server noarchive string hpbar_name_LaserSpider = "Laser Spider";
+// Aracknight
+server noarchive string hpbar_name_LegendaryBabyDemolisher = "\c[z3]Legendary Baby Demolisher\c-";
+// Draugr
+server noarchive string hpbar_name_StoneKnight = "Stone Knight";
+server noarchive string hpbar_name_HereticKnight = "Heretic Knight";
+server noarchive string hpbar_name_DoomCaster = "\c[s9]DoomCaster\c-";
+server noarchive string hpbar_name_ForgottenWarrior = "Forgotten Warrior";
+// Damned
+// Heterodox
+server noarchive string hpbar_name_Shinenen = "\ctShin'en-en\c-";
+server noarchive string hpbar_name_DarkCybruiser = "\cqDark Cybruiser\c-";
+server noarchive string hpbar_name_HellPaladin = "\c[x5]Hell Paladin\c-";
+server noarchive string hpbar_name_Illusionist = "\c[s9]Illusionist\c-";
+server noarchive string hpbar_name_AbyssalSatyr = "\c[s9]Abyssal Satyr\c-";
+server noarchive string hpbar_name_Overlord = "\c[g6]Overlord\c-";
+server noarchive string hpbar_name_HEMHeresiarch = "\c[g6]Hersiarch\c-";
+server noarchive string hpbar_name_Moloch = "\crMoloch\c-";
+server noarchive string hpbar_name_RocketDog = "\c[c5]Rocket Dog\c-";
+
 // Doge
 server noarchive string hpbar_name_Doge = "\c[c5]DOGE\c-";
 
@@ -257,6 +312,19 @@ server noarchive bool hpbar_track_EnragedLegendaryCaptain = true;
 server noarchive bool hpbar_track_EnragedLegendaryRevenant = true;
 server noarchive bool hpbar_track_EnragedLegendaryHellKnight = true;
 
+// HEM
+server noarchive bool hpbar_track_LegChainsawZombie = true;
+server noarchive bool hpbar_track_LegendaryCowboy = true;
+server noarchive bool hpbar_track_ImpureElemental = true;
+server noarchive bool hpbar_track_LegendaryBabyDemolisher = true;
+server noarchive bool hpbar_track_DoomCaster = true;
+server noarchive bool hpbar_track_HellPaladin = true;
+server noarchive bool hpbar_track_Illusionist = true;
+server noarchive bool hpbar_track_AbyssalSatyr = true;
+server noarchive bool hpbar_track_Overlord = true;
+server noarchive bool hpbar_track_HEMHeresiarch = true;
+server noarchive bool hpbar_track_Moloch = true;
+
 // RGA2
 server noarchive bool hpbar_track_StoneAbaddon = true;
 server noarchive bool hpbar_track_SuperRevenant = true;
@@ -326,6 +394,10 @@ server noarchive string hpbar_map_ArkMarine = "DoomPlayer";
 // RM-Ark
 server noarchive string hpbar_map_HellFireCyberdemonArk = "HellFireCyberdemon";
 server noarchive string hpbar_map_Terminator2Ark = "Terminator2";
+
+// HEM
+server noarchive string hpbar_map_DarkHellion2 = "DarkHellion";
+server noarchive string hpbar_map_DoomImpNew = "DoomImp";
 
 // RGA2
 server noarchive string hpbar_map_RGUPlayer = "DoomPlayer";
