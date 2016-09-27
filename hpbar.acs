@@ -179,13 +179,14 @@ script 31235 (void) {
         while (ClassifyActor(0) & ACTOR_ALIVE) {
             // Send monster HP
             int old_hp = tracked_hps[i];
+            int old_kills = tracked_kills[i];
             tracked_hps[i] = GetActorProperty(0, APROP_Health);
-            if (old_hp != tracked_hps[i]) {
-                ACS_ExecuteAlways(31237, 0, i, tracked_hps[i]);
+            tracked_kills[i] = CheckInventory("MonsterScore");
+            if (old_hp != tracked_hps[i] || old_kills != tracked_kills[i]) {
+                ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_kills[i]);
             }
 
             tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
-            tracked_kills[i] = CheckInventory("MonsterScore");
 
             // Send name of monster
             str old_name = GetCVarString(name_cvar);
@@ -213,7 +214,6 @@ script 31236 (int i, int tid) clientside {
             tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
             while (ClassifyActor(0) & ACTOR_ALIVE) {
                 tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
-                tracked_kills[i] = CheckInventory("MonsterScore");
                 delay(1);
             }
         } else {
@@ -222,8 +222,9 @@ script 31236 (int i, int tid) clientside {
     }
 }
 
-script 31237 (int i, int hp) clientside {
+script 31237 (int i, int hp, int kills) clientside {
     tracked_hps[i] = hp;
+    tracked_kills[i] = kills;
 }
 
 script 31238 (void) net {
