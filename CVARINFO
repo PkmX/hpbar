@@ -48,10 +48,10 @@ server noarchive string hpbar_name_PoisonElemental = "Poison Elemental";
 server noarchive string hpbar_name_BombElemental = "Bomb Elemental";
 // Hectebus
 // Daedabus
-// Behemoth
-// Barbatos
+server noarchive string hpbar_name_Behemoth = "Behemoth";
+server noarchive string hpbar_name_Barbatos = "\cqBarbatos\c-";
 // Dualachnotron
-// Fusionite
+server noarchive string hpbar_name_Fusionite = "\ctFusionite\c-";
 server noarchive string hpbar_name_BabyDemolisher = "Baby Demolisher";
 server noarchive string hpbar_name_BabySentient = "Baby Sentient";
 // Guardian
@@ -68,7 +68,7 @@ server noarchive string hpbar_name_BruiserDemon = "BruiserDemon";
 // Exile
 // Diabolist
 server noarchive string hpbar_name_DarkHellion = "\cmDark Hellion\c-";
-// Demolisher
+server noarchive string hpbar_name_Demolisher = "\cgDemolisher\c-";
 server noarchive string hpbar_name_DarkDemolisher = "\cqDark Demolisher\c-";
 server noarchive string hpbar_name_CerebralSentient = "\cgCerebral Sentient\c-";
 server noarchive string hpbar_name_CyberLord = "\cgCyberlord\c-";
@@ -122,8 +122,8 @@ server noarchive string hpbar_name_Velocirator = "\cdVelocirator\c-";
 // Abaddon
 // Afrit
 server noarchive string hpbar_name_BabyDDemolisher = "\cqBaby Dark Demolisher\c-";
-// Demobus
-server noarchive string hpbar_name_BFGMastermind = "BFG Mastermind";
+server noarchive string hpbar_name_Demobus = "\cmDemobus\c-";
+server noarchive string hpbar_name_BFGMastermind = "\cqBFG Mastermind\c-";
 server noarchive string hpbar_name_CacoLich = "Cacolich";
 server noarchive string hpbar_name_CerebralCommander = "\cgCerebral Commander\c-";
 server noarchive string hpbar_name_ChaingunFiend = "Chaingun Fiend";
@@ -211,7 +211,7 @@ server noarchive string hpbar_name_LegendaryBabyDemolisher = "\c[z3]Legendary Ba
 server noarchive string hpbar_name_StoneKnight = "Stone Knight";
 server noarchive string hpbar_name_HereticKnight = "Heretic Knight";
 server noarchive string hpbar_name_DoomCaster = "\c[s9]DoomCaster\c-";
-server noarchive string hpbar_name_ForgottenWarrior = "Forgotten Warrior";
+server noarchive string hpbar_name_ForgottenWarrior = "\cqForgotten Warrior\c-";
 // Damned
 // Heterodox
 server noarchive string hpbar_name_Shinenen = "\ctShin'en-en\c-";
@@ -295,7 +295,6 @@ server noarchive bool hpbar_track_Velocirator = true;
 server noarchive bool hpbar_track_BFGMastermind = true;
 server noarchive bool hpbar_track_CerebralCommander = true;
 server noarchive bool hpbar_track_CorruptedCyberLord = true;
-server noarchive bool hpbar_track_HellFireBaron = true;
 server noarchive bool hpbar_track_HellFireCyberdemon = true;
 server noarchive bool hpbar_track_PhaseWarlord = true;
 server noarchive bool hpbar_track_Terminator2 = true;
@@ -378,6 +377,11 @@ server noarchive string hpbar_map_FakeTLegCardi3 = "TrueLegendaryCardinal";
 // Random Monsters
 server noarchive string hpbar_map_KSBehemoth = "Behemoth";
 server noarchive string hpbar_map_NewBarbatos = "Barbatos";
+server noarchive string hpbar_map_CFusionite = "Fusionite";
+server noarchive string hpbar_map_CDTechSpider = "DTechSpider";
+server noarchive string hpbar_map_CBabyDemolisher = "BabyDemolisher";
+server noarchive string hpbar_map_BabyDDemolisher = "BabyDDemolisher";
+server noarchive string hpbar_map_CBabySentient = "BabySentient";
 
 // HAF
 server noarchive string hpbar_map_SuicideBomber2 = "SuicideBomber";
