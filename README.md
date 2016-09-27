@@ -27,7 +27,7 @@ This mod is designed to work with all mods (sans those that come with their own 
 Server hosts can customize the display name of monsters by setting the `hpbar_name_$actor` cvar. This can be useful if you are loading mods that aren't supported by hpbar yet or want to change the default formatting set by hpbar. For example, you can make Cacodemons (actor name: `Cacodemon`) to be displayed as `Hissy` by setting:
 
 ```
-set hpbar_name_Cacodemon "Hissy"
+set hpbar_name_Cacodemon Hissy
 ```
 
 ### `hpbar_track_*`
