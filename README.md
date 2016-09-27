@@ -16,8 +16,8 @@ This mod is designed to work with all mods (sans those that come with their own 
   * 2: Show target HP percentage under the crosshair.
 * `hpbar_threshold` (server): Only display HP bars for monsters with more spawn HP than this value. It can be used to reduce bandwidth usage (as health info for lesser monsters won't be sent over the network) or to reduce visual clutter when fighting monsters of different levels. (default: 0)
 * `hpbar_tracker` (server): Set whether to enable the HP tracker. (default: true)
-* `hpbar_tracker_x` (server): The x position of the HP tracker, from 0 (left) to 1024 (right). Note that the range is defined as the 4:3 crop of the screen in the center if you are playing on wide-screen resolutions. (default: 0)
-* `hpbar_tracker_y` (server): The y position of the HP tracker, from 0 (top) to 768 (bottom). (default: 470)
+* `hpbar_tracker_x` (server): The x position of the HP tracker, from 0.0 (left) to 1.0 (right). (default: 0.02)
+* `hpbar_tracker_y` (server): The y position of the HP tracker, from 0.0 (top) to 1.0 (bottom). (default: 0.58)
 * `hpbar_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
 * `hpbar_show_friendly` (user): Set whether to show HP bars for friendly targets. (default: false)
 * `hpbar_show_monster_kill_count` (server): Set whether to count and show the number of players killed by a monster. (default: true)
@@ -50,6 +50,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ### v10
 * Added a counter that shows how many players got rekt by a monster.
+* The HP tracker now supports wide-screen instead of being limited to the central 4:3 area. Both `hpbar_tracker_{x, y}`'s interval are now `[0.0, 1.0]`.
 * Servers can now disable the HP tracker altogether.
 * Names of fake legendary monsters are now properly mapped to their true form.
 * Fixed monster name mappings for RM and added some more colors to monster names.
