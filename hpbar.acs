@@ -22,6 +22,10 @@
 script "hpbar-enter" enter {
     int pn = PlayerNumber();
 
+    if (GetCVar("hpbar_show_monster_kill_count")) {
+        SetThingSpecial(0, ACS_ExecuteAlways, 31240);
+    }
+
     while (true) {
         if (has_target()) {
             int hp = get_target_health();
@@ -129,6 +133,7 @@ int tracked_tids[MAX_TRACKERS];
 int tracked_hps[MAX_TRACKERS];
 int tracked_max_hps[MAX_TRACKERS];
 bool tracked_invul[MAX_TRACKERS];
+int tracked_kills[MAX_TRACKERS];
 
 script "hpbar-open" open {
     for (int i = 0; i < MAX_TRACKERS; ++i) {
@@ -178,6 +183,7 @@ script 31235 (void) {
             }
 
             tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
+            tracked_kills[i] = CheckInventory("MonsterScore");
 
             // Send name of monster
             str old_name = GetCVarString(name_cvar);
@@ -205,6 +211,7 @@ script 31236 (int i, int tid) clientside {
             tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
             while (ClassifyActor(0) & ACTOR_ALIVE) {
                 tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
+                tracked_kills[i] = CheckInventory("MonsterScore");
                 delay(1);
             }
         } else {
@@ -296,12 +303,31 @@ script 31239 open clientside {
             if (tracked_invul[n])
                 invulmsg = " \c[i8][INVUL]\c-";
 
-            HudMessage(s: name, s: invulmsg;
+            str killsmsg = "";
+            if (GetCVar("hpbar_show_monster_kill_count")) {
+                if (tracked_kills[n] == 1) {
+                    killsmsg = " \cr(1 rekt)\c-";
+                } else if (tracked_kills[n] > 1) {
+                    killsmsg = strparam(s: " \cr(", d: tracked_kills[n], s: " rekts)\c-");
+                }
+            }
+
+            HudMessage(s: name, s: killsmsg, s: invulmsg;
                        HUDMSG_FADEOUT, 7000 + NUM_RANKINGS * 2 + rank, CR_WHITE, x + 132.1, y + rank * 12.0, 1.0 / 35 + 1, 0.1);
         }
 
         delay(1);
     }
+}
+
+script "hpbar-respawn" respawn {
+    if (GetCVar("hpbar_show_monster_kill_count")) {
+        SetThingSpecial(0, ACS_ExecuteAlways, 31240);
+    }
+}
+
+script 31240 (void) {
+    GiveInventory("MonsterScore", 1);
 }
 
 script 31300 (void) {

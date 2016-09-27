@@ -19,6 +19,7 @@ This mod is designed to work with all mods (sans those that come with their own 
 * `hpbar_tracker_y` (server): The y position of the HP tracker, from 0 (top) to 768 (bottom). (default: 470)
 * `hpbar_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
 * `hpbar_show_friendly` (user): Set whether to show HP bars for friendly targets. (default: false)
+* `hpbar_show_monster_kill_count` (server): Set whether to count and show the number of players killed by a monster. (default: true)
 
 ### `hpbar_name_*`
 
@@ -45,6 +46,9 @@ This provides a normalization mapping from actor names to actor names to be used
 To support customized names for monsters in your mod, simply add the name to be displayed in the `TAG` property of the monster actor.
 
 ## Changelogs
+
+### v10
+* Added a counter that shows how many players got rekt by a monster.
 
 ### v9
 * Support rm-ark v2 and HEM v0.9467.
