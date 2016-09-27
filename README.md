@@ -51,6 +51,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 ### v10
 * Added a counter that shows how many players got rekt by a monster.
 * Servers can now disable the HP tracker altogether.
+* Names of fake legendary monsters are now properly mapped to their true form.
 
 ### v9
 * Support rm-ark v2 and HEM v0.9467.

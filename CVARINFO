@@ -357,6 +357,23 @@ server noarchive string hpbar_map_ComplexDoomPlayer = "DoomPlayer";
 server noarchive string hpbar_map_NewBabySentient = "BabySentient";
 server noarchive string hpbar_map_NewBehemoth = "Behemoth";
 server noarchive string hpbar_map_NewCerebralSentient = "CerebralSentient";
+server noarchive string hpbar_map_FakeLegendaryRedeemer = "LegendaryRedeemer";
+server noarchive string hpbar_map_FakeLegendaryRedeemerbycardi = "LegendaryRedeemer";
+server noarchive string hpbar_map_ReinforcementLegCardi = "LegendaryCardinal";
+server noarchive string hpbar_map_FakeLegCardi  = "LegendaryCardinal";
+server noarchive string hpbar_map_FakeLegCardi2 = "LegendaryCardinal";
+server noarchive string hpbar_map_FakeLegCardi3 = "LegendaryCardinal";
+server noarchive string hpbar_map_FakeLegZombie = "LegZombie";
+server noarchive string hpbar_map_FakeLegendaryHellKnight = "LegendaryHellKnight";
+server noarchive string hpbar_map_FakeLegendaryImp = "LegendaryImp";
+server noarchive string hpbar_map_FakeLegendaryBehemoth = "LegendaryBehemoth";
+server noarchive string hpbar_map_FakeLegendaryRevenant = "LegendaryRevenant";
+server noarchive string hpbar_map_FakeLegendaryCyberdemon = "LegendaryCyberdemon";
+server noarchive string hpbar_map_FakeLegendaryAssaultCaptain = "LegendaryAssaultCaptain";
+server noarchive string hpbar_map_FakeLegendaryCyberNoble = "LegendaryCyberNoble";
+server noarchive string hpbar_map_FakeTLegCardi  = "TrueLegendaryCardinal";
+server noarchive string hpbar_map_FakeTLegCardi2 = "TrueLegendaryCardinal";
+server noarchive string hpbar_map_FakeTLegCardi3 = "TrueLegendaryCardinal";
 
 // Random Monsters
 server noarchive string hpbar_map_KSBehemoth = "Behemoth";
