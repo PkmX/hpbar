@@ -234,7 +234,7 @@ script 31238 (void) net {
             SetActivator(tid);
             SetCVarString(strparam(s: "hpbar_tracked_names", d: i), get_actor_name(0));
             ACS_ExecuteAlways(31236, 0, i, tid);
-            ACS_ExecuteAlways(31237, 0, i, tracked_hps[i]);
+            ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_kills[i]);
         }
     }
 }
