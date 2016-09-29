@@ -23,7 +23,7 @@ server noarchive string hpbar_name_QuadShotgunZombie = "\crQuad Barrel Shotgun Z
 server noarchive string hpbar_name_AssaultRifleZombie = "Assault Rifle Zombie";
 // Chaingunner
 // Minigunner
-server noarchive string hpbar_name_BFGZombieman = "BFG Zombie";
+server noarchive string hpbar_name_BFGZombieman = "\cdBFG Zombie\c-";
 // Imp
 server noarchive string hpbar_name_VoidImp = "Void Imp";
 // Devil
@@ -66,7 +66,7 @@ server noarchive string hpbar_name_HellDuke = "\cdHell Duke\c-";
 server noarchive string hpbar_name_BruiserDemon = "BruiserDemon";
 // Cybruiser
 // Exile
-// Diabolist
+server noarchive string hpbar_name_Diabolist = "\cgDiabolist\c-";
 server noarchive string hpbar_name_DarkHellion = "\cmDark Hellion\c-";
 server noarchive string hpbar_name_Demolisher = "\cgDemolisher\c-";
 server noarchive string hpbar_name_DarkDemolisher = "\cqDark Demolisher\c-";
@@ -78,15 +78,15 @@ server noarchive string hpbar_name_SSNazi = "SS Nazi";
 // Mutant
 // Officer
 server noarchive string hpbar_name_NaziDog = "Nazi Guard Dog";
-// Hitler
-server noarchive string hpbar_name_HitlerNoSuit = "Hitler";
+server noarchive string hpbar_name_Hitler = "\cgHi\cjt\cml\cger\c-";
+// HitlerNoSuit
 server noarchive string hpbar_name_DSP = "Darksyde Phil";
 
 // LCA
 server noarchive string hpbar_name_BFG10KGeneral = "\cdBFG10K General\c-";
 server noarchive string hpbar_name_BFGCacodemon = "\cdBFG Cacodemon\c-";
-server noarchive string hpbar_name_Cardihilator = "\cgCardihilator\c-";
-server noarchive string hpbar_name_CerebralCardinal = "\cgCerebral Cardinal\c-";
+server noarchive string hpbar_name_Cardihilator = "\c[m6]Cardihilator\c-";
+server noarchive string hpbar_name_CerebralCardinal = "\c[m6]Cerebral Cardinal\c-";
 // Cydestroyer
 server noarchive string hpbar_name_Arcradimus = "\c[z4]Demon Lord Arcradimus\c-";
 server noarchive string hpbar_name_DesertHornet = "DesertHornet";
@@ -125,7 +125,7 @@ server noarchive string hpbar_name_BabyDDemolisher = "\cqBaby Dark Demolisher\c-
 server noarchive string hpbar_name_Demobus = "\cmDemobus\c-";
 server noarchive string hpbar_name_BFGMastermind = "\cqBFG Mastermind\c-";
 server noarchive string hpbar_name_CacoLich = "Cacolich";
-server noarchive string hpbar_name_CerebralCommander = "\cgCerebral Commander\c-";
+server noarchive string hpbar_name_CerebralCommander = "\c[m6]Cerebral Commander\c-";
 server noarchive string hpbar_name_ChaingunFiend = "Chaingun Fiend";
 server noarchive string hpbar_name_CorruptedCyberLord = "\c[l5]Corrupted Annihilator\c-";
 server noarchive string hpbar_name_CryoDemon = "Cyro Demon";
@@ -154,7 +154,7 @@ server noarchive string hpbar_name_PyroImp = "Pyro Imp";
 server noarchive string hpbar_name_Terminator2 = "\crTerminator\c-";
 server noarchive string hpbar_name_ToxicImp = "Toxic Imp";
 server noarchive string hpbar_name_ToxicLord = "\cdToxic Lord\c-";
-server noarchive string hpbar_name_WidowMaker = "Widow Maker";
+server noarchive string hpbar_name_WidowMaker = "\cmWidow Maker\c-";
 
 // HAF
 server noarchive string hpbar_name_DementedTerminator = "\c[o7]Demented\c- \crTerminator\c-";
@@ -165,7 +165,7 @@ server noarchive string hpbar_name_BlueCardinal = "\c[l5]Corrupted Cardinal\c-";
 // Insane LCA
 server noarchive string hpbar_name_EnragedLegZombie = "\c[m6]Enraged\c- \c[z3]Legendary Zombie\c-";
 server noarchive string hpbar_name_EnragedLegendaryImp = "\c[m6]Enraged\c- \c[z3]Legendary Imp\c-";
-server noarchive string hpbar_name_EnragedLegendaryCaptain = "\c[m6]Enraged\c- \c[z3]Legendary Assault Captain\c-";
+server noarchive string hpbar_name_EnragedLegendaryCaptain = "\c[m6]Enraged\c- \c[z3]Legendary Captain\c-";
 server noarchive string hpbar_name_EnragedLegendaryRevenant = "\c[m6]Enraged\c- \c[z3]Legendary Revenant\c-";
 server noarchive string hpbar_name_EnragedLegendaryHellKnight = "\c[m6]Enraged\c- \c[z3]Legendary Hell Knight\c-";
 
