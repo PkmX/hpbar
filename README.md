@@ -48,6 +48,10 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ## Changelogs
 
+### v11
+* Support rm-ark v4.
+* Fixed the bug where a new player joining would temporarily set monsters' kill counts to 0.
+
 ### v10
 * Added a counter that shows how many players got rekt by a monster.
 * The HP tracker now supports wide-screen instead of being limited to the central 4:3 area. Both `hpbar_tracker_{x, y}`'s interval are now `[0.0, 1.0]`.
