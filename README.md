@@ -51,6 +51,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 ### v11
 * Support rm-ark v4.
 * Fixed the bug where a new player joining would temporarily set monsters' kill counts to 0.
+* The HP tracker now gets invulnerability info from server, which should fix the problem where clientside thinks an actor is stuck in invulnerability state (when it is not).
 
 ### v10
 * Added a counter that shows how many players got rekt by a monster.

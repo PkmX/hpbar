@@ -23,7 +23,7 @@ script "hpbar-enter" enter {
     int pn = PlayerNumber();
 
     if (GetCVar("hpbar_show_monster_kill_count")) {
-        SetThingSpecial(0, ACS_ExecuteAlways, 31240);
+        SetThingSpecial(0, ACS_ExecuteAlways, 31241);
     }
 
     while (true) {
@@ -186,7 +186,11 @@ script 31235 (void) {
                 ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_kills[i]);
             }
 
+            bool old_invul = tracked_invul[i];
             tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
+            if (old_invul != tracked_invul[i]) {
+                ACS_ExecuteAlways(31238, 0, i, tracked_invul[i]);
+            }
 
             // Send name of monster
             str old_name = GetCVarString(name_cvar);
@@ -212,10 +216,6 @@ script 31236 (int i, int tid) clientside {
         if (ClassifyActor(0) & ACTOR_ALIVE) {
             tracked_tids[i] = tid;
             tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
-            while (ClassifyActor(0) & ACTOR_ALIVE) {
-                tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
-                delay(1);
-            }
         } else {
             tracked_tids[i] = INVALID_TID;
         }
@@ -227,7 +227,11 @@ script 31237 (int i, int hp, int kills) clientside {
     tracked_kills[i] = kills;
 }
 
-script 31238 (void) net {
+script 31238 (int i, int invul) clientside {
+    tracked_invul[i] = invul;
+}
+
+script 31239 (void) net {
     for (int i = 0; i < MAX_TRACKERS; ++i) {
         int tid = tracked_tids[i];
         if (tid != INVALID_TID) {
@@ -240,7 +244,7 @@ script 31238 (void) net {
 }
 
 function void request_broadcast_tracker_info(void) {
-    RequestScriptPuke(31238, 0, 0, 0);
+    RequestScriptPuke(31239, 0, 0, 0);
 }
 
 int maxhp_rankings[NUM_RANKINGS];
@@ -274,7 +278,7 @@ function int align_right(int x) {
 #define TRACKER_HUD_WIDTH  1024
 #define TRACKER_HUD_HEIGHT 768
 
-script 31239 open clientside {
+script 31240 open clientside {
     for (int i = 0; i < MAX_TRACKERS; ++i) {
         tracked_tids[i] = INVALID_TID;
     }
@@ -345,11 +349,11 @@ script 31239 open clientside {
 
 script "hpbar-respawn" respawn {
     if (GetCVar("hpbar_show_monster_kill_count")) {
-        SetThingSpecial(0, ACS_ExecuteAlways, 31240);
+        SetThingSpecial(0, ACS_ExecuteAlways, 31241);
     }
 }
 
-script 31240 (void) {
+script 31241 (void) {
     GiveInventory("MonsterScore", 1);
 }
 
