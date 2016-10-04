@@ -332,10 +332,15 @@ script 31240 open clientside {
 
             str killsmsg = "";
             if (GetCVar("hpbar_show_monster_kill_count")) {
-                if (tracked_kills[n] == 1) {
-                    killsmsg = " \cr(1 rekt)\c-";
-                } else if (tracked_kills[n] > 1) {
-                    killsmsg = strparam(s: " \cr(", d: tracked_kills[n], s: " rekts)\c-");
+                int kills = tracked_kills[n];
+                if (kills == 1) {
+                    killsmsg = " \cm(1 rekt)\c-";
+                } else if (kills >= 2 && kills < 5) {
+                    killsmsg = strparam(s: " \cr(", d: kills, s: " rekts)\c-");
+                } else if (kills >= 5 && kills < 10) {
+                    killsmsg = strparam(s: " \cg(", d: kills, s: " rekts)\c-");
+                } else if (kills >= 10) {
+                    killsmsg = strparam(s: " \c[a6](", d: kills, s: " rekts)\c-");
                 }
             }
 

@@ -50,6 +50,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ### v12
 * `hpbar_track_*` can now disable tracking for monsters by setting it to `-1`.
+* Rekt counter is now colored!
 * Fixed name mapping for fake legendary cyber nobles spawned by TLC.
 * Legendary redeemer clones are no longer tracked.
 
