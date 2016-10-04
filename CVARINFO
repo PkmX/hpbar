@@ -199,6 +199,8 @@ server noarchive string hpbar_name_AbyssalHound = "Abyssal Hound";
 server noarchive string hpbar_name_BabyWatcher = "Observer";
 // Wicked
 server noarchive string hpbar_name_BloodSkull = "Blood Skull";
+server noarchive string hpbar_name_LegendaryLostSoul = "\c[z3]Legendary Lost Soul\c-";
+server noarchive string hpbar_name_LegendaryDoomguy = "\c[z3]Legendary Doomguy\c-";
 server noarchive string hpbar_name_PhazoDemon = "\ctPhase Cacodemon\c-";
 server noarchive string hpbar_name_DarkCacoLich = "Dark CacoLich";
 server noarchive string hpbar_name_ImpureElemental = "\c[g6]Impure Elemental\c-";
@@ -220,8 +222,9 @@ server noarchive string hpbar_name_DarkCybruiser = "\cqDark Cybruiser\c-";
 server noarchive string hpbar_name_HellPaladin = "\c[x5]Hell Paladin\c-";
 server noarchive string hpbar_name_Illusionist = "\c[s9]Illusionist\c-";
 server noarchive string hpbar_name_AbyssalSatyr = "\c[s9]Abyssal Satyr\c-";
+server noarchive string hpbar_name_AbyssalImp = "\cmAbyssal Imp\c-";
 server noarchive string hpbar_name_Overlord = "\c[g6]Overlord\c-";
-server noarchive string hpbar_name_HEMHeresiarch = "\c[g6]Hersiarch\c-";
+server noarchive string hpbar_name_HEMHeresiarch = "\c[a0]Hersiarch\c-";
 server noarchive string hpbar_name_Moloch = "\crMoloch\c-";
 server noarchive string hpbar_name_RocketDog = "\c[c5]Rocket Dog\c-";
 
@@ -324,6 +327,7 @@ server noarchive int hpbar_track_DoomCaster = 1;
 server noarchive int hpbar_track_HellPaladin = 1;
 server noarchive int hpbar_track_Illusionist = 1;
 server noarchive int hpbar_track_AbyssalSatyr = 1;
+server noarchive int hpbar_track_AbyssalImp = 1;
 server noarchive int hpbar_track_Overlord = 1;
 server noarchive int hpbar_track_HEMHeresiarch = 1;
 server noarchive int hpbar_track_Moloch = 1;
@@ -424,6 +428,11 @@ server noarchive string hpbar_map_PyroImpArk = "PyroImp";
 // HEM
 server noarchive string hpbar_map_DarkHellion2 = "DarkHellion";
 server noarchive string hpbar_map_DoomImpNew = "DoomImp";
+
+// HEM-HAF
+server noarchive string hpbar_map_LegendaryCowboy2 = "LegendaryCowboy";
+server noarchive string hpbar_map_LegChainsawZombie2 = "LegChainsawZombie";
+server noarchive string hpbar_map_LegendaryBabyDemolisher2 = "LegendaryBabyDemolisher";
 
 // RGA2
 server noarchive string hpbar_map_RGUPlayer = "DoomPlayer";
