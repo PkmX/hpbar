@@ -463,13 +463,17 @@ function str get_actor_name(int tid) {
 // Ideally, we should check whether the BOSS flag is set on the actor, but it isn't supported in Zandronum 2.1.2 yet. So we simply whitelist most common bosses in popular WADs.
 function bool is_boss(str class) {
     bool boss = GetCVar(strparam(s: "hpbar_track_", s: class));
-    if (boss) {
+    if (boss == 1) {
         return true;
+    } else if (boss == -1) {
+        return false;
     }
 
     boss = GetCVar(strparam(s: "hpbar_track_", s: normalize_class(class)));
     if (boss) {
         return true;
+    } else if (boss == -1) {
+        return false;
     }
 
     return false;

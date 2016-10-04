@@ -259,84 +259,85 @@ server noarchive string hpbar_name_DoomPlayer = "\c[l5]Player\c-";
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Complex
-server noarchive bool hpbar_track_DarkHellion = true;
-server noarchive bool hpbar_track_Demolisher = true;
-server noarchive bool hpbar_track_DarkDemolisher = true;
-server noarchive bool hpbar_track_CerebralSentient = true;
-server noarchive bool hpbar_track_CyberLord = true;
-server noarchive bool hpbar_track_DarkCyberdemon = true;
-server noarchive bool hpbar_track_Cardinal = true;
-server noarchive bool hpbar_track_Hitler = true;
+server noarchive int hpbar_track_DarkHellion = 1;
+server noarchive int hpbar_track_Demolisher = 1;
+server noarchive int hpbar_track_DarkDemolisher = 1;
+server noarchive int hpbar_track_CerebralSentient = 1;
+server noarchive int hpbar_track_CyberLord = 1;
+server noarchive int hpbar_track_DarkCyberdemon = 1;
+server noarchive int hpbar_track_Cardinal = 1;
+server noarchive int hpbar_track_Hitler = 1;
 
 // LCA
-server noarchive bool hpbar_track_Cardihilator = true;
-server noarchive bool hpbar_track_CerebralCardinal = true;
-server noarchive bool hpbar_track_LegendaryAnnihilator = true;
-server noarchive bool hpbar_track_LegendaryAssaultCaptain = true;
-server noarchive bool hpbar_track_LegendaryBabySentient = true;
-server noarchive bool hpbar_track_LegendaryBehemoth = true;
-server noarchive bool hpbar_track_LegendaryCardinal = true;
-server noarchive bool hpbar_track_LegendaryCommando = true;
-server noarchive bool hpbar_track_LegendaryCyberdemon = true;
-server noarchive bool hpbar_track_LegendaryCyberNoble = true;
-server noarchive bool hpbar_track_LegendaryFiend = true;
-server noarchive bool hpbar_track_LegendaryHellKnight = true;
-server noarchive bool hpbar_track_LegendaryImp = true;
-server noarchive bool hpbar_track_LegendaryRedeemer = true;
-server noarchive bool hpbar_track_LegendaryRevenant = true;
-server noarchive bool hpbar_track_LegendarySentient = true;
-server noarchive bool hpbar_track_LegendaryStealthTrooper = true;
-server noarchive bool hpbar_track_LegZombie = true;
-server noarchive bool hpbar_track_TrueLegendaryCyberdemon = true;
-server noarchive bool hpbar_track_TrueLegendaryCardinal = true;
-server noarchive bool hpbar_track_Velocirator = true;
+server noarchive int hpbar_track_Cardihilator = 1;
+server noarchive int hpbar_track_CerebralCardinal = 1;
+server noarchive int hpbar_track_LegendaryAnnihilator = 1;
+server noarchive int hpbar_track_LegendaryAssaultCaptain = 1;
+server noarchive int hpbar_track_LegendaryBabySentient = 1;
+server noarchive int hpbar_track_LegendaryBehemoth = 1;
+server noarchive int hpbar_track_LegendaryCardinal = 1;
+server noarchive int hpbar_track_LegendaryCommando = 1;
+server noarchive int hpbar_track_LegendaryCyberdemon = 1;
+server noarchive int hpbar_track_LegendaryCyberNoble = 1;
+server noarchive int hpbar_track_LegendaryFiend = 1;
+server noarchive int hpbar_track_LegendaryHellKnight = 1;
+server noarchive int hpbar_track_LegendaryImp = 1;
+server noarchive int hpbar_track_LegendaryRedeemer = 1;
+server noarchive int hpbar_track_FakeLegendaryRedeemer = -1;
+server noarchive int hpbar_track_LegendaryRevenant = 1;
+server noarchive int hpbar_track_LegendarySentient = 1;
+server noarchive int hpbar_track_LegendaryStealthTrooper = 1;
+server noarchive int hpbar_track_LegZombie = 1;
+server noarchive int hpbar_track_TrueLegendaryCyberdemon = 1;
+server noarchive int hpbar_track_TrueLegendaryCardinal = 1;
+server noarchive int hpbar_track_Velocirator = 1;
 
 // Randommons
-server noarchive bool hpbar_track_BFGMastermind = true;
-server noarchive bool hpbar_track_CerebralCommander = true;
-server noarchive bool hpbar_track_CorruptedCyberLord = true;
-server noarchive bool hpbar_track_HellFireCyberdemon = true;
-server noarchive bool hpbar_track_PhaseWarlord = true;
-server noarchive bool hpbar_track_Terminator2 = true;
+server noarchive int hpbar_track_BFGMastermind = 1;
+server noarchive int hpbar_track_CerebralCommander = 1;
+server noarchive int hpbar_track_CorruptedCyberLord = 1;
+server noarchive int hpbar_track_HellFireCyberdemon = 1;
+server noarchive int hpbar_track_PhaseWarlord = 1;
+server noarchive int hpbar_track_Terminator2 = 1;
 
 // HAF
-server noarchive bool hpbar_track_DementedTerminator = true;
+server noarchive int hpbar_track_DementedTerminator = 1;
 
 // Ark
-server noarchive bool hpbar_track_ComplexCardinal = true;
-server noarchive bool hpbar_track_BlueCardinal = true;
+server noarchive int hpbar_track_ComplexCardinal = 1;
+server noarchive int hpbar_track_BlueCardinal = 1;
 
 // Insane LCA
-server noarchive bool hpbar_track_EnragedLegZombie = true;
-server noarchive bool hpbar_track_EnragedLegendaryImp = true;
-server noarchive bool hpbar_track_EnragedLegendaryCaptain = true;
-server noarchive bool hpbar_track_EnragedLegendaryRevenant = true;
-server noarchive bool hpbar_track_EnragedLegendaryHellKnight = true;
+server noarchive int hpbar_track_EnragedLegZombie = 1;
+server noarchive int hpbar_track_EnragedLegendaryImp = 1;
+server noarchive int hpbar_track_EnragedLegendaryCaptain = 1;
+server noarchive int hpbar_track_EnragedLegendaryRevenant = 1;
+server noarchive int hpbar_track_EnragedLegendaryHellKnight = 1;
 
 // HEM
-server noarchive bool hpbar_track_LegChainsawZombie = true;
-server noarchive bool hpbar_track_LegendaryCowboy = true;
-server noarchive bool hpbar_track_ImpureElemental = true;
-server noarchive bool hpbar_track_LegendaryBabyDemolisher = true;
-server noarchive bool hpbar_track_DoomCaster = true;
-server noarchive bool hpbar_track_HellPaladin = true;
-server noarchive bool hpbar_track_Illusionist = true;
-server noarchive bool hpbar_track_AbyssalSatyr = true;
-server noarchive bool hpbar_track_Overlord = true;
-server noarchive bool hpbar_track_HEMHeresiarch = true;
-server noarchive bool hpbar_track_Moloch = true;
+server noarchive int hpbar_track_LegChainsawZombie = 1;
+server noarchive int hpbar_track_LegendaryCowboy = 1;
+server noarchive int hpbar_track_ImpureElemental = 1;
+server noarchive int hpbar_track_LegendaryBabyDemolisher = 1;
+server noarchive int hpbar_track_DoomCaster = 1;
+server noarchive int hpbar_track_HellPaladin = 1;
+server noarchive int hpbar_track_Illusionist = 1;
+server noarchive int hpbar_track_AbyssalSatyr = 1;
+server noarchive int hpbar_track_Overlord = 1;
+server noarchive int hpbar_track_HEMHeresiarch = 1;
+server noarchive int hpbar_track_Moloch = 1;
 
 // RGA2
-server noarchive bool hpbar_track_StoneAbaddon = true;
-server noarchive bool hpbar_track_SuperRevenant = true;
-server noarchive bool hpbar_track_Deathvile = true;
-server noarchive bool hpbar_track_ArachnidOverlord = true;
+server noarchive int hpbar_track_StoneAbaddon = 1;
+server noarchive int hpbar_track_SuperRevenant = 1;
+server noarchive int hpbar_track_Deathvile = 1;
+server noarchive int hpbar_track_ArachnidOverlord = 1;
 // Cyberlord
 
 // Doom
-server noarchive bool hpbar_track_Archvile = true;
-server noarchive bool hpbar_track_Cyberdemon = true;
-server noarchive bool hpbar_track_SpiderMastermind = true;
+server noarchive int hpbar_track_Archvile = 1;
+server noarchive int hpbar_track_Cyberdemon = 1;
+server noarchive int hpbar_track_SpiderMastermind = 1;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Actor name mappings

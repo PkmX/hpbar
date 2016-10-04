@@ -32,7 +32,7 @@ set hpbar_name_Cacodemon Hissy
 
 ### `hpbar_track_*`
 
-You can control whether a monster is tracked by the HP tracker by setting `hpbar_track_$actor`. For instance, to always track Cacodemons:
+You can control whether a monster is tracked by the HP tracker by setting `hpbar_track_$actor` to `1` (always track) or `-1` (never track). This takes precedence over `hpbar_tracker_threshold` which allows you to set it on a per monster basis. For instance, to always track Cacodemons:
 
 ```
 set hpbar_track_Cacodemon true
@@ -49,7 +49,9 @@ To support customized names for monsters in your mod, simply add the name to be 
 ## Changelogs
 
 ### v12
+* `hpbar_track_*` can now disable tracking for monsters by setting it to `-1`.
 * Fixed name mapping for fake legendary cyber nobles spawned by TLC.
+* Legendary redeemer clones are no longer tracked.
 
 ### v11
 * Support rm-ark v4.
