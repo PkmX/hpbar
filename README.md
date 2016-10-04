@@ -48,6 +48,9 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ## Changelogs
 
+### v12
+* Fixed name mapping for fake legendary cyber nobles spawned by TLC.
+
 ### v11
 * Support rm-ark v4.
 * Fixed the bug where a new player joining would temporarily set monsters' kill counts to 0.

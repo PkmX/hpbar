@@ -486,6 +486,7 @@ function str normalize_class(str class) {
     if (streq(class, "HellKnight~")) { return "HellKnight"; }
     if (streq(class, "BaronOfHell~")) { return "BaronOfHell"; }
     if (streq(class, "Hexa-ShotgunZombie")) { return "HexaShotgunZombie"; }
+    if (streq(class, "LegendaryCyberNoble~")) { return "LegendaryCyberNoble"; }
 
     // HEM
     if (streq(class, "Hades-TechZombie")) { return "HadesTechZombie"; }
