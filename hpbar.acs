@@ -22,7 +22,7 @@
 script "hpbar-enter" enter {
     int pn = PlayerNumber();
 
-    if (GetCVar("hpbar_show_monster_kill_count")) {
+    if (GetCVar("hpbar_rekt")) {
         SetThingSpecial(0, ACS_ExecuteAlways, 31241);
     }
 
@@ -331,7 +331,7 @@ script 31240 open clientside {
                 invulmsg = " \c[i8][INVUL]\c-";
 
             str killsmsg = "";
-            if (GetCVar("hpbar_show_monster_kill_count")) {
+            if (GetCVar("hpbar_rekt")) {
                 int kills = tracked_kills[n];
                 if (kills == 1) {
                     killsmsg = " \cm(1 rekt)\c-";
@@ -353,7 +353,7 @@ script 31240 open clientside {
 }
 
 script "hpbar-respawn" respawn {
-    if (GetCVar("hpbar_show_monster_kill_count")) {
+    if (GetCVar("hpbar_rekt")) {
         SetThingSpecial(0, ACS_ExecuteAlways, 31241);
     }
 }

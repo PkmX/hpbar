@@ -4,8 +4,8 @@ server bool hpbar_tracker = true;
 server int hpbar_tracker_threshold = 2000;
 server float hpbar_tracker_x = 0.02;
 server float hpbar_tracker_y = 0.58;
-server bool hpbar_show_monster_kill_count = true;
 user   bool hpbar_show_friendly = false;
+server bool hpbar_rekt = true;
 server int hpbar_rekt_broadcast = 10;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
