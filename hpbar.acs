@@ -360,6 +360,14 @@ script "hpbar-respawn" respawn {
 
 script 31241 (void) {
     GiveInventory("MonsterScore", 1);
+    int score = CheckInventory("MonsterScore");
+    if (score >= GetCVar("hpbar_rekt_broadcast")) {
+        ACS_ExecuteAlways(31242, 0, score);
+    }
+}
+
+script 31242 (int score) clientside {
+    HudMessageBold(s: "\c[a6]", d: score, s: "\c- \c[l5]players got \cgREKT\c[l5] by the ", s: get_actor_name(0), s: "\c-"; HUDMSG_FADEOUT, 7100, CR_UNTRANSLATED, 0.5, 0.2, 5.0, 0.5);
 }
 
 script 31300 (void) {

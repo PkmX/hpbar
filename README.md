@@ -21,6 +21,7 @@ This mod is designed to work with all mods (sans those that come with their own 
 * `hpbar_tracker_threshold` (server): Set the minimal spawn health monsters must have to appear in the global tracker. (default: 2000)
 * `hpbar_show_friendly` (user): Set whether to show HP bars for friendly targets. (default: false)
 * `hpbar_show_monster_kill_count` (server): Set whether to count and show the number of players killed by a monster. (default: true)
+* `hpbar_rekt_broadcast` (server): Set the number of players a monster must rekt to broadcast an announcement to all players. Set this to a really high number to disable the announcement. (default: 10)
 
 ### `hpbar_name_*`
 
@@ -51,6 +52,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 ### v12
 * `hpbar_track_*` can now disable tracking for monsters by setting it to `-1`.
 * Rekt counter is now colored!
+* Add rekt announcement if a monster gives too many rekts.
 * Fixed name mapping for fake legendary cyber nobles spawned by TLC.
 * Legendary redeemer clones are no longer tracked.
 
