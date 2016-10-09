@@ -57,6 +57,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 * Fixed name mapping for fake legendary cyber nobles spawned by TLC.
 * Legendary redeemer clones are no longer tracked.
 * Support for HEM-HAF v1.6.2.8 and HEM-LCA v2.3.
+* Support for LCA v1.5.8.
 
 ### v11
 * Support rm-ark v4.
