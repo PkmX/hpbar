@@ -535,19 +535,33 @@ function int to_int(int x) {
     return x >> 16;
 }
 
+function str ccunescape_impl(str s, int n) {
+    for (int i = n; i < strlen(s); ++i) {
+        if (i < strlen(s) - 1 && GetChar(s, i) == '\\' && GetChar(s, i + 1) == 'c') {
+            return strparam(s: strmid(s, n, i - n), s: "\c", s: ccunescape_impl(s, i + 2));
+        }
+    }
+
+    return strmid(s, n, 99999);
+}
+
+function str ccunescape(str s) {
+    return ccunescape_impl(s, 0);
+}
+
 function str get_actor_name(int tid) {
     str class = GetActorClass(tid);
     str name = GetCVarString(strparam(s: "hpbar_name_", s: class));
     if (name != 0) {
-        return name;
+        return ccunescape(name);
     }
 
     name = GetCVarString(strparam(s: "hpbar_name_", s: normalize_class(class)));
     if (name != 0) {
-        return name;
+        return ccunescape(name);
     }
 
-    return GetActorProperty(tid, APROP_NameTag);
+    return ccunescape(GetActorProperty(tid, APROP_NameTag));
 }
 
 // Ideally, we should check whether the BOSS flag is set on the actor, but it isn't supported in Zandronum 2.1.2 yet. So we simply whitelist most common bosses in popular WADs.
