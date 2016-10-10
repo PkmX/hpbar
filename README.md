@@ -124,3 +124,4 @@ https://github.com/pkmx/hpbar
 ## Credits
 
 * Graphics for HP bar: Wrath of Cronos (Thetis)
+* Announcer sounds: Unreal Tournament (Epic Games)
