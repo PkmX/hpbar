@@ -425,9 +425,12 @@ script 31243 (void) clientside {
     str bigtext = GetCVarString("hpbar_announcer_bigtext");
     str smalltext = GetCVarString("hpbar_announcer_smalltext");
 
-    PlaySound(0, sound, CHAN_AUTO | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
-    PlaySound(0, sound, CHAN_AUTO | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
-    PlaySound(0, sound, CHAN_AUTO | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
+    StopSound(0, 5);
+    StopSound(0, 6);
+    StopSound(0, 7);
+    PlaySound(0, sound, 5 | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
+    PlaySound(0, sound, 6 | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
+    PlaySound(0, sound, 7 | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
 
     SetHudSize(800, 600, true);
     SetFont("SMALLFONT");
