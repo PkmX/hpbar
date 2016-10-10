@@ -57,9 +57,9 @@ script 31234 (int player, int hp, int max_hp) clientside {
         bool invul = get_target_invulerable();
         bool friendly = get_target_friendly();
 
-        if (friendly && !GetCVar("hpbar_show_friendly")) terminate;
+        if (friendly && !GetUserCVar(ConsolePlayerNumber(), "hpbar_show_friendly")) terminate;
 
-        int style = GetCVar("hpbar_style");
+        int style = GetUserCVar(ConsolePlayerNumber(), "hpbar_style");
         if (style == STYLE_FULL) {
             show_full_hpbar(hp, max_hp, hp_percentage);
 
@@ -383,7 +383,7 @@ script 31241 (void) {
 }
 
 script 31242 (int score, int score_temp) clientside {
-    if (!GetCVar("hpbar_announcer")) terminate;
+    if (!GetUserCVar(ConsolePlayerNumber(), "hpbar_announcer")) terminate;
 
     if (score_temp == 2) {
         announce("hpbar/doublekill", "\c[d4]DOUBLE KILL\c-");
@@ -443,7 +443,7 @@ function void announce(str soundname, str text) {
 }
 
 script 31244 (void) clientside {
-    if (!GetCVar("hpbar_announcer")) terminate;
+    if (!GetUserCVar(ConsolePlayerNumber(), "hpbar_announcer")) terminate;
     announce("hpbar/firstblood", "\c[d4]FIRST BLOOD\c-");
 }
 
