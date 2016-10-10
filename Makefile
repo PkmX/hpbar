@@ -4,7 +4,7 @@ DEV_PK3_NAME := hpbar-dev.pk3
 
 ACCFLAGS +=
 
-.PHONY: all clean
+.PHONY: all release clean
 
 all: $(DEV_PK3_NAME)
 
