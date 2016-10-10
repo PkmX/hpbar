@@ -550,6 +550,10 @@ function str ccunescape(str s) {
 }
 
 function str get_actor_name(int tid) {
+    if (tid == 0 && ClassifyActor(tid) & ACTOR_PLAYER) {
+        return strparam(n: 0);
+    }
+
     str class = GetActorClass(tid);
     str name = GetCVarString(strparam(s: "hpbar_name_", s: class));
     if (name != 0) {
