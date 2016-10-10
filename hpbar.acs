@@ -352,6 +352,9 @@ script 31240 open clientside {
     }
 }
 
+int announcers_playing = 0;
+bool firstblood = false;
+
 script "hpbar-respawn" respawn {
     if (GetCVar("hpbar_rekt")) {
         SetThingSpecial(0, ACS_ExecuteAlways, 31241);
@@ -359,15 +362,89 @@ script "hpbar-respawn" respawn {
 }
 
 script 31241 (void) {
-    GiveInventory("MonsterScore", 1);
+    GiveInventory("MonsterScore", 1); // Total score
+    GiveInventory("MonsterScoreTemporary", 1); // Temporary score
+
     int score = CheckInventory("MonsterScore");
-    if (score >= GetCVar("hpbar_rekt_broadcast")) {
-        ACS_ExecuteAlways(31242, 0, score);
+    int score_temp = CheckInventory("MonsterScoreTemporary");
+
+    ACS_ExecuteAlways(31242, 0, score, score_temp);
+
+    if (!firstblood) {
+        ACS_ExecuteAlways(31244, 0);
+        firstblood = true;
+    }
+
+    // Wait for 5 seconds. If the monster didn't score other kills in the mean time, reset its temporary score.
+    delay(35 * 5);
+    if (CheckInventory("MonsterScoreTemporary") == score_temp) {
+        TakeInventory("MonsterScoreTemporary", score_temp);
     }
 }
 
-script 31242 (int score) clientside {
-    HudMessageBold(s: "\c[a6]", d: score, s: "\c- \c[l5]players got \cgREKT\c[l5] by the ", s: get_actor_name(0), s: "\c-"; HUDMSG_FADEOUT, 7100, CR_UNTRANSLATED, 0.5, 0.2, 5.0, 0.5);
+script 31242 (int score, int score_temp) clientside {
+    if (!GetCVar("hpbar_announcer")) terminate;
+
+    if (score_temp == 2) {
+        announce("hpbar/doublekill", "\c[d4]DOUBLE KILL\c-");
+    } else if (score_temp == 3) {
+        announce("hpbar/multikill", "\c[d4]MULTI KILL\c-");
+    } else if (score_temp == 4) {
+        announce("hpbar/megakill", "\c[d4]MEGA KILL\c-");
+    } else if (score_temp == 5) {
+        announce("hpbar/ultrakill", "\c[d4]ULTRA KILL\c-");
+    } else if (score_temp == 6) {
+        announce("hpbar/monsterkill", "\c[d4]M-M-MONSTER KILL!\c-");
+    } else if (score_temp == 7) {
+        announce("hpbar/ludicrouskill", "\c[d4]L U D I C R O U S  K I L L !\c-");
+    } else if (score_temp >= 8) {
+        announce("hpbar/holyshit", "\c[m6]! ! ! H O L Y  S H I T ! ! !\c-");
+    }
+
+    // Wait until nothing is playing.
+    while (announcers_playing > 0) delay(1);
+
+    // Skip the announcement if the monster has gained another tier during the wait.
+    if (score == 3 && CheckInventory("MonsterScore") < 5) {
+        announce("hpbar/killingspree", "\c[l5]KILLING SPREE\c-");
+    } else if (score == 5 && CheckInventory("MonsterScore") < 8) {
+        announce("hpbar/rampage", "\c[l5]RAMPAGE\c-");
+    } else if (score == 8 && CheckInventory("MonsterScore") < 10) {
+        announce("hpbar/dominating", "\c[d4]DOMINATING\c-");
+    } else if (score == 10 && CheckInventory("MonsterScore") < 15) {
+        announce("hpbar/unstoppable", "\c[k9]UNSTOPPABLE\c-");
+    } else if (score == 15 && CheckInventory("MonsterScore") < 25) {
+        announce("hpbar/godlike", "\c[k9]G O D L I K E !\c-");
+    } else if (score == 25) {
+        announce("hpbar/wickedsick", "\c[n3]W I C K E D  S I C K !\c-");
+    }
+}
+
+script 31243 (int soundname, int text) clientside {
+    PlaySound(0, soundname, CHAN_AUTO | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
+    PlaySound(0, soundname, CHAN_AUTO | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
+    PlaySound(0, soundname, CHAN_AUTO | CHAN_NOPAUSE, 1.0, false, ATTN_NONE);
+
+    SetHudSize(800, 600, true);
+    SetFont("SMALLFONT");
+    HudMessageBold(s: get_actor_name(0); HUDMSG_FADEOUT, 7101, CR_WHITE, 400.0, 125.2, 5.0, 0.5);
+    SetHudSize(640, 480, true);
+    SetFont("BIGFONT");
+    HudMessageBold(s: text; HUDMSG_FADEOUT, 7100, CR_UNTRANSLATED, 320.0, 104.1, 5.0, 0.5);
+
+    delay(35 * 3);
+    announcers_playing -= 1;
+}
+
+function void announce(str soundname, str text) {
+    // Increment here so the it is seen within the same tic.
+    announcers_playing += 1;
+    ACS_ExecuteAlways(31243, 0, soundname, text);
+}
+
+script 31244 (void) clientside {
+    if (!GetCVar("hpbar_announcer")) terminate;
+    announce("hpbar/firstblood", "\c[d4]FIRST BLOOD\c-");
 }
 
 script 31300 (void) {

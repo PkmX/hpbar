@@ -1,3 +1,5 @@
 actor MonsterScore : Inventory {
     Inventory.MaxAmount 999
 }
+
+actor MonsterScoreTemporary : MonsterScore {}
