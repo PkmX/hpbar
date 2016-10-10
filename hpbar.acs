@@ -362,6 +362,8 @@ script "hpbar-respawn" respawn {
 }
 
 script 31241 (void) {
+    if (GetCVar("hpbar_tracker")) ACS_ExecuteAlways(31235, 0);
+
     GiveInventory("MonsterScore", 1); // Total score
     GiveInventory("MonsterScoreTemporary", 1); // Temporary score
 
