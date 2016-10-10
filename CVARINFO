@@ -515,3 +515,7 @@ server noarchive string hpbar_target_name28 = "";
 server noarchive string hpbar_target_name29 = "";
 server noarchive string hpbar_target_name30 = "";
 server noarchive string hpbar_target_name31 = "";
+
+server noarchive string hpbar_announcer_bigtext = "";
+server noarchive string hpbar_announcer_smalltext = "";
+server noarchive string hpbar_announcer_sound = "";
