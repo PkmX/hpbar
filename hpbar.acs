@@ -385,6 +385,8 @@ script 31241 (void) {
 }
 
 script 31242 (int score, int score_temp) {
+    if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
+
     if (score_temp == 2) {
         announce("hpbar/doublekill", "\c[d4]DOUBLE KILL\c-", get_actor_name(0), "2 consecutive kills");
     } else if (score_temp == 3) {
