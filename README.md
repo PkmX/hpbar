@@ -63,6 +63,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 * Invul states in the tracker is also broadcasted when a new client connects.
 * Monsters are now tracked by default if it has the BOSS flag set.
 * Removed support for rm-ark as it is obsolete.
+* Support for randommons v1.1.7.
 
 ### v13
 * Added UT-style announcers for monster's kills. This replaces the old rekt announcement in v12.

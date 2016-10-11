@@ -146,6 +146,7 @@ server noarchive string hpbar_name_HellFireCyberdemon = "\c[z4]Hellfire Cyberdem
 server noarchive string hpbar_name_HomingRocketZombie = "Homing Rocket Zombie";
 server noarchive string hpbar_name_ImpLord = "\crImp Lord\c-";
 // Infected
+server noarchive string hpbar_name_Manipulator = "\c[s9]Manipulator\c-";
 server noarchive string hpbar_name_SuicideBomber = "Suicide Bomber";
 // KSBehemoth
 // NewBarbatos
@@ -304,8 +305,11 @@ server noarchive int hpbar_track_Velocirator = 1;
 // Randommons
 server noarchive int hpbar_track_BFGMastermind = 1;
 server noarchive int hpbar_track_CerebralCommander = 1;
+server noarchive int hpbar_track_CerebralCommanderIllusion = -1;
 server noarchive int hpbar_track_CorruptedCyberLord = 1;
 server noarchive int hpbar_track_HellFireCyberdemon = 1;
+server noarchive int hpbar_track_Manipulator = 1;
+server noarchive int hpbar_track_ManipulatorIllusion = -1;
 server noarchive int hpbar_track_PhaseWarlord = 1;
 server noarchive int hpbar_track_Terminator2 = 1;
 
@@ -397,6 +401,8 @@ server noarchive string hpbar_map_CDTechSpider = "DTechSpider";
 server noarchive string hpbar_map_CBabyDemolisher = "BabyDemolisher";
 server noarchive string hpbar_map_BabyDDemolisher = "BabyDDemolisher";
 server noarchive string hpbar_map_CBabySentient = "BabySentient";
+server noarchive string hpbar_map_CerebralCommanderIllusion = "CerebralCommander";
+server noarchive string hpbar_map_ManipulatorIllusion = "Manipulator";
 
 // HAF
 server noarchive string hpbar_map_SuicideBomber2 = "SuicideBomber";
