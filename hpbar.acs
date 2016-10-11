@@ -69,28 +69,13 @@ script "hpbar-display" (int player, int hp, int max_hp) clientside {
 
     int style = GetUserCVar(ConsolePlayerNumber(), "hpbar_style");
     if (style == STYLE_FULL) {
-        show_full_hpbar(hp, max_hp, hp_percentage);
-
-        SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
-        SetFont("NORMAL");
-        HudMessageBold(s: name; HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
-        int ln = 0;
-
-        if (invul) {
-            HudMessageBold(s: "\c[i8]Invulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-            ++ln;
-        }
-
-        if (friendly) {
-            HudMessageBold(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-            ++ln;
-        }
+        show_full_hpbar(hp, max_hp, hp_percentage, name, invul, friendly);
     } else if (style == STYLE_MINIMAL) {
         show_minimal_hpbar(hp_percentage);
     }
 }
 
-function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
+function void show_full_hpbar(int hp, int max_hp, int hp_percentage, str name, bool invul, bool friendly) {
     SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
 
     SetFont("NORMAL");
@@ -110,6 +95,20 @@ function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
 
     SetFont("HPBAR");
     HudMessageBold(s: "A"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
+
+    SetFont("NORMAL");
+    HudMessageBold(s: name; HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
+    int ln = 0;
+
+    if (invul) {
+        HudMessageBold(s: "\c[i8]Invulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+        ++ln;
+    }
+
+    if (friendly) {
+        HudMessageBold(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+        ++ln;
+    }
 }
 
 function str hpp_to_color(int p) {
