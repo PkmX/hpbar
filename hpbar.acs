@@ -155,7 +155,7 @@ script "hpbar-tracker" (void) {
     if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
 
     // Should we track it?
-    if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_tracker_threshold") && !is_boss(GetActorClass(0))) terminate;
+    if (!should_track(0)) terminate;
 
     // Give it a new TID if it doesn't have one.
     int tid = ActivatorTID();
@@ -511,8 +511,8 @@ function str get_actor_name(int tid) {
     return ccunescape(GetActorProperty(tid, APROP_NameTag));
 }
 
-// Ideally, we should check whether the BOSS flag is set on the actor, but it isn't supported in Zandronum 2.1.2 yet. So we simply whitelist most common bosses in popular WADs.
-function bool is_boss(str class) {
+function bool should_track(int tid) {
+    str class = GetActorClass(tid);
     bool boss = GetCVar(strparam(s: "hpbar_track_", s: class));
     if (boss == 1) {
         return true;
@@ -521,13 +521,13 @@ function bool is_boss(str class) {
     }
 
     boss = GetCVar(strparam(s: "hpbar_track_", s: normalize_class(class)));
-    if (boss) {
+    if (boss == 1) {
         return true;
     } else if (boss == -1) {
         return false;
     }
 
-    return false;
+    return CheckFlag(tid, "BOSS") || GetActorProperty(tid, APROP_SpawnHealth) >= GetCVar("hpbar_tracker_threshold");
 }
 
 function bool streq(str x, str y) {

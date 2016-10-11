@@ -45,7 +45,7 @@ This provides a normalization mapping from actor names to actor names to be used
 
 ## Notes for Modders
 
-To support customized names for monsters in your mod, simply add the name to be displayed in the `TAG` property of the monster actor.
+To support customized names for monsters in your mod, simply add the name to be displayed in the `TAG` property of the monster actor. Monsters with the `BOSS` flag set is also tracked by default regardless of its HP.
 
 ## Changelogs
 
@@ -61,6 +61,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 * Customized monster names now appear correctly in announcer.
 * Gaining another tier of total kills (e.g. rampage) surpress the announcement of the previous (e.g. killing spree).
 * Invul states in the tracker is also broadcasted when a new client connects.
+* Monsters are now tracked by default if it has the BOSS flag set.
 * Removed support for rm-ark as it is obsolete.
 
 ### v13
