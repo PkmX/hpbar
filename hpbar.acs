@@ -1,6 +1,8 @@
 #library "hpbar"
 #include "zcommon.acs"
 
+special -126:NamedRequestScriptPuke(1,4);
+
 #define STYLE_FULL    1
 #define STYLE_MINIMAL 2
 
@@ -42,11 +44,11 @@ script "hpbar-get-target" (void) {
         if (max_hp > 0) {
             if (max_hp >= GetCVar("hpbar_threshold")) {
                 SetCVarString(strparam(s: "hpbar_target_name", d: pn), get_actor_name(0));
-                ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
+                ACS_NamedExecuteAlways("hpbar-display", 0, pn, hp, max_hp);
             }
 
             if (GetCVar("hpbar_tracker")) {
-                ACS_ExecuteAlways(31235, 0);
+                ACS_NamedExecuteAlways("hpbar-tracker", 0);
             }
         }
 
@@ -54,7 +56,7 @@ script "hpbar-get-target" (void) {
     }
 }
 
-script 31234 (int player, int hp, int max_hp) clientside {
+script "hpbar-display" (int player, int hp, int max_hp) clientside {
     if (ConsolePlayerNumber() != player) terminate;
 
     int hp_percentage = hp * 100 / max_hp;
@@ -148,7 +150,7 @@ script "hpbar-open" open {
     }
 }
 
-script 31235 (void) {
+script "hpbar-tracker" (void) {
     // We only track monsters. :)
     if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
 
@@ -174,7 +176,7 @@ script 31235 (void) {
 
     // Add tid to the slot and tell clients to track this activator.
     tracked_tids[i] = tid;
-    ACS_ExecuteAlways(31236, 0, i, tracked_tids[i]);
+    ACS_NamedExecuteAlways("hpbar-tracker-update-tid", 0, i, tracked_tids[i]);
 
     tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
     str name_cvar = strparam(s: "hpbar_tracked_names", d: i);
@@ -187,13 +189,13 @@ script 31235 (void) {
         tracked_hps[i] = GetActorProperty(0, APROP_Health);
         tracked_kills[i] = CheckInventory("MonsterScore");
         if (old_hp != tracked_hps[i] || old_kills != tracked_kills[i]) {
-            ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_kills[i]);
+            ACS_NamedExecuteAlways("hpbar-tracker-update-hp-kills", 0, i, tracked_hps[i], tracked_kills[i]);
         }
 
         bool old_invul = tracked_invul[i];
         tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable) || !CheckFlag(0, "SHOOTABLE");
         if (old_invul != tracked_invul[i]) {
-            ACS_ExecuteAlways(31238, 0, i, tracked_invul[i]);
+            ACS_NamedExecuteAlways("hpbar-tracker-update-invul", 0, i, tracked_invul[i]);
         }
 
         // Send name of monster
@@ -209,10 +211,10 @@ script 31235 (void) {
     // The monster is dead, remove it from the slot and tell clients to stop tracking it.
     tracked_tids[i] = INVALID_TID;
     SetCVarString(strparam(s: "hpbar_tracked_names", d: i), "");
-    ACS_ExecuteAlways(31236, 0, i, INVALID_TID);
+    ACS_NamedExecuteAlways("hpbar-tracker-update-tid", 0, i, INVALID_TID);
 }
 
-script 31236 (int i, int tid) clientside {
+script "hpbar-tracker-update-tid" (int i, int tid) clientside {
     if (tid == INVALID_TID) {
         tracked_tids[i] = tid;
     } else {
@@ -225,29 +227,25 @@ script 31236 (int i, int tid) clientside {
     }
 }
 
-script 31237 (int i, int hp, int kills) clientside {
+script "hpbar-tracker-update-hp-kills" (int i, int hp, int kills) clientside {
     tracked_hps[i] = hp;
     tracked_kills[i] = kills;
 }
 
-script 31238 (int i, int invul) clientside {
+script "hpbar-tracker-update-invul" (int i, int invul) clientside {
     tracked_invul[i] = invul;
 }
 
-script 31239 (void) net {
+script "hpbar-tracker-broadcast" (void) net {
     for (int i = 0; i < MAX_TRACKERS; ++i) {
         int tid = tracked_tids[i];
         if (tid != INVALID_TID) {
             SetActivator(tid);
             SetCVarString(strparam(s: "hpbar_tracked_names", d: i), get_actor_name(0));
-            ACS_ExecuteAlways(31236, 0, i, tid);
-            ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_kills[i]);
+            ACS_NamedExecuteAlways("hpbar-tracker-update-tid", 0, i, tid);
+            ACS_NamedExecuteAlways("hpbar-tracker-update-hp-kills", 0, i, tracked_hps[i], tracked_kills[i]);
         }
     }
-}
-
-function void request_broadcast_tracker_info(void) {
-    RequestScriptPuke(31239, 0, 0, 0);
 }
 
 int maxhp_rankings[NUM_RANKINGS];
@@ -281,12 +279,12 @@ function int align_right(int x) {
 #define TRACKER_HUD_WIDTH  1024
 #define TRACKER_HUD_HEIGHT 768
 
-script 31240 open clientside {
+script "hpbar-tracker-client" open clientside {
     for (int i = 0; i < MAX_TRACKERS; ++i) {
         tracked_tids[i] = INVALID_TID;
     }
 
-    request_broadcast_tracker_info();
+    NamedRequestScriptPuke("hpbar-tracker-broadcast", 0, 0, 0);
 
     SetHudSize(TRACKER_HUD_WIDTH, TRACKER_HUD_HEIGHT, false);
     while (true) {
@@ -364,8 +362,9 @@ script "hpbar-respawn" respawn {
     }
 }
 
+// Keeping this script numeric for SetThingSpecial
 script 31241 (void) {
-    if (GetCVar("hpbar_tracker")) ACS_ExecuteAlways(31235, 0);
+    if (GetCVar("hpbar_tracker")) ACS_NamedExecuteAlways("hpbar-tracker", 0);
 
     GiveInventory("MonsterScore", 1); // Total score
     GiveInventory("MonsterScoreTemporary", 1); // Temporary score
@@ -373,7 +372,7 @@ script 31241 (void) {
     int score = CheckInventory("MonsterScore");
     int score_temp = CheckInventory("MonsterScoreTemporary");
 
-    ACS_ExecuteAlways(31242, 0, score, score_temp);
+    ACS_NamedExecuteAlways("hpbar-announce-kills", 0, score, score_temp);
 
     if (!firstblood) {
         announce("hpbar/firstblood", "\c[d4]FIRST BLOOD\c-", get_actor_name(0), "First kill on the map");
@@ -387,7 +386,7 @@ script 31241 (void) {
     }
 }
 
-script 31242 (int score, int score_temp) {
+script "hpbar-announce-kills" (int score, int score_temp) {
     if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
 
     str name = get_actor_name(0);
@@ -429,7 +428,7 @@ script 31242 (int score, int score_temp) {
     }
 }
 
-script 31243 (void) clientside {
+script "hpbar-announce-client" (void) clientside {
     if (!GetUserCVar(ConsolePlayerNumber(), "hpbar_announcer")) terminate;
 
     str sound = GetCVarString("hpbar_announcer_sound");
@@ -453,7 +452,7 @@ script 31243 (void) clientside {
     HudMessageBold(s: bigtext; HUDMSG_FADEOUT, 7101, CR_UNTRANSLATED, 320.0, 104.1, 5.0, 0.5);
 }
 
-script 31244 (void) {
+script "hpbar-decrement-announcers" (void) {
     delay(35 * 3);
     announcers_playing -= 1;
 }
@@ -466,8 +465,8 @@ function void announce(str sound, str bigtext, str smalltext, str tinytext) {
     SetCVarString("hpbar_announcer_bigtext", bigtext);
     SetCVarString("hpbar_announcer_smalltext", smalltext);
     SetCVarString("hpbar_announcer_tinytext", tinytext);
-    ACS_ExecuteAlways(31243, 0);
-    ACS_ExecuteAlways(31244, 0);
+    ACS_NamedExecuteAlways("hpbar-announce-client", 0);
+    ACS_NamedExecuteAlways("hpbar-decrement-announcers", 0);
 }
 
 function int to_fixed(int x) {
