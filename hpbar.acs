@@ -450,6 +450,8 @@ script "hpbar-announce-client" (void) clientside {
     SetHudSize(640, 480, true);
     SetFont("BIGFONT");
     HudMessageBold(s: bigtext; HUDMSG_FADEOUT, 7101, CR_UNTRANSLATED, 320.0, 104.1, 5.0, 0.5);
+
+    Log(s: smalltext, s: ": ", s: bigtext);
 }
 
 script "hpbar-decrement-announcers" (void) {
