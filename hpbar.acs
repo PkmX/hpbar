@@ -375,7 +375,21 @@ script 31241 (void) {
     ACS_NamedExecuteAlways("hpbar-announce-kills", 0, score, score_temp);
 
     if (!firstblood) {
-        announce("hpbar/firstblood", "\c[d4]FIRST BLOOD\c-", get_actor_name(0), "First kill on the map");
+        if (ClassifyActor(0) & ACTOR_PLAYER) {
+            int gender = GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER);
+            str killstr = "";
+            if (gender == 0)
+                killstr = "Killed himself";
+            else if (gender == 1)
+                killstr = "Killed herself";
+            else
+                killstr = "Killed itself";
+
+            announce("hpbar/firstblood", "\c[d4]FIRST DUMB\c-", get_actor_name(0), killstr);
+        } else {
+            announce("hpbar/firstblood", "\c[d4]FIRST BLOOD\c-", get_actor_name(0), "First kill on the map");
+        }
+
         firstblood = true;
     }
 
