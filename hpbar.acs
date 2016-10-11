@@ -397,8 +397,10 @@ script 31242 (int score, int score_temp) {
         announce("hpbar/monsterkill", "\c[d4]M-M-MONSTER KILL!\c-", get_actor_name(0), "6 consecutive kills");
     } else if (score_temp == 7) {
         announce("hpbar/ludicrouskill", "\c[d4]L U D I C R O U S  K I L L !\c-", get_actor_name(0), "7 consecutive kills");
-    } else if (score_temp >= 8) {
+    } else if (score_temp == 8 || score_temp == 9) {
         announce("hpbar/holyshit", "\c[m6]! ! ! H O L Y  S H I T ! ! !\c-", get_actor_name(0), strparam(d: score_temp, s: " consecutive kills"));
+    } else if (score_temp >= 10) {
+        announce("hpbar/sexyholyshit", "\c[m6]! ! ! H O L Y  S H I T ! ! !\c-", get_actor_name(0), strparam(d: score_temp, s: " consecutive kills"));
     }
 
     // Wait until nothing is playing.
