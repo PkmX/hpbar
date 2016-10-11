@@ -55,7 +55,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 * Use higher quality UT announcer sounds, and added sexy holy shit announcer for more than 10 consecutive kills.
 * Added description text for kill streaks, for people who aren't familiar with UT's announcer system.
 * Unshootable targets are now identified as invulerable.
-* Monsters are now automatically added to the tracker list (if they qualify) upon scoring a kill.
+* Monsters are now automatically added to the tracker list upon scoring a kill.
 * Fixed the issue where kills are misattributed to a player.
 * Fixed announcer and escaped color code in monster's name in Zandronum 3.0.
 * Customized monster names now appear correctly in announcer.

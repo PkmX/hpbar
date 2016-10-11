@@ -48,7 +48,7 @@ script "hpbar-get-target" (void) {
             }
 
             if (GetCVar("hpbar_tracker")) {
-                ACS_NamedExecuteAlways("hpbar-tracker", 0);
+                ACS_NamedExecuteAlways("hpbar-tracker", 0, false);
             }
         }
 
@@ -149,12 +149,12 @@ script "hpbar-open" open {
     }
 }
 
-script "hpbar-tracker" (void) {
+script "hpbar-tracker" (int force_track) {
     // We only track monsters. :)
     if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
 
     // Should we track it?
-    if (!should_track(0)) terminate;
+    if (!force_track && !should_track(0)) terminate;
 
     // Give it a new TID if it doesn't have one.
     int tid = ActivatorTID();
@@ -364,7 +364,7 @@ script "hpbar-respawn" respawn {
 
 // Keeping this script numeric for SetThingSpecial
 script 31241 (void) {
-    if (GetCVar("hpbar_tracker")) ACS_NamedExecuteAlways("hpbar-tracker", 0);
+    if (GetCVar("hpbar_tracker")) ACS_NamedExecuteAlways("hpbar-tracker", 0, true);
 
     GiveInventory("MonsterScore", 1); // Total score
     GiveInventory("MonsterScoreTemporary", 1); // Temporary score
