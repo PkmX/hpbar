@@ -20,30 +20,37 @@
 #define MINIMAL_HP_Y 500.0
 
 script "hpbar-enter" enter {
-    int pn = PlayerNumber();
-
-    if (GetCVar("hpbar_rekt")) {
-        SetThingSpecial(0, ACS_ExecuteAlways, 31241);
-    }
+    if (GetCVar("hpbar_rekt")) SetThingSpecial(0, ACS_ExecuteAlways, 31241);
 
     while (true) {
-        if (has_target()) {
-            int hp = get_target_health();
-            int max_hp = get_target_spawn_health();
-            if (max_hp <= 0) max_hp = hp;
-            if (max_hp > 0) {
-                if (max_hp >= GetCVar("hpbar_threshold")) {
-                    SetCVarString(strparam(s: "hpbar_target_name", d: pn), get_target_name());
-                    ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
-                }
+        ACS_NamedExecuteAlways("hpbar-get-target", 0);
+        delay(1);
+    }
+}
 
-                if (GetCVar("hpbar_tracker")) {
-                    ACS_ExecuteAlways(31235, 0);
-                }
+script "hpbar-get-target" (void) {
+    int pn = PlayerNumber();
+
+    int old_tid = PickActor(0, GetActorAngle(0), GetActorPitch(0), 8192.0, 0, MF_SHOOTABLE, ML_BLOCKEVERYTHING | ML_BLOCKHITSCAN, PICKAF_RETURNTID);
+    int new_tid = UniqueTID();
+
+    if (PickActor(0, GetActorAngle(0), GetActorPitch(0), 8192.0, new_tid, MF_SHOOTABLE, ML_BLOCKEVERYTHING | ML_BLOCKHITSCAN, PICKAF_FORCETID)) {
+        SetActivator(new_tid);
+        int hp = GetActorProperty(0, APROP_Health);
+        int max_hp = GetActorProperty(0, APROP_SpawnHealth);
+        if (max_hp <= 0) max_hp = hp;
+        if (max_hp > 0) {
+            if (max_hp >= GetCVar("hpbar_threshold")) {
+                SetCVarString(strparam(s: "hpbar_target_name", d: pn), get_actor_name(0));
+                ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
+            }
+
+            if (GetCVar("hpbar_tracker")) {
+                ACS_ExecuteAlways(31235, 0);
             }
         }
 
-        delay(1);
+        Thing_ChangeTID(new_tid, old_tid);
     }
 }
 
@@ -52,34 +59,32 @@ script 31234 (int player, int hp, int max_hp) clientside {
 
     int hp_percentage = hp * 100 / max_hp;
 
-    if (has_target()) {
-        str name = GetCVarString(strparam(s: "hpbar_target_name", d: ConsolePlayerNumber()));
-        bool invul = get_target_invulerable();
-        bool friendly = get_target_friendly();
+    str name = GetCVarString(strparam(s: "hpbar_target_name", d: ConsolePlayerNumber()));
+    bool invul = GetActorProperty(0, APROP_Invulnerable);
+    bool friendly = GetActorProperty(0, APROP_Friendly);
 
-        if (friendly && !GetUserCVar(ConsolePlayerNumber(), "hpbar_show_friendly")) terminate;
+    if (friendly && !GetUserCVar(ConsolePlayerNumber(), "hpbar_show_friendly")) terminate;
 
-        int style = GetUserCVar(ConsolePlayerNumber(), "hpbar_style");
-        if (style == STYLE_FULL) {
-            show_full_hpbar(hp, max_hp, hp_percentage);
+    int style = GetUserCVar(ConsolePlayerNumber(), "hpbar_style");
+    if (style == STYLE_FULL) {
+        show_full_hpbar(hp, max_hp, hp_percentage);
 
-            SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
-            SetFont("NORMAL");
-            HudMessage(s: name; HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
-            int ln = 0;
+        SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
+        SetFont("NORMAL");
+        HudMessageBold(s: name; HUDMSG_FADEOUT, 6103, CR_WHITE, FULL_HPBAR_X, FULL_NAME_Y, FULL_HOLDTIME);
+        int ln = 0;
 
-            if (invul) {
-                HudMessage(s: "\c[i8]Invulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-                ++ln;
-            }
-
-            if (friendly) {
-                HudMessage(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
-                ++ln;
-            }
-        } else if (style == STYLE_MINIMAL) {
-            show_minimal_hpbar(hp_percentage);
+        if (invul) {
+            HudMessageBold(s: "\c[i8]Invulnerable\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+            ++ln;
         }
+
+        if (friendly) {
+            HudMessageBold(s: "\c[x5]Friendly\c-"; HUDMSG_FADEOUT, 6104 + ln, CR_WHITE, FULL_HPBAR_X, FULL_INFO_Y + to_fixed(ln * 10), FULL_HOLDTIME);
+            ++ln;
+        }
+    } else if (style == STYLE_MINIMAL) {
+        show_minimal_hpbar(hp_percentage);
     }
 }
 
@@ -87,8 +92,8 @@ function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
     SetHudSize(FULL_HUD_WIDTH, FULL_HUD_HEIGHT, true);
 
     SetFont("NORMAL");
-    HudMessage(d: hp, s: " / ", d: max_hp, s: " (", d: hp_percentage, s: "%)";
-               HUDMSG_FADEOUT, 6000, CR_WHITE, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
+    HudMessageBold(d: hp, s: " / ", d: max_hp, s: " (", d: hp_percentage, s: "%)";
+                   HUDMSG_FADEOUT, 6000, CR_WHITE, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
 
     if (hp_percentage < 25)
         SetFont("FILLCRIT");
@@ -98,11 +103,11 @@ function void show_full_hpbar(int hp, int max_hp, int hp_percentage) {
         SetFont("FILLNORM");
 
     for (int i = 0; i <= 100 && i <= hp_percentage; ++i) {
-        HudMessage(s: "A"; HUDMSG_FADEOUT , 6001 + i, CR_UNTRANSLATED, FULL_HPBAR_X - 97.0 + to_fixed(i * 2), FULL_HPBAR_Y, FULL_HOLDTIME);
+        HudMessageBold(s: "A"; HUDMSG_FADEOUT , 6001 + i, CR_UNTRANSLATED, FULL_HPBAR_X - 97.0 + to_fixed(i * 2), FULL_HPBAR_Y, FULL_HOLDTIME);
     }
 
     SetFont("HPBAR");
-    HudMessage(s: "A"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
+    HudMessageBold(s: "A"; HUDMSG_FADEOUT, 6102, CR_UNTRANSLATED, FULL_HPBAR_X, FULL_HPBAR_Y, FULL_HOLDTIME);
 }
 
 function str hpp_to_color(int p) {
@@ -122,8 +127,8 @@ function void show_minimal_hpbar(int hp_percentage) {
     SetHudSize(MINIMAL_HUD_WIDTH, MINIMAL_HUD_HEIGHT, false);
 
     SetFont("NORMAL");
-    HudMessage(s: hpp_to_color(hp_percentage), d: hp_percentage, s: "%\c-";
-               HUDMSG_FADEOUT, 6000, CR_UNTRANSLATED, MINIMAL_HP_X, MINIMAL_HP_Y, MINIMAL_HOLDTIME, MINIMAL_FADETIME);
+    HudMessageBold(s: hpp_to_color(hp_percentage), d: hp_percentage, s: "%\c-";
+                   HUDMSG_FADEOUT, 6000, CR_UNTRANSLATED, MINIMAL_HP_X, MINIMAL_HP_Y, MINIMAL_HOLDTIME, MINIMAL_FADETIME);
 }
 
 #define MAX_TRACKERS 32
@@ -144,69 +149,67 @@ script "hpbar-open" open {
 }
 
 script 31235 (void) {
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        // We only track monsters. :)
-        if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
+    // We only track monsters. :)
+    if (!(ClassifyActor(0) & ACTOR_MONSTER)) terminate;
 
-        // Should we track it?
-        if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_tracker_threshold") && !is_boss(GetActorClass(0))) terminate;
+    // Should we track it?
+    if (GetActorProperty(0, APROP_SpawnHealth) < GetCVar("hpbar_tracker_threshold") && !is_boss(GetActorClass(0))) terminate;
 
-        // Give it a new TID if it doesn't have one.
-        int tid = ActivatorTID();
-        if (tid == 0) {
-            tid = UniqueTID(0, 0);
-            Thing_ChangeTID(0, tid);
-        }
-
-        // Find an empty slot for this monster and check if it is already tracked.
-        int i;
-        for (int j = MAX_TRACKERS - 1; j >= 0; --j) {
-            if (tracked_tids[j] == tid) {
-                terminate; // already tracked by another script
-            } else if (tracked_tids[j] == INVALID_TID) {
-                i = j;
-            }
-        }
-
-        // Add tid to the slot and tell clients to track this activator.
-        tracked_tids[i] = tid;
-        ACS_ExecuteAlways(31236, 0, i, tracked_tids[i]);
-
-        tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
-        str name_cvar = strparam(s: "hpbar_tracked_names", d: i);
-
-        // Keep updating clients the HP and name of the monster while it is alive.
-        while (ClassifyActor(0) & ACTOR_ALIVE) {
-            // Send monster HP
-            int old_hp = tracked_hps[i];
-            int old_kills = tracked_kills[i];
-            tracked_hps[i] = GetActorProperty(0, APROP_Health);
-            tracked_kills[i] = CheckInventory("MonsterScore");
-            if (old_hp != tracked_hps[i] || old_kills != tracked_kills[i]) {
-                ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_kills[i]);
-            }
-
-            bool old_invul = tracked_invul[i];
-            tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
-            if (old_invul != tracked_invul[i]) {
-                ACS_ExecuteAlways(31238, 0, i, tracked_invul[i]);
-            }
-
-            // Send name of monster
-            str old_name = GetCVarString(name_cvar);
-            str name = get_actor_name(0);
-            if (old_name == 0 || !streq(old_name, name)) {
-                SetCVarString(name_cvar, name);
-            }
-
-            delay(1);
-        }
-
-        // The monster is dead, remove it from the slot and tell clients to stop tracking it.
-        tracked_tids[i] = INVALID_TID;
-        SetCVarString(strparam(s: "hpbar_tracked_names", d: i), "");
-        ACS_ExecuteAlways(31236, 0, i, INVALID_TID);
+    // Give it a new TID if it doesn't have one.
+    int tid = ActivatorTID();
+    if (tid == 0) {
+        tid = UniqueTID(0, 0);
+        Thing_ChangeTID(0, tid);
     }
+
+    // Find an empty slot for this monster and check if it is already tracked.
+    int i;
+    for (int j = MAX_TRACKERS - 1; j >= 0; --j) {
+        if (tracked_tids[j] == tid) {
+            terminate; // already tracked by another script
+        } else if (tracked_tids[j] == INVALID_TID) {
+            i = j;
+        }
+    }
+
+    // Add tid to the slot and tell clients to track this activator.
+    tracked_tids[i] = tid;
+    ACS_ExecuteAlways(31236, 0, i, tracked_tids[i]);
+
+    tracked_max_hps[i] = GetActorProperty(0, APROP_SpawnHealth);
+    str name_cvar = strparam(s: "hpbar_tracked_names", d: i);
+
+    // Keep updating clients the HP and name of the monster while it is alive.
+    while (ClassifyActor(0) & ACTOR_ALIVE) {
+        // Send monster HP
+        int old_hp = tracked_hps[i];
+        int old_kills = tracked_kills[i];
+        tracked_hps[i] = GetActorProperty(0, APROP_Health);
+        tracked_kills[i] = CheckInventory("MonsterScore");
+        if (old_hp != tracked_hps[i] || old_kills != tracked_kills[i]) {
+            ACS_ExecuteAlways(31237, 0, i, tracked_hps[i], tracked_kills[i]);
+        }
+
+        bool old_invul = tracked_invul[i];
+        tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
+        if (old_invul != tracked_invul[i]) {
+            ACS_ExecuteAlways(31238, 0, i, tracked_invul[i]);
+        }
+
+        // Send name of monster
+        str old_name = GetCVarString(name_cvar);
+        str name = get_actor_name(0);
+        if (old_name == 0 || !streq(old_name, name)) {
+            SetCVarString(name_cvar, name);
+        }
+
+        delay(1);
+    }
+
+    // The monster is dead, remove it from the slot and tell clients to stop tracking it.
+    tracked_tids[i] = INVALID_TID;
+    SetCVarString(strparam(s: "hpbar_tracked_names", d: i), "");
+    ACS_ExecuteAlways(31236, 0, i, INVALID_TID);
 }
 
 script 31236 (int i, int tid) clientside {
@@ -463,86 +466,6 @@ function void announce(str sound, str bigtext, str smalltext, str tinytext) {
     SetCVarString("hpbar_announcer_tinytext", tinytext);
     ACS_ExecuteAlways(31243, 0);
     ACS_ExecuteAlways(31244, 0);
-}
-
-script 31300 (void) {
-    SetResultValue(SetActivator(0, AAPTR_PLAYER_GETTARGET));
-}
-
-function bool has_target(void) {
-    return ACS_ExecuteWithResult(31300);
-}
-
-script 31301 (void) {
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        SetResultValue(GetActorProperty(0, APROP_Health));
-    } else {
-        SetResultValue(-1);
-    }
-}
-
-function int get_target_health(void) {
-    return ACS_ExecuteWithResult(31301);
-}
-
-script 31302 (void) {
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        SetResultValue(GetActorProperty(0, APROP_SpawnHealth));
-    } else {
-        SetResultValue(-1);
-    }
-}
-
-function int get_target_spawn_health(void) {
-    return ACS_ExecuteWithResult(31302);
-}
-
-script 31303 (void) {
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        SetResultValue(get_actor_name(0));
-    } else {
-        SetResultValue(-1);
-    }
-}
-
-function str get_target_name(void) {
-    return ACS_ExecuteWithResult(31303);
-}
-
-script 31304 (void) {
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        SetResultValue(GetActorProperty(0, APROP_Invulnerable));
-    } else {
-        SetResultValue(-1);
-    }
-}
-
-function bool get_target_invulerable(void) {
-    return ACS_ExecuteWithResult(31304);
-}
-
-script 31305 (void) {
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        SetResultValue(GetActorProperty(0, APROP_Friendly));
-    } else {
-        SetResultValue(-1);
-    }
-}
-
-function bool get_target_friendly(void) {
-    return ACS_ExecuteWithResult(31305);
-}
-
-script 31306 (void) {
-    if (SetActivator(0, AAPTR_PLAYER_GETTARGET)) {
-        SetResultValue(ActivatorTID());
-    } else {
-        SetResultValue(-1);
-    }
-}
-
-function bool get_target_tid(void) {
-    return ACS_ExecuteWithResult(31306);
 }
 
 function int to_fixed(int x) {
