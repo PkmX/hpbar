@@ -49,6 +49,19 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ## Changelogs
 
+### v14
+* **HPBar now requires Zandronum 3.0!** If you are playing on Zandronum 2.1.2, please stay on v13.
+* Switch to PickActor-based target acquisition. Players should now be able to see target's HP and have it tracked from greater distances.
+* Use higher quality UT announcer sounds, and added sexy holy shit announcer for more than 10 consecutive kills.
+* Added description text for kill streaks, for people who aren't familiar with UT's announcer system.
+* Unshootable targets are now identified as invulerable.
+* Monsters are now automatically added to the tracker list (if they qualify) upon scoring a kill.
+* Fixed the issue where kills are misattributed to a player.
+* Fixed announcer and escaped color code in monster's name in Zandronum 3.0.
+* Customized monster names now appear correctly in announcer.
+* Gaining another tier of total kills (e.g. rampage) surpress the announcement of the previous (e.g. killing spree).
+* Removed support for rm-ark as it is obsolete.
+
 ### v13
 * Added UT-style announcers for monster's kills. This replaces the old rekt announcement in v12.
 
