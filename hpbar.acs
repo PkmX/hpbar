@@ -244,6 +244,7 @@ script "hpbar-tracker-broadcast" (void) net {
             SetCVarString(strparam(s: "hpbar_tracked_names", d: i), get_actor_name(0));
             ACS_NamedExecuteAlways("hpbar-tracker-update-tid", 0, i, tid);
             ACS_NamedExecuteAlways("hpbar-tracker-update-hp-kills", 0, i, tracked_hps[i], tracked_kills[i]);
+            ACS_NamedExecuteAlways("hpbar-tracker-update-invul", 0, i, tracked_invul[i]);
         }
     }
 }
