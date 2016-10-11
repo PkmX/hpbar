@@ -60,7 +60,7 @@ script 31234 (int player, int hp, int max_hp) clientside {
     int hp_percentage = hp * 100 / max_hp;
 
     str name = GetCVarString(strparam(s: "hpbar_target_name", d: ConsolePlayerNumber()));
-    bool invul = GetActorProperty(0, APROP_Invulnerable);
+    bool invul = GetActorProperty(0, APROP_Invulnerable) || !CheckFlag(0, "SHOOTABLE");
     bool friendly = GetActorProperty(0, APROP_Friendly);
 
     if (friendly && !GetUserCVar(ConsolePlayerNumber(), "hpbar_show_friendly")) terminate;
@@ -191,7 +191,7 @@ script 31235 (void) {
         }
 
         bool old_invul = tracked_invul[i];
-        tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable);
+        tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable) || !CheckFlag(0, "SHOOTABLE");
         if (old_invul != tracked_invul[i]) {
             ACS_ExecuteAlways(31238, 0, i, tracked_invul[i]);
         }
