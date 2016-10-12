@@ -7,6 +7,7 @@ server float hpbar_tracker_y = 0.58;
 user   bool hpbar_show_friendly = false;
 server bool hpbar_rekt = true;
 user   bool hpbar_announcer = true;
+server noarchive bool hpbar_zan3 = false;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Display name mappings

@@ -31,26 +31,34 @@ script "hpbar-enter" enter {
 script 31233 (void) {
     int pn = PlayerNumber();
 
-    int old_tid = PickActor(0, GetActorAngle(0), GetActorPitch(0), 8192.0, 0, MF_SHOOTABLE, ML_BLOCKEVERYTHING | ML_BLOCKHITSCAN, PICKAF_RETURNTID);
-    int new_tid = UniqueTID();
+    if (is_zan3()) {
+        int old_tid = PickActor(0, GetActorAngle(0), GetActorPitch(0), 8192.0, 0, MF_SHOOTABLE, ML_BLOCKEVERYTHING | ML_BLOCKHITSCAN, PICKAF_RETURNTID);
+        int new_tid = UniqueTID();
+        if (PickActor(0, GetActorAngle(0), GetActorPitch(0), 8192.0, new_tid, MF_SHOOTABLE, ML_BLOCKEVERYTHING | ML_BLOCKHITSCAN, PICKAF_FORCETID)) {
+            SetActivator(new_tid);
+            common31233(pn);
+            Thing_ChangeTID(new_tid, old_tid);
+        }
+    } else {
+        if (SetActivatorToTarget(0)) {
+            common31233(pn);
+        }
+    }
+}
 
-    if (PickActor(0, GetActorAngle(0), GetActorPitch(0), 8192.0, new_tid, MF_SHOOTABLE, ML_BLOCKEVERYTHING | ML_BLOCKHITSCAN, PICKAF_FORCETID)) {
-        SetActivator(new_tid);
-        int hp = GetActorProperty(0, APROP_Health);
-        int max_hp = GetActorProperty(0, APROP_SpawnHealth);
-        if (max_hp <= 0) max_hp = hp;
-        if (max_hp > 0) {
-            if (max_hp >= GetCVar("hpbar_threshold")) {
-                SetCVarString(strparam(s: "hpbar_target_name", d: pn), get_actor_name(0));
-                ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
-            }
-
-            if (GetCVar("hpbar_tracker")) {
-                ACS_ExecuteAlways(31235, 0, false);
-            }
+function void common31233(int pn) {
+    int hp = GetActorProperty(0, APROP_Health);
+    int max_hp = GetActorProperty(0, APROP_SpawnHealth);
+    if (max_hp <= 0) max_hp = hp;
+    if (max_hp > 0) {
+        if (max_hp >= GetCVar("hpbar_threshold")) {
+            SetCVarString(strparam(s: "hpbar_target_name", d: pn), get_actor_name(0));
+            ACS_ExecuteAlways(31234, 0, pn, hp, max_hp);
         }
 
-        Thing_ChangeTID(new_tid, old_tid);
+        if (GetCVar("hpbar_tracker")) {
+            ACS_ExecuteAlways(31235, 0, false);
+        }
     }
 }
 
@@ -60,12 +68,12 @@ script 31234 (int player, int hp, int max_hp) clientside {
     int hp_percentage = hp * 100 / max_hp;
 
     str name = GetCVarString(strparam(s: "hpbar_target_name", d: ConsolePlayerNumber()));
-    bool invul = GetActorProperty(0, APROP_Invulnerable) || !CheckFlag(0, "SHOOTABLE");
+    bool invul = get_actor_invul(0);
     bool friendly = GetActorProperty(0, APROP_Friendly);
 
-    if (friendly && !GetUserCVar(ConsolePlayerNumber(), "hpbar_show_friendly")) terminate;
+    if (friendly && !get_my_user_cvar("hpbar_show_friendly")) terminate;
 
-    int style = GetUserCVar(ConsolePlayerNumber(), "hpbar_style");
+    int style = get_my_user_cvar("hpbar_style");
     if (style == STYLE_FULL) {
         show_full_hpbar(hp, max_hp, hp_percentage, name, invul, friendly);
     } else if (style == STYLE_MINIMAL) {
@@ -190,7 +198,7 @@ script 31235 (int force_track) {
         }
 
         bool old_invul = tracked_invul[i];
-        tracked_invul[i] = GetActorProperty(0, APROP_Invulnerable) || !CheckFlag(0, "SHOOTABLE");
+        tracked_invul[i] = get_actor_invul(0);
         if (old_invul != tracked_invul[i]) {
             ACS_ExecuteAlways(31238, 0, i, tracked_invul[i]);
         }
@@ -444,7 +452,7 @@ script 31242 (int score, int score_temp) {
 }
 
 script 31243 (void) clientside {
-    if (!GetUserCVar(ConsolePlayerNumber(), "hpbar_announcer")) terminate;
+    if (!get_my_user_cvar("hpbar_announcer")) terminate;
 
     str sound = GetCVarString("hpbar_announcer_sound");
     str bigtext = GetCVarString("hpbar_announcer_bigtext");
@@ -543,7 +551,22 @@ function bool should_track(int tid) {
         return false;
     }
 
-    return CheckFlag(tid, "BOSS") || GetActorProperty(tid, APROP_SpawnHealth) >= GetCVar("hpbar_tracker_threshold");
+    if (is_zan3()) {
+        if (CheckFlag(tid, "BOSS")) {
+            return true;
+        }
+    }
+
+    return GetActorProperty(tid, APROP_SpawnHealth) >= GetCVar("hpbar_tracker_threshold");
+}
+
+function bool get_actor_invul(int tid) {
+    bool invul = GetActorProperty(tid, APROP_Invulnerable);
+    if (is_zan3()) {
+        invul |= !CheckFlag(tid, "SHOOTABLE");
+    }
+
+    return invul;
 }
 
 function bool streq(str x, str y) {
@@ -568,6 +591,18 @@ function str normalize_class(str class) {
     }
 
     return class;
+}
+
+function int get_my_user_cvar(str cvar) {
+    if (is_zan3()) {
+        return GetUserCVar(ConsolePlayerNumber(), cvar);
+    }
+
+    return GetCVar(cvar);
+}
+
+function bool is_zan3(void) {
+    return GetCVar("hpbar_zan3");
 }
 
 // vim: set ft=c:

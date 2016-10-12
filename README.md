@@ -22,6 +22,7 @@ This mod is designed to work with all mods (sans those that come with their own 
 * `hpbar_show_friendly` (user): Set whether to show HP bars for friendly targets. (default: false)
 * `hpbar_rekt` (server): Set whether to count and show the number of players killed by a monster. You need to restart the map after altering this variable to apply the changes. (default: true)
 * `hpbar_announcer` (user): Whether to play announcer messages and voices when monsters achieve certain kills. (default: true)
+* `hpbar_zan3` (server): Set this variable to true if you are hosting with Zandronum 3.0. (default: false)
 
 ### `hpbar_name_*`
 
@@ -48,6 +49,9 @@ This provides a normalization mapping from actor names to actor names to be used
 To support customized names for monsters in your mod, simply add the name to be displayed in the `TAG` property of the monster actor. Monsters with the `BOSS` flag set is also tracked by default regardless of its HP.
 
 ## Changelogs
+
+### v14b
+* Both Zandronum 2.1.2 and 3.0 are supported simultaneously now. If you are playing on 3.0, set cvar `hpbar_zan3` to true.
 
 ### v14a
 * Support for randommons v1.1.7.
