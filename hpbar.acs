@@ -20,7 +20,7 @@
 #define MINIMAL_HP_Y 500.0
 
 script "hpbar-enter" enter {
-    if (GetCVar("hpbar_rekt")) SetThingSpecial(0, ACS_ExecuteAlways, 31241);
+    if (GetCVar("hpbar_rekt")) SetThingSpecial(0, ACS_ExecuteAlways, 31241, 0, PlayerNumber());
 
     while (true) {
         ACS_ExecuteAlways(31233, 0);
@@ -370,11 +370,11 @@ bool firstblood = false;
 
 script "hpbar-respawn" respawn {
     if (GetCVar("hpbar_rekt")) {
-        SetThingSpecial(0, ACS_ExecuteAlways, 31241);
+        SetThingSpecial(0, ACS_ExecuteAlways, 31241, 0, PlayerNumber());
     }
 }
 
-script 31241 (void) {
+script 31241 (int pn) {
     if (GetCVar("hpbar_tracker")) ACS_ExecuteAlways(31235, 0, true);
 
     GiveInventory("MonsterScore", 1); // Total score
@@ -386,8 +386,8 @@ script 31241 (void) {
     ACS_ExecuteAlways(31242, 0, score, score_temp);
 
     if (!firstblood) {
-        if (ClassifyActor(0) & ACTOR_PLAYER) {
-            int gender = GetPlayerInfo(PlayerNumber(), PLAYERINFO_GENDER);
+        if (PlayerNumber() == pn || ClassifyActor(0) == ACTOR_WORLD) {
+            int gender = GetPlayerInfo(pn, PLAYERINFO_GENDER);
             str killstr = "";
             if (gender == 0)
                 killstr = "Killed himself";
@@ -396,7 +396,7 @@ script 31241 (void) {
             else
                 killstr = "Killed itself";
 
-            announce(1, "hpbar/firstblood", "\c[d4]FIRST DUMB\c-", get_actor_name(0), killstr);
+            announce(1, "hpbar/firstblood", "\c[d4]FIRST DUMB\c-", strparam(n: pn + 1), killstr);
         } else {
             announce(1, "hpbar/firstblood", "\c[d4]FIRST BLOOD\c-", get_actor_name(0), "First kill on the map");
         }
