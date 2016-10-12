@@ -49,6 +49,9 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ## Changelogs
 
+### v14a
+* Support for randommons v1.1.7.
+
 ### v14
 * **HPBar now requires Zandronum 3.0!** If you are playing on Zandronum 2.1.2, please stay on v13.
 * Switch to PickActor-based target acquisition. Players should now be able to see target's HP and have it tracked from greater distances.
@@ -63,7 +66,6 @@ To support customized names for monsters in your mod, simply add the name to be 
 * Invul states in the tracker is also broadcasted when a new client connects.
 * Monsters are now tracked by default if it has the BOSS flag set.
 * Removed support for rm-ark as it is obsolete.
-* Support for randommons v1.1.7.
 
 ### v13
 * Added UT-style announcers for monster's kills. This replaces the old rekt announcement in v12.
