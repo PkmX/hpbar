@@ -54,6 +54,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 * Both Zandronum 2.1.2 and 3.0 are supported simultaneously now. If you are playing on 3.0, set cvar `hpbar_zan3` to true.
 * Fixed the issue where multiple announcements in the same tic cause the wrong message to be displayed. Now only the highest priority one is shown.
 * First dumb now shown only for suicides and environmental (damage sector, etc) kills.
+* HP tracker now shows reflect flag. (ZAN 3.0 only)
 
 ### v14a
 * Support for randommons v1.1.7.
