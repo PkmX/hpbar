@@ -23,12 +23,12 @@ script "hpbar-enter" enter {
     if (GetCVar("hpbar_rekt")) SetThingSpecial(0, ACS_ExecuteAlways, 31241);
 
     while (true) {
-        ACS_NamedExecuteAlways("hpbar-get-target", 0);
+        ACS_ExecuteAlways(31233, 0);
         delay(1);
     }
 }
 
-script "hpbar-get-target" (void) {
+script 31233 (void) {
     int pn = PlayerNumber();
 
     int old_tid = PickActor(0, GetActorAngle(0), GetActorPitch(0), 8192.0, 0, MF_SHOOTABLE, ML_BLOCKEVERYTHING | ML_BLOCKHITSCAN, PICKAF_RETURNTID);
