@@ -151,6 +151,10 @@ bool tracked_reflect[MAX_TRACKERS];
 int tracked_kills[MAX_TRACKERS];
 
 script "hpbar-open" open {
+    // Hack for broken open clientside script in Zandronum v3.0-alpha-r160814.
+    // See: https://zandronum.com/tracker/view.php?id=2884
+    ACS_Execute(31240, 0);
+
     for (int i = 0; i < MAX_TRACKERS; ++i) {
         tracked_tids[i] = INVALID_TID;
     }
