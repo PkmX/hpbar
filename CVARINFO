@@ -522,3 +522,4 @@ server noarchive string hpbar_announcer_bigtext = "";
 server noarchive string hpbar_announcer_smalltext = "";
 server noarchive string hpbar_announcer_tinytext = "";
 server noarchive string hpbar_announcer_sound = "";
+server noarchive string hpbar_announcer_id = 0;

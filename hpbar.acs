@@ -364,6 +364,8 @@ script 31240 open clientside {
 }
 
 int announcers_playing = 0;
+int announcer_priority = -1;
+int announcer_id = 0;
 bool firstblood = false;
 
 script "hpbar-respawn" respawn {
@@ -394,9 +396,9 @@ script 31241 (void) {
             else
                 killstr = "Killed itself";
 
-            announce("hpbar/firstblood", "\c[d4]FIRST DUMB\c-", get_actor_name(0), killstr);
+            announce(1, "hpbar/firstblood", "\c[d4]FIRST DUMB\c-", get_actor_name(0), killstr);
         } else {
-            announce("hpbar/firstblood", "\c[d4]FIRST BLOOD\c-", get_actor_name(0), "First kill on the map");
+            announce(1, "hpbar/firstblood", "\c[d4]FIRST BLOOD\c-", get_actor_name(0), "First kill on the map");
         }
 
         firstblood = true;
@@ -415,21 +417,21 @@ script 31242 (int score, int score_temp) {
     str name = get_actor_name(0);
 
     if (score_temp == 2) {
-        announce("hpbar/doublekill", "\c[d4]DOUBLE KILL\c-", name, "2 consecutive kills");
+        announce(100 + score_temp, "hpbar/doublekill", "\c[d4]DOUBLE KILL\c-", name, "2 consecutive kills");
     } else if (score_temp == 3) {
-        announce("hpbar/multikill", "\c[d4]MULTI KILL\c-", name, "3 consecutive kills");
+        announce(100 + score_temp, "hpbar/multikill", "\c[d4]MULTI KILL\c-", name, "3 consecutive kills");
     } else if (score_temp == 4) {
-        announce("hpbar/megakill", "\c[d4]MEGA KILL\c-", name, "4 consecutive kills");
+        announce(100 + score_temp, "hpbar/megakill", "\c[d4]MEGA KILL\c-", name, "4 consecutive kills");
     } else if (score_temp == 5) {
-        announce("hpbar/ultrakill", "\c[d4]ULTRA KILL\c-", name, "5 consecutive kills");
+        announce(100 + score_temp, "hpbar/ultrakill", "\c[d4]ULTRA KILL\c-", name, "5 consecutive kills");
     } else if (score_temp == 6) {
-        announce("hpbar/monsterkill", "\c[d4]M-M-MONSTER KILL!\c-", name, "6 consecutive kills");
+        announce(100 + score_temp, "hpbar/monsterkill", "\c[d4]M-M-MONSTER KILL!\c-", name, "6 consecutive kills");
     } else if (score_temp == 7) {
-        announce("hpbar/ludicrouskill", "\c[d4]L U D I C R O U S  K I L L !\c-", name, "7 consecutive kills");
+        announce(100 + score_temp, "hpbar/ludicrouskill", "\c[d4]L U D I C R O U S  K I L L !\c-", name, "7 consecutive kills");
     } else if (score_temp == 8 || score_temp == 9) {
-        announce("hpbar/holyshit", "\c[m6]! ! ! H O L Y  S H I T ! ! !\c-", name, strparam(d: score_temp, s: " consecutive kills"));
+        announce(100 + score_temp, "hpbar/holyshit", "\c[m6]! ! ! H O L Y  S H I T ! ! !\c-", name, strparam(d: score_temp, s: " consecutive kills"));
     } else if (score_temp >= 10) {
-        announce("hpbar/sexyholyshit", "\c[m6]! ! ! H O L Y  S H I T ! ! !\c-", name, strparam(d: score_temp, s: " consecutive kills"));
+        announce(100 + score_temp, "hpbar/sexyholyshit", "\c[m6]! ! ! H O L Y  S H I T ! ! !\c-", name, strparam(d: score_temp, s: " consecutive kills"));
     }
 
     // Wait until nothing is playing.
@@ -437,22 +439,24 @@ script 31242 (int score, int score_temp) {
 
     // Skip the announcement if the monster has gained another tier during the wait.
     if (score == 3 && CheckInventory("MonsterScore") < 5) {
-        announce("hpbar/killingspree", "\c[l5]KILLING SPREE\c-", name, "3 total kills");
+        announce(2, "hpbar/killingspree", "\c[l5]KILLING SPREE\c-", name, "3 total kills");
     } else if (score == 5 && CheckInventory("MonsterScore") < 8) {
-        announce("hpbar/rampage", "\c[l5]RAMPAGE\c-", name, "5 total kills");
+        announce(3, "hpbar/rampage", "\c[l5]RAMPAGE\c-", name, "5 total kills");
     } else if (score == 8 && CheckInventory("MonsterScore") < 10) {
-        announce("hpbar/dominating", "\c[d4]DOMINATING\c-", name, "8 total kills");
+        announce(4, "hpbar/dominating", "\c[d4]DOMINATING\c-", name, "8 total kills");
     } else if (score == 10 && CheckInventory("MonsterScore") < 15) {
-        announce("hpbar/unstoppable", "\c[k9]UNSTOPPABLE\c-", name, "10 total kills");
+        announce(5, "hpbar/unstoppable", "\c[k9]UNSTOPPABLE\c-", name, "10 total kills");
     } else if (score == 15 && CheckInventory("MonsterScore") < 25) {
-        announce("hpbar/godlike", "\c[k9]G O D L I K E !\c-", name, "15 total kills");
+        announce(6, "hpbar/godlike", "\c[k9]G O D L I K E !\c-", name, "15 total kills");
     } else if (score == 25) {
-        announce("hpbar/wickedsick", "\c[n3]W I C K E D  S I C K !\c-", name, "25 total kills");
+        announce(7, "hpbar/wickedsick", "\c[n3]W I C K E D  S I C K !\c-", name, "25 total kills");
     }
 }
 
-script 31243 (void) clientside {
+script 31243 (int announcer_id_) clientside {
     if (!get_my_user_cvar("hpbar_announcer")) terminate;
+
+    if (GetCVar("hpbar_announcer_id") != announcer_id_) terminate;
 
     str sound = GetCVarString("hpbar_announcer_sound");
     str bigtext = GetCVarString("hpbar_announcer_bigtext");
@@ -480,18 +484,25 @@ script 31243 (void) clientside {
 script 31244 (void) {
     delay(35 * 3);
     announcers_playing -= 1;
+    if (announcers_playing == 0) {
+        announcer_priority = -1;
+    }
 }
 
-function void announce(str sound, str bigtext, str smalltext, str tinytext) {
-    // Increment here so the it is seen within the same tic.
-    announcers_playing += 1;
+function void announce(int priority, str sound, str bigtext, str smalltext, str tinytext) {
+    if (priority >= announcer_priority) {
+        // Increment here so the it is seen within the same tic.
+        announcers_playing += 1;
+        announcer_priority = priority;
 
-    SetCVarString("hpbar_announcer_sound", sound);
-    SetCVarString("hpbar_announcer_bigtext", bigtext);
-    SetCVarString("hpbar_announcer_smalltext", smalltext);
-    SetCVarString("hpbar_announcer_tinytext", tinytext);
-    ACS_ExecuteAlways(31243, 0);
-    ACS_ExecuteAlways(31244, 0);
+        SetCVarString("hpbar_announcer_sound", sound);
+        SetCVarString("hpbar_announcer_bigtext", bigtext);
+        SetCVarString("hpbar_announcer_smalltext", smalltext);
+        SetCVarString("hpbar_announcer_tinytext", tinytext);
+        SetCVar("hpbar_announcer_id", ++announcer_id);
+        ACS_ExecuteAlways(31243, 0, announcer_id);
+        ACS_ExecuteAlways(31244, 0);
+    }
 }
 
 function int to_fixed(int x) {
