@@ -22,7 +22,7 @@ This mod is designed to work with all mods (sans those that come with their own 
 * `hpbar_show_friendly` (user): Set whether to show HP bars for friendly targets. (default: false)
 * `hpbar_rekt` (server): Set whether to count and show the number of players killed by a monster. You need to restart the map after altering this variable to apply the changes. (default: true)
 * `hpbar_announcer` (user): Whether to play announcer messages and voices when monsters achieve certain kills. (default: true)
-* `hpbar_zan3` (server): Set this variable to true if you are hosting with Zandronum 3.0. (default: false)
+* `hpbar_zan3` (server): Set this variable to true if you are hosting with Zandronum 3.0. This includes: HP display for farther targets, more accurate invul flag, reflect flag, etc. (default: false)
 
 ### `hpbar_name_*`
 
@@ -50,7 +50,7 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ## Changelogs
 
-### v14b
+### v15
 * Both Zandronum 2.1.2 and 3.0 are supported simultaneously now. If you are playing on 3.0, set cvar `hpbar_zan3` to true.
 * Fixed the issue where multiple announcements in the same tic cause the wrong message to be displayed. Now only the highest priority one is shown.
 * First dumb now shown only for suicides and environmental (damage sector, etc) kills.
