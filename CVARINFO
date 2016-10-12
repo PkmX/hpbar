@@ -396,6 +396,7 @@ server noarchive string hpbar_map_BanRictus = "Rictus";
 
 // Random Monsters
 server noarchive string hpbar_map_KSBehemoth = "Behemoth";
+server noarchive string hpbar_map_KSBehemoth2 = "Behemoth";
 server noarchive string hpbar_map_NewBarbatos = "Barbatos";
 server noarchive string hpbar_map_CFusionite = "Fusionite";
 server noarchive string hpbar_map_CDTechSpider = "DTechSpider";
@@ -404,6 +405,8 @@ server noarchive string hpbar_map_BabyDDemolisher = "BabyDDemolisher";
 server noarchive string hpbar_map_CBabySentient = "BabySentient";
 server noarchive string hpbar_map_CerebralCommanderIllusion = "CerebralCommander";
 server noarchive string hpbar_map_ManipulatorIllusion = "Manipulator";
+server noarchive string hpbar_map_HFCyberdemonWeak = "HellfireCyberdemon";
+server noarchive string hpbar_map_CerebralC0mmander = "CerebralCommander";
 
 // HAF
 server noarchive string hpbar_map_SuicideBomber2 = "SuicideBomber";
