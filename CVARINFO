@@ -131,6 +131,7 @@ server noarchive string hpbar_name_Demobus = "\cmDemobus\c-";
 server noarchive string hpbar_name_BFGMastermind = "\cqBFG Mastermind\c-";
 server noarchive string hpbar_name_CacoLich = "Cacolich";
 server noarchive string hpbar_name_CerebralCommander = "\c[m6]Cerebral Commander\c-";
+server noarchive string hpbar_name_CerebralC0mmander = "\c[m6]Cerebral Commander (Weak)\c-";
 server noarchive string hpbar_name_ChaingunFiend = "Chaingun Fiend";
 server noarchive string hpbar_name_CorruptedCyberLord = "\c[l5]Corrupted Annihilator\c-";
 server noarchive string hpbar_name_CryoDemon = "Cyro Demon";
@@ -144,6 +145,7 @@ server noarchive string hpbar_name_SSSuperSolider = "SS Super Solider";
 server noarchive string hpbar_name_HellArchon = "Hell Archon";
 server noarchive string hpbar_name_HellFireBaron = "\cgHellfire Baron\c-";
 server noarchive string hpbar_name_HellFireCyberdemon = "\c[z4]Hellfire Cyberdemon\c-";
+server noarchive string hpbar_name_HFCyberdemonWeak = "\c[z4]Hellfire Cyberdemon (Weak)\c-";
 server noarchive string hpbar_name_HomingRocketZombie = "Homing Rocket Zombie";
 server noarchive string hpbar_name_ImpLord = "\crImp Lord\c-";
 // Infected
@@ -354,6 +356,26 @@ server noarchive int hpbar_track_Archvile = 1;
 server noarchive int hpbar_track_Cyberdemon = 1;
 server noarchive int hpbar_track_SpiderMastermind = 1;
 
+// Replacers
+server noarchive int hpbar_track_ArachnotronReplacer = -1;
+server noarchive int hpbar_track_ArchvileReplacer = -1;
+server noarchive int hpbar_track_BaronOfHellReplacer = -1;
+server noarchive int hpbar_track_HellKnightReplacer = -1;
+server noarchive int hpbar_track_CacodemonReplacer = -1;
+server noarchive int hpbar_track_CyberdemonReplacer = -1;
+server noarchive int hpbar_track_DemonReplacer = -1;
+server noarchive int hpbar_track_SpectreReplacer = -1;
+server noarchive int hpbar_track_ChaingunGuyReplacer = -1;
+server noarchive int hpbar_track_DoomImpReplacer = -1;
+server noarchive int hpbar_track_FatsoReplacer = -1;
+server noarchive int hpbar_track_LostSoulReplacer = -1;
+server noarchive int hpbar_track_PainElementalReplacer = -1;
+server noarchive int hpbar_track_RevenantReplacer = -1;
+server noarchive int hpbar_track_ShotgunGuyReplacer = -1;
+server noarchive int hpbar_track_SpiderMastermindReplacer = -1;
+server noarchive int hpbar_track_WolfensteinSSReplacer = -1;
+server noarchive int hpbar_track_ZombieManReplacer = -1;
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // Actor name mappings
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -405,8 +427,6 @@ server noarchive string hpbar_map_BabyDDemolisher = "BabyDDemolisher";
 server noarchive string hpbar_map_CBabySentient = "BabySentient";
 server noarchive string hpbar_map_CerebralCommanderIllusion = "CerebralCommander";
 server noarchive string hpbar_map_ManipulatorIllusion = "Manipulator";
-server noarchive string hpbar_map_HFCyberdemonWeak = "HellfireCyberdemon";
-server noarchive string hpbar_map_CerebralC0mmander = "CerebralCommander";
 
 // HAF
 server noarchive string hpbar_map_SuicideBomber2 = "SuicideBomber";

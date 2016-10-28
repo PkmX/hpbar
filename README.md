@@ -50,6 +50,10 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ## Changelogs
 
+### v15a
+* Mark weak versions of hellfire cyberdemon and cerebral commander as weak.
+* Support for replacers v0h.
+
 ### v15
 * Both Zandronum 2.1.2 and 3.0 are supported simultaneously now. If you are playing on 3.0, set cvar `hpbar_zan3` to true.
 * Fixed the issue where multiple announcements in the same tic cause the wrong message to be displayed. Now only the highest priority one is shown.
