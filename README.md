@@ -50,6 +50,9 @@ To support customized names for monsters in your mod, simply add the name to be 
 
 ## Changelogs
 
+### v15b
+* Support for randommons v1.1.8.
+
 ### v15a
 * Mark weak versions of hellfire cyberdemon and cerebral commander as weak.
 * Support for replacers v0h.
